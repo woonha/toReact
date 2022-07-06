@@ -7,7 +7,7 @@ import Divider from "@mui/material/Divider";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import { Google as GoogleIcon } from '../icons/google';
-//import { AppAppBar } from '../components/appappbar';
+
 
 const Login = () => {
   const formik = useFormik({
@@ -83,10 +83,7 @@ const Login = () => {
       <Box
         component="main"
         sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexGrow: 1,
-          minHeight: '100%'
+
         }}
       >
         <Container maxWidth="xs">

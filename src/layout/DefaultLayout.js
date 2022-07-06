@@ -33,10 +33,9 @@ export default function DefaultLayout() {
       </HeaderStyle> */}
       <RootStyle>
         <DashboardNavbar />
-        <hr>
-        </hr>
+        </RootStyle>
         <Outlet />
-      </RootStyle>
+      
 
     </>
   );
