@@ -4,6 +4,7 @@ import Login from './pages/login';
 
 import DefaultLayout from './layout/DefaultLayout';
 import Main from './pages/main';
+import Register from './pages/register';
 
 
 
@@ -16,7 +17,8 @@ export default function Router() {
       element: <DefaultLayout />,
       children: [
         { path: '/', element: <Main /> },
-        { path: 'login', element: <Login /> }
+        { path: 'login', element: <Login /> },
+        { path: 'register', element: <Register /> }
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },

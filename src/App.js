@@ -1,10 +1,14 @@
 import Router from './routes';
 import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './theme';
 
 function App() {
   return (
-    <Router></Router>
+    <ThemeProvider theme={theme}>
+      <Router></Router>
+    </ThemeProvider>
+    
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />

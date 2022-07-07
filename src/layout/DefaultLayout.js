@@ -2,6 +2,8 @@ import { Outlet } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './NavBar';
+import { DashboardAppbar } from './dashboardAppbar';
+import PrimarySearchAppBar from './test';
 // components
 
 
@@ -32,7 +34,9 @@ export default function DefaultLayout() {
         {/* <Logo /> 
       </HeaderStyle> */}
       <RootStyle>
-        <DashboardNavbar />
+        {/* <DashboardNavbar /> */}
+        <DashboardAppbar></DashboardAppbar>
+        {/* <PrimarySearchAppBar /> */}
         </RootStyle>
         <Outlet />
       
