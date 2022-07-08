@@ -73,13 +73,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const colorTool = createTheme({
     palette: {
         primary: {
-            main: '#fe9D7C',
+            main: '#fe4279',
             light: '#fe9D7C',
             dark: '#FC4279',
-            contrastText: '#999999',
+            contrastText: '#ffebee'
+        
         },
-        secondary: {
-            main: '#5a8100'
+        neutural: {
+            main: '#828df8'
         },
     }
 });
@@ -156,7 +157,7 @@ export const DashboardAppbar = () => {
                                 variant="h6"
                                 color='inherit'
                                 // color="text.primary"
-                                href="#"
+                                href="/"
                                 underline="none"
                                 sx={{ my: 1, mx: 3 }}
                             >법령사전
@@ -165,7 +166,7 @@ export const DashboardAppbar = () => {
                             <Link
                                 variant="h6"
                                 color='inherit'
-                                href="#"
+                                href="/news"
                                 underline="none"
                                 sx={{ my: 1, mx: 4 }}
                             >
