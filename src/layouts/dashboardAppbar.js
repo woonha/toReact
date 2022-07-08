@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { Link as Href }from 'react-router-dom';
+import { Link as Href } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 
 
@@ -77,7 +77,7 @@ const colorTool = createTheme({
             light: '#fe9D7C',
             dark: '#FC4279',
             contrastText: '#ffebee'
-        
+
         },
         neutural: {
             main: '#828df8'
@@ -121,28 +121,24 @@ export const DashboardAppbar = () => {
             <AppBar position="static" theme={colorTool}>
                 <StyledToolbar
                 >
-                
-                    {/* <Href
-                        href="/"
-                    > */}
-                        <Link
-                            variant="h4"
-                            to="/"
-                            color={colorTool}
-                            noWrap
-                            underline="hover"
-                            sx={{
-                                cursor: 'pointer',
-                                flexGrow: 1,
-                                mx: 3,
-                                mr: 3
-                            }}
-                        >
-                            Lawbot
-                        </Link>
+                    <Link
+                        variant="h4"
+                        to="/"
+                        color={colorTool}
+                        noWrap
+                        underline="hover"
+                        sx={{
+                            cursor: 'pointer',
+                            flexGrow: 1,
+                            mx: 3,
+                            mr: 3
+                        }}
+                    >
+                        Lawbot
+                    </Link>
                     {/* </Href> */}
                     {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}> */}
-                    <Box sx={{ flexGrow: 1, display: {md: 'flex' } }}>
+                    <Box sx={{ flexGrow: 1, display: { md: 'flex' } }}>
                         <Search>
                             <SearchIconWrapper>
                                 <SearchIcon />

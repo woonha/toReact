@@ -146,7 +146,7 @@ export const theme = createTheme({
     action: {
       active: '#6B7280',
       focus: 'rgba(55, 65, 81, 0.12)',
-      hover: 'rgba(55, 65, 81, 0.04)',
+      hover: '#E7AB79',
       selected: 'rgba(55, 65, 81, 0.08)',
       disabledBackground: 'rgba(55, 65, 81, 0.12)',
       disabled: 'rgba(55, 65, 81, 0.26)'
@@ -245,7 +245,7 @@ export const theme = createTheme({
     },
     subtitle1: {
       fontSize: '1rem',
-      fontWeight: 500,
+      fontWeight: 900,
       lineHeight: 1.75
     },
     subtitle2: {

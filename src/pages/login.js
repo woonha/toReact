@@ -1,14 +1,42 @@
 import React from "react";
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Stack from '@mui/material/Stack';
-import { Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Link, TextField, Typography, Paper } from '@mui/material';
 import Divider from "@mui/material/Divider";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import { Google as GoogleIcon } from '../icons/google';
 
+const colorTool = createTheme({
+  palette: {
+    primary: {
+      main: '#fe4279', //메인 분홍이
+      light: '#828DF8',
+      dark: '#3832A0',
+      contrastText: '#ffebee'
+    },
+    secondary: { //버튼
+      main: '#E7AB79',//황토황토
+      light: '#3FC79A',
+      dark: '#0B815A',
+      contrastText: '#FFFFFF'
+    },
+    text: {
+      primary: '#937DC2', //보라보라
+      secondary: '#B25068', //와인
+      disabled: 'rgba(55, 65, 81, 0.48)'
+    },
+    success: {
+      main: '#FFB562', //노랑노랑
+      light: '#43C6B7',
+      dark: '#0E8074',
+      contrastText: '#FFFFFF'
+    },
+  }
+});
 
+
+// ------------------------------------------------
 const Login = () => {
   const formik = useFormik({
     initialValues: {
@@ -20,11 +48,7 @@ const Login = () => {
       // policy: false
     },
     validationSchema: Yup.object({
-      id: Yup
-        .string()
-        .max(255)
-        .required(
-          '아이디를 입력해주세요.'),
+
       nickname: Yup
         .string()
         .max(255)
@@ -39,18 +63,12 @@ const Login = () => {
         .string()
         .max(255)
         .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지않습니다.'),
-      name: Yup
-        .string()
-        .max(255)
-        .required(
-          '이름을 입력해주세요.'),
       email: Yup
         .string()
         .max(255)
         .email('올바른 이메일 형식을 입력해주세요.')
         .required(
           '이메일을 입력해주세요.'),
-
       policy: Yup
         .boolean()
         .oneOf(
@@ -63,13 +81,6 @@ const Login = () => {
     }
   });
   //const router = useRouter();
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#512da8',
-      }
-    }
-  });
 
   const clickMe1 = () => {
     //router.push('/naver.com')
@@ -88,169 +99,158 @@ const Login = () => {
       >
         <Container maxWidth="xs">
 
-            <Button
-              color="secondary"
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
-              메인화면으로 돌아가기
-            </Button>
-
           <form onSubmit={formik.handleSubmit}>
-            <Box sx={{
-              my: 5,
-              marginTop: 5,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center'
-            }}>
-              <Typography
-                color="secondary"
-                variant="h2"
-              >
-                Lawbot
-              </Typography>
-              {/* <Typography
+            <ThemeProvider theme={colorTool}>
+              <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
+                <Box sx={{
+                  my: 5,
+                  marginTop: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center'
+                }}>
+                  <Typography
+                    fontFamily="-apple-system"
+                    variant="h2"
+                    color="primary"
+                  >
+                    Lawbot
+                  </Typography>
+
+                  {/* <Typography
                 color="textSecondary"
                 gutterBottom
                 variant="body2"
               >
-               
               </Typography> */}
-            </Box>
+                </Box>
 
-            <TextField
-              error={Boolean(formik.touched.id && formik.errors.id)}
-              fullWidth
-              helperText={formik.touched.id && formik.errors.id}
-              label="아이디"
-              margin="normal"
-              name="id"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="id"
-              value={formik.values.id}
-              variant="outlined"
-            />
-            <TextField
-              error={Boolean(formik.touched.password && formik.errors.password)}
-              fullWidth
-              helperText={formik.touched.password && formik.errors.password}
-              label="비밀번호"
-              margin="normal"
-              name="password"
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              type="password"
-              value={formik.values.password}
-              variant="outlined"
-            />
-            <Box sx={{ py: 2 }}>
-
-                <Button
-                  color="secondary"
-                  disabled={formik.isSubmitting}
+                <TextField
+                  error={Boolean(formik.touched.id && formik.errors.id)}
                   fullWidth
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                  sx={{ mt: 2.5 }}
+                  helperText={formik.touched.id && formik.errors.id}
+                  label="아이디"
+                  margin="normal"
+                  name="id"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="id"
+                  value={formik.values.id}
+                  variant="outlined"
+                />
+                <TextField
+                  error={Boolean(formik.touched.password && formik.errors.password)}
+                  fullWidth
+                  helperText={formik.touched.password && formik.errors.password}
+                  label="비밀번호"
+                  margin="normal"
+                  name="password"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="password"
+                  value={formik.values.password}
+                  variant="outlined"
+                />
+                <Box sx={{ py: 2 }}>
+
+                  <Button
+                    disabled={formik.isSubmitting}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    sx={{ mt: 2.5 }}
+                  >
+                    로그인
+                  </Button>
+
+                </Box>
+                <Typography
+                  color="Secondary"
+                  variant="body2"
                 >
-                  로그인
-                </Button>
 
-            </Box>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
+                  <Grid container>
+                    <Grid item xs >
 
-              <Grid container>
+
+                    </Grid>
+                    <Grid item>
+                      <Link
+                        href="/settingPasswd"
+                        variant="body2"
+                        underline="hover"
+                        sx={{
+                          cursor: 'pointer'
+                        }}
+                        color="textSecondary"
+                      >
+                        비밀번호찾기
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </Typography>
+
+                <Grid item xs={12}></Grid>
+                <Typography
+                  color="primary">
+                  <Divider>
+                    간편 로그인
+                  </Divider>
+                </Typography>
+
                 <Grid item xs>
-                    <Link
-                      to="/"
-                      variant="subtitle2"
-                      underline="hover"
-                      sx={{
-                        cursor: 'pointer'
-                      }}
-                    >
-                      아이디 찾기
-                    </Link>
+                  <Box
+                    sx={{
+                      my: 1,
+                      marginTop: 3,
+                      borderColor: 'palette'
+                    }}
+                  >
+                    <Stack direction="row" spacing={3}>
+                      <ThemeProvider theme={colorTool}>
+                        <Button
+                          fullWidth
 
+                          onClick={clickMe1}
+                          size="large"
+                          variant="outlined"
+                        >
+                          카카오톡 로그인
+                        </Button>
 
+                        <Button
+                          fullWidth
+
+                          onClick={clickMe2}
+                          size="large"
+                          variant="outlined"
+                        >
+                          구글 로그인
+                        </Button>
+                      </ThemeProvider>
+                    </Stack>
+
+                  </Box>
                 </Grid>
-                <Grid item>
-                    <Link
-                      to="/find-password"
-                      variant="subtitle2"
-                      underline="hover"
-                      sx={{
-                        cursor: 'pointer'
-                      }}
-                    >
-                      비밀번호찾기
-                    </Link>
-                </Grid>
-              </Grid>
-            </Typography>
-
-            <Grid item xs={12}></Grid>
-            <Typography>
-              <Divider>
-                간편 로그인
-              </Divider>
-            </Typography>
-
-            <Grid item xs>
-              <Box
-                sx={{
-                  my: 1,
-                  marginTop: 3,
-                  borderColor: 'palette'
-                }}
-              >
-                <Stack direction="row" spacing={3}>
-                  <ThemeProvider theme={theme}>
-                    <Button
-                      fullWidth
-                      
-                      onClick={clickMe1}
-                      size="large"
-                      variant="outlined"
-                    >
-                      카카오톡 로그인
-                    </Button>
-
-                    <Button
-                      fullWidth
-                      
-                      onClick={clickMe2}
-                      size="large"
-                      variant="outlined"
-                    >
-                      구글 로그인
-                    </Button>
-                  </ThemeProvider>
-                </Stack>
-
-              </Box>
-            </Grid>
-            <Typography
-              color="textSecondary"
-              variant="body2"
-            >
-              계정이 없으신가요?
-              {' '}
-
-                <Link
-                  variant="subtitle2"
-                  underline="hover"
+                <Typography
+                  color="textSecondary"
+                  variant="body2"
                 >
-                  회원가입
-                </Link>
+                  계정이 없으신가요?
+                  {' '}
 
-            </Typography>
+                  <Link
+                    variant="subtitle2"
+                    underline="hover"
+                    color="Secondary"
+                  >
+                    회원가입
+                  </Link>
+
+                </Typography>
+              </Paper>
+            </ThemeProvider>
           </form>
         </Container>
       </Box>
@@ -259,8 +259,8 @@ const Login = () => {
 };
 
 Login.getLayout = (page) => (
- // <AppAppBar>
-    {page}
+  // <AppAppBar>
+  { page }
   //</AppAppBar>
 );
 
