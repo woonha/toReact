@@ -1,13 +1,13 @@
 import { Box, Container, Grid, Paper, Typography } from '@mui/material';
 import { DamageRate } from '../components/chart/damage-rate';
 import { DamageType } from '../components/chart/damage-type';
-import { Test1 } from '../components/chart/test1';
+import { Attacker } from '../components/chart/attacker';
 import React from 'react';
 
 
 const Chart = () => (
     <>
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={8} lg={6}>
                     <Paper
@@ -32,7 +32,7 @@ const Chart = () => (
 
                         }}
                     >
-                        <Test1 />
+                        <Attacker />
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>
@@ -52,7 +52,7 @@ const Chart = () => (
 
 
 Chart.getLayout = (page) => (
-    {page}
+    { page }
     // <DashboardLayout>
     //     {page}
     // </DashboardLayout>

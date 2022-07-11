@@ -162,43 +162,43 @@ export const DamageType = (props) => {
   };
   return (
     <Container {...props}>
-    <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-      <Title>피해 경험 추이</Title>
+      <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+        <Title>피해 경험 추이</Title>
 
-      <TextField
-        name="student"
-        onChange={handleChange}
-        required
-        select
-        SelectProps={{ native: true }}
-        value={values.SORT_OPTIONS}
-        variant="outlined"
-      >
-        {states.map((option) => (
-          <option
-            key={option.value}
-            data={option.value}
-            value={option.value}
-          >
-            {option.label}
-          </option>
-        ))}
+        <TextField
+          name="student"
+          onChange={handleChange}
+          required
+          select
+          SelectProps={{ native: true }}
+          value={values.SORT_OPTIONS}
+          variant="outlined"
+        >
+          {states.map((option) => (
+            <option
+              key={option.value}
+              data={option.value}
+              value={option.value}
+            >
+              {option.label}
+            </option>
+          ))}
 
-      </TextField>
-    </Stack>
-    <CardContent>
-      <Box
-        sx={{
-          height: 400,
-          position: 'relative'
-        }}
-      >
-        <Bar
-          data={data}
-          options={options}
-        />
-      </Box>
-    </CardContent>
-  </Container>
-);
+        </TextField>
+      </Stack>
+      <CardContent>
+        <Box
+          sx={{
+            height: 400,
+            position: 'relative'
+          }}
+        >
+          <Bar
+            data={data}
+            options={options}
+          />
+        </Box>
+      </CardContent>
+    </Container>
+  );
 };
