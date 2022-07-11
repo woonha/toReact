@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { DashboardNavbar } from './NavBar';
 import { DashboardAppbar } from './dashboardAppbar';
 import PrimarySearchAppBar from './test';
+import Footer from './footer';
 // components
 
 
@@ -39,7 +40,7 @@ export default function DefaultLayout() {
         {/* <PrimarySearchAppBar /> */}
         </RootStyle>
         <Outlet />
-      
+        <Footer></Footer>
 
     </>
   );

@@ -1,10 +1,10 @@
 
 import { Bar, Line } from 'react-chartjs-2';
-import { Box, TextField, Button, Card, CardContent, CardHeader, Paper, useTheme } from '@mui/material';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import { Box, TextField, Button, Card, CardContent, CardHeader, Paper, useTheme, Container, Stack } from '@mui/material';
 import React, { useEffect } from "react";
 import { useState } from 'react';
 import axios from 'axios';
+import Title from './title';
 
 const states = [
     {
@@ -192,29 +192,33 @@ export const DamageRate = (props) => {
 
     };
     return (
-        <Paper {...props}
-            elevation={16}>
-            <CardHeader title="피해 경험 추이" />
+        <Container {...props}>
 
-            <TextField
-                name="student"
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                value={values.state}
-                variant="outlined"
-            >
-                {states.map((option) => (
-                    <option
-                        key={option.value}
-                        data={option.value}
-                        value={option.value}
-                    >
-                        {option.label}
-                    </option>
-                ))}
-            </TextField>
+            <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+                <Title>피해 경험 추이</Title>
+
+                <TextField
+                    name="student"
+                    onChange={handleChange}
+                    required
+                    select
+                    SelectProps={{ native: true }}
+                    value={values.SORT_OPTIONS}
+                    variant="outlined"
+                >
+                    {states.map((option) => (
+                        <option
+                            key={option.value}
+                            data={option.value}
+                            value={option.value}
+                        >
+                            {option.label}
+                        </option>
+                    ))}
+
+                </TextField>
+            </Stack>
+
             <CardContent>
                 <Box
                     sx={{
@@ -228,7 +232,6 @@ export const DamageRate = (props) => {
                     />
                 </Box>
             </CardContent>
-        </Paper>
+        </Container>
     );
-
 };

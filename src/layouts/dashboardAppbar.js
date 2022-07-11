@@ -191,7 +191,7 @@ export const DashboardAppbar = () => {
                                 sx={{ mx: 6, mt: 9 }}
                             >실태조사
                             </Link>
-                            {isLogin ? <Button>login</Button> : <Button>logout</Button>}
+                            {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
                             <Button href="/login" color='inherit' >로그인</Button>
                             <Button href="/register" variant="contained" theme={colorTool} >회원가입</Button>
 

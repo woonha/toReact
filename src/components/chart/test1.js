@@ -1,7 +1,8 @@
 import { Bar } from 'react-chartjs-2';
-import { Box, TextField, CardContent, CardHeader, Paper, useTheme, Container } from '@mui/material';
+import { Box, TextField, CardContent, CardHeader, Paper, useTheme, Container, Stack } from '@mui/material';
 import React from "react";
 import { useState } from 'react';
+import Title from './title';
 
 const states = [
     {
@@ -169,9 +170,9 @@ export const Test1 = (props) => {
 
 
     return (
-        <Paper {...props}
-            elevation={16}>
-            <CardHeader title="피해 경험 추이" />
+        <Container {...props}>
+        <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+            <Title>가해자 유형</Title>
 
             <TextField
                 name="student"
@@ -192,19 +193,20 @@ export const Test1 = (props) => {
                     </option>
                 ))}
             </TextField>
-            <CardContent>
-                <Box
-                    sx={{
-                        height: 400,
-                        position: 'relative'
-                    }}
-                >
-                    <Bar
-                        data={datadata}
-                        options={options}
-                    />
-                </Box>
-            </CardContent>
-        </Paper>
-    );
+        </Stack>
+        <CardContent>
+            <Box
+                sx={{
+                    height: 400,
+                    position: 'relative'
+                }}
+            >
+                <Bar
+                    data={datadata}
+                    options={options}
+                />
+            </Box>
+        </CardContent>
+    </Container>
+);
 };

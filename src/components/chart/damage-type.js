@@ -1,28 +1,26 @@
 import { Bar } from 'react-chartjs-2';
-import { Box, TextField, Card, CardContent, CardHeader, Divider, getAccordionDetailsUtilityClass, Typography, useTheme, Paper, Button } from '@mui/material';
+import { Box, TextField, Card, CardContent, CardHeader, Divider, getAccordionDetailsUtilityClass, Typography, useTheme, Paper, Button, Container, Stack } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useState } from 'react';
 import { createTheme } from '@mui/material/styles';
-
-
+import Title from './title';
 
 
 const states = [
   {
-    value: '초등학생',
-    label: '초등학생'
+    value: '2021',
+    label: '2021'
   },
   {
-    value: '중학생',
-    label: '중학생'
+    value: '2020',
+    label: '2020'
   },
   {
-    value: '고등학생',
-    label: '고등학생'
+    value: '2019',
+    label: '2019'
   }
 ];
-
-export const DamageType = () => {
+export const DamageType = (props) => {
 
   const theme = useTheme();
   const [values, setValues] = useState({
@@ -163,52 +161,44 @@ export const DamageType = () => {
 
   };
   return (
-    <Paper
-      elevation={16}>
-      <CardHeader
-        action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="middle"
-          >
-            2021년
-          </Button>
-        )}
-        title="피해 유형별 비율"
-      />
+    <Container {...props}>
+    <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+      <Title>피해 경험 추이</Title>
+
       <TextField
-        fullWidth
-        label="Select State"
         name="student"
         onChange={handleChange}
         required
         select
         SelectProps={{ native: true }}
-        value={values.state}
+        value={values.SORT_OPTIONS}
         variant="outlined"
       >
         {states.map((option) => (
           <option
             key={option.value}
+            data={option.value}
             value={option.value}
           >
             {option.label}
           </option>
         ))}
+
       </TextField>
-      <CardContent>
-        <Box
-          sx={{
-            height: 400,
-            position: 'relative'
-          }}
-        >
-          <Bar
-            data={data}
-            options={options}
-          />
-        </Box>
-      </CardContent>
-    </Paper>
-  );
+    </Stack>
+    <CardContent>
+      <Box
+        sx={{
+          height: 400,
+          position: 'relative'
+        }}
+      >
+        <Bar
+          data={data}
+          options={options}
+        />
+      </Box>
+    </CardContent>
+  </Container>
+);
 };
