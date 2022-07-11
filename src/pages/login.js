@@ -252,6 +252,7 @@ const Login = () => {
                     variant="subtitle2"
                     underline="hover"
                     color="Secondary"
+                    href="/register"
                   >
                     회원가입
                   </Link>

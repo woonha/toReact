@@ -171,7 +171,7 @@ export const DamageType = (props) => {
           required
           select
           SelectProps={{ native: true }}
-          value={values.SORT_OPTIONS}
+          value={values.state}
           variant="outlined"
         >
           {states.map((option) => (

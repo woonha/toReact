@@ -99,166 +99,167 @@ const Register = () => {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
-        <Box
-          component="main"
-          sx={{
 
-          }}
-        >
-          <Container maxWidth="sm">
-            <form onSubmit={formik.handleSubmit}>
-              <ThemeProvider theme={colorTool}>
-                <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
-                  <Box sx={{
-                    my: 1,
-                    marginTop: 0.5,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
+      <Box
+        component="main"
+        sx={{
 
-                  }}>
-                    <Typography
-                      fontFamily="-apple-system"
-                      variant="h2"
-                      color="primary"
-                    >
-                      Lawbot
-                    </Typography>
-                    {/* <Typography
+        }}
+      >
+        <Container maxWidth="xs">
+          <form onSubmit={formik.handleSubmit}>
+            <ThemeProvider theme={colorTool}>
+              <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
+                <Box sx={{
+                  my: 1,
+                  marginTop: 0.5,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+
+                }}>
+                  <Typography
+                    fontFamily="-apple-system"
+                    variant="h2"
+                    color="primary"
+                  >
+                    Lawbot
+                  </Typography>
+                  {/* <Typography
                   color="secondary"
                   gutterBottom
                   variant="body2"
                 >
                 </Typography> */}
-                  </Box>
+                </Box>
 
-                  <TextField
-                    error={Boolean(formik.touched.email && formik.errors.email)}
-                    fullWidth
-                    helperText={formik.touched.email && formik.errors.email}
-                    label="이메일"
-                    margin="dense"
-                    name="email"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    type="pattern"
-                    value={formik.values.email}
-                    variant="outlined"
-                    size="normal"
-                  />
+                <TextField
+                  error={Boolean(formik.touched.email && formik.errors.email)}
+                  fullWidth
+                  helperText={formik.touched.email && formik.errors.email}
+                  label="이메일"
+                  margin="dense"
+                  name="email"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="pattern"
+                  value={formik.values.email}
+                  variant="outlined"
+                  size="normal"
+                />
 
-                  <TextField
-                    error={Boolean(formik.touched.nickname && formik.errors.nickname)}
-                    fullWidth
-                    helperText={formik.touched.nickname && formik.errors.nickname}
-                    label="닉네임"
-                    margin="dense"
-                    name="nickname"
-                    onBlur={formik.handleBlur}
+                <TextField
+                  error={Boolean(formik.touched.nickname && formik.errors.nickname)}
+                  fullWidth
+                  helperText={formik.touched.nickname && formik.errors.nickname}
+                  label="닉네임"
+                  margin="dense"
+                  name="nickname"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  value={formik.values.nickname}
+                  variant="outlined"
+                  size="normal"
+                />
+                <TextField
+                  error={Boolean(formik.touched.password && formik.errors.password)}
+                  fullWidth
+                  helperText={formik.touched.password && formik.errors.password}
+                  label="비밀번호"
+                  margin="dense"
+                  name="password"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="password"
+                  value={formik.values.password}
+                  variant="outlined"
+                  size="normal"
+                />
+                <TextField
+                  error={Boolean(formik.touched.confirmpassword && formik.errors.confirmpassword)}
+                  fullWidth
+                  helperText={formik.touched.confirmpassword && formik.errors.confirmpassword}
+                  label="비밀번호 확인"
+                  margin="dense"
+                  name="confirmpassword"
+                  onBlur={formik.handleBlur}
+                  onChange={formik.handleChange}
+                  type="password"
+                  value={formik.values.password2}
+                  variant="outlined"
+                  size="normal"
+                />
+                {/* ------------------약관---------------------- */}
+                <Box
+                  sx={{
+                    py: 1,
+                    alignItems: 'center',
+                    display: 'flex',
+                    ml: -1
+                  }}
+                >
+                  <Checkbox
+                    checked={formik.values.policy}
+                    name="policy"
                     onChange={formik.handleChange}
-                    value={formik.values.nickname}
-                    variant="outlined"
-                    size="normal"
                   />
-                  <TextField
-                    error={Boolean(formik.touched.password && formik.errors.password)}
-                    fullWidth
-                    helperText={formik.touched.password && formik.errors.password}
-                    label="비밀번호"
-                    margin="dense"
-                    name="password"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    type="password"
-                    value={formik.values.password}
-                    variant="outlined"
-                    size="normal"
-                  />
-                  <TextField
-                    error={Boolean(formik.touched.confirmpassword && formik.errors.confirmpassword)}
-                    fullWidth
-                    helperText={formik.touched.confirmpassword && formik.errors.confirmpassword}
-                    label="비밀번호 확인"
-                    margin="dense"
-                    name="confirmpassword"
-                    onBlur={formik.handleBlur}
-                    onChange={formik.handleChange}
-                    type="password"
-                    value={formik.values.password2}
-                    variant="outlined"
-                    size="normal"
-                  />
-                  {/* ------------------약관---------------------- */}
-                  <Box
-                    sx={{
-                      py: 1,
-                      alignItems: 'center',
-                      display: 'flex',
-                      ml: -1
-                    }}
-                  >
-                    <Checkbox
-                      checked={formik.values.policy}
-                      name="policy"
-                      onChange={formik.handleChange}
-                    />
-                    <Typography
-                      color="textSecondary"
-                      variant="body2"
-                    >
-                      이용약관에 동의합니다.
-                      {' '}
-                      <Ddddd
-                        to="/"
-                      >
-                        <Link
-                          color="primary"
-                          underline="always"
-                          variant="subtitle2"
-                        >
-                          약관보기
-                        </Link>
-                      </Ddddd>
-                    </Typography>
-                  </Box>
-                  {Boolean(formik.touched.policy && formik.errors.policy) && (
-                    <FormHelperText error>
-                      {formik.errors.policy}
-                    </FormHelperText>
-                  )}
-
-                  <Box sx={{ py: 3 }}>
-                    <Button
-                      disabled={formik.isSubmitting}
-                      fullWidth
-                      size="large"
-                      type="submit"
-                      variant="contained"
-                    >
-                      가입하기
-                    </Button>
-                  </Box>
                   <Typography
                     color="textSecondary"
                     variant="body2"
                   >
-                    계정이 있으신가요?
+                    이용약관에 동의합니다.
                     {' '}
-                    <Link
-                      variant="subtitle2"
-                      underline="hover"
+                    <Ddddd
+                      to="/"
                     >
-                      로그인화면으로 가기
-                    </Link>
-
+                      <Link
+                        color="primary"
+                        underline="always"
+                        variant="subtitle2"
+                      >
+                        약관보기
+                      </Link>
+                    </Ddddd>
                   </Typography>
-                </Paper>
-              </ThemeProvider>
-            </form>
-          </Container>
-        </Box>
-      </Container>
+                </Box>
+                {Boolean(formik.touched.policy && formik.errors.policy) && (
+                  <FormHelperText error>
+                    {formik.errors.policy}
+                  </FormHelperText>
+                )}
+
+                <Box sx={{ py: 3 }}>
+                  <Button
+                    disabled={formik.isSubmitting}
+                    fullWidth
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                  >
+                    가입하기
+                  </Button>
+                </Box>
+                <Typography
+                  color="textSecondary"
+                  variant="body2"
+                >
+                  계정이 있으신가요?
+                  {' '}
+                  <Link
+                    variant="subtitle2"
+                    underline="hover"
+                    href="/login"
+                  >
+                    로그인화면으로 가기
+                  </Link>
+
+                </Typography>
+              </Paper>
+            </ThemeProvider>
+          </form>
+        </Container>
+      </Box>
+
     </>
   );
 };

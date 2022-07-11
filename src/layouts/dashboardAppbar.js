@@ -128,8 +128,9 @@ export const DashboardAppbar = () => {
                 >
                     <Link
                         variant="h4"
+                        href="/"
                         to="/"
-                        color={colorTool}
+                        color="inherit"
                         noWrap
                         underline="hover"
                         sx={{
