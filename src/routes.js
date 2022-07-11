@@ -9,6 +9,7 @@ import Chart from './pages/chart';
 import Wordcloud from './pages/wordCloud';
 import GoogleNews from './pages/card';
 import SettingPasswd from './pages/settingPasswd';
+import Statute from './pages/statute';
 
 
 
@@ -26,7 +27,8 @@ export default function Router() {
         { path: 'chart', element: <Chart /> },
         { path: 'wordcloud', element: <Wordcloud /> },
         { path: 'news', element: <GoogleNews /> },
-        { path: 'settingPasswd', element: <SettingPasswd /> }
+        { path: 'settingPasswd', element: <SettingPasswd /> },
+        { path: 'statute', element: <Statute /> }
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },
