@@ -33,7 +33,6 @@ export const DamageType = () => {
       ...values,
       [event.target.name]: event.target.value
     });
-    console.debug(event)
   };
 
   const colorTool = createTheme({

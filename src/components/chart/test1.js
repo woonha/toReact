@@ -19,7 +19,10 @@ const states = [
 ];
 
 export const Test1 = (props) => {
-
+    const [sendData, setSendData] = React.useState({
+        type: '1',
+        value: '초등학생'
+    });
     const [values, setValues] = useState('');
     const handleChange = (event) => {
         let tempData = [1, 2, 10, 4, 5, 6]
@@ -32,6 +35,7 @@ export const Test1 = (props) => {
             ...values,
             [event.target.name]: event.target.value
         });
+        console.debug(values)
         setDatadata({
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
@@ -53,7 +57,6 @@ export const Test1 = (props) => {
             ]
 
         })
-        console.debug(event)
     };
 
     const [datadata, setDatadata] = useState({

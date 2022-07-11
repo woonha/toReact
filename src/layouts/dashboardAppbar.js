@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import { Link as Href } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
+import { check } from '../auth/auth';
 
 
 
@@ -86,6 +87,10 @@ const colorTool = createTheme({
 });
 
 export const DashboardAppbar = () => {
+    const [isLogin, setIsLogin] = React.useState(false);
+    React.useEffect(() => {
+        setIsLogin(check());
+    })
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -186,6 +191,7 @@ export const DashboardAppbar = () => {
                                 sx={{ mx: 6, mt: 9 }}
                             >실태조사
                             </Link>
+                            {isLogin ? <Button>login</Button> : <Button>logout</Button>}
                             <Button href="/login" color='inherit' >로그인</Button>
                             <Button href="/register" variant="contained" theme={colorTool} >회원가입</Button>
 

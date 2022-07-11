@@ -5,7 +5,10 @@ import Stack from '@mui/material/Stack';
 import { Box, Button, Container, Grid, Link, TextField, Typography, Paper } from '@mui/material';
 import Divider from "@mui/material/Divider";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { loginTemp, logoutTemp } from "../auth/auth";
+import { useNavigate } from "react-router-dom";
 // import { Google as GoogleIcon } from '../icons/google';
+
 
 const colorTool = createTheme({
   palette: {
@@ -38,6 +41,7 @@ const colorTool = createTheme({
 
 // ------------------------------------------------
 const Login = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       id: '',
@@ -83,9 +87,13 @@ const Login = () => {
   //const router = useRouter();
 
   const clickMe1 = () => {
+    loginTemp();
+    navigate('/');
     //router.push('/naver.com')
   };
   const clickMe2 = () => {
+    logoutTemp();
+    navigate('/');
     //router.push('/google.com')
   };
 
