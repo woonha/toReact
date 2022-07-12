@@ -34,8 +34,6 @@ const colorTool = createTheme({
         },
     }
 });
-
-
 // ------------------------------------------------
 
 const SettingPasswd = () => {
