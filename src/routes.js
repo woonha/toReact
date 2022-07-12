@@ -6,7 +6,7 @@ import DefaultLayout from './layouts/DefaultLayout';
 import Main from './pages/main';
 import Register from './pages/register';
 import Chart from './pages/chart';
-import Wordcloud from './pages/wordCloud';
+import Wordcloud from './pages/cloud/wordCloud';
 import GoogleNews from './pages/card';
 import SettingPasswd from './pages/settingPasswd';
 import Statute from './pages/statute';

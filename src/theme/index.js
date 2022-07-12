@@ -153,9 +153,10 @@ export const theme = createTheme({
     },
     background: {
       default: '#F9FAFC',
-      paper: '#FFFFFF'
+      paper: '#F9FAFC',//분홍이
+      color: '#fe4279'
     },
-    divider: '#E6E8F0',
+    divider: '#fe4279',
     primary: {
       main: '#5048E5',
       light: '#828DF8',
