@@ -8,15 +8,15 @@ import Title from './title';
 
 const states = [
     {
-        value: '초등학생',
+        value: '초',
         label: '초등학생'
     },
     {
-        value: '중학생',
+        value: '중',
         label: '중학생'
     },
     {
-        value: '고등학생',
+        value: '고',
         label: '고등학생'
     }
 ];

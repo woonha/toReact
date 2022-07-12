@@ -1,8 +1,5 @@
 import { Doughnut } from 'react-chartjs-2';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Box, TextField, Button, Card, CardContent, CardHeader, Paper, useTheme, Container, Stack, Grid } from '@mui/material'; import LaptopMacIcon from '@mui/icons-material/LaptopMac';
-import PhoneIcon from '@mui/icons-material/Phone';
-import TabletIcon from '@mui/icons-material/Tablet';
 import React, { useEffect } from "react";
 import { useState } from 'react';
 import axios from 'axios';
@@ -14,71 +11,79 @@ const states1 = [
     { value: '2019', label: '2019' }
 ];
 const states2 = [
-    { value: '초등학생', label: '초등학생' },
-    { value: '중학생', label: '중학생' },
-    { value: '고등학생', label: '고등학생' }
+    { value: '초', label: '초등학생' },
+    { value: '중', label: '중학생' },
+    { value: '고', label: '고등학생' }
 ];
 
+let chartForm = {
+    labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
+    datasets: [
+        {
+            data: [],
+            backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
+            borderWidth: 8,
+            borderColor: '#FFFFFF',
+            hoverBorderColor: '#FFFFFF'
+        }
+    ],
+}
 
 export const Attacker = (props) => {
+        
     const theme = useTheme();
-    const [datadata, setDatadata] = useState({
-        labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
-        datasets: [
-            {
-                data: [63, 15, 22, 11, 33, 44],
-                backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
-                borderWidth: 2,
-                borderColor: '#FFFFFF',
-                hoverBorderColor: '#FFFFFF'
-            }
-        ]
-    });
+    const [values, setValues] = useState({ type: "초", year : 2021 });
+    const [datadata, setDatadata] = useState(chartForm);
 
-    const [values, setValues] = useState({ student: "초등학생" });
-    const handleChange = (event) => {
-        let tempData = [1, 2, 10]
-        if (event.target.value == '초등학생') {
-            tempData = [11, 12, 110]
-        } else if (event.target.value == '중학생') {
-            tempData = [111, 122, 10]
+
+    const chartSetting = () =>{
+
+        const params = {
+            chart: 2,
+            type: values["type"],
+            year: values["year"]
         }
-        console.debug(event.target.value, "ㅋㅋㅋ")
-        console.debug(event.target.name, " dmd")
+        console.debug("되고있냐고",params)
+        axios.post("/chart/chart2", params)
+            .then(res => res)
+            .then(res => {
+                const result = res.data;
+                const chartData = [result.same_school_same_class
+                                    ,result.same_school_same_grade
+                                    ,result.same_school_other_grade
+                                    ,result.other_school
+                                    ,result.unknown
+                                    ,result.other]
+                let temp = chartForm;
+                temp.datasets[0].data = chartData;
+                
+                setDatadata(temp)
+                console.debug("되고있는거냐고",temp)
+            })
+    }
+    const handleChange = (event) => {
         setValues({
             ...values,
             [event.target.name]: event.target.value
-
         });
     };
+    const returnChart = (data)=>{
+        return (
+        <Doughnut
+            data={data}
+            options={options}
+        />
+        )
+    }
+    useEffect(() => {
+        
+        console.debug("바뀌고있니?")
+        chartSetting()
+    }, [values])
 
     useEffect(() => {
-        const params = {
-            type: "1",
-            student: values["student"]
-        }
-        axios.post("/chart/chart1", params)
-            .then(res => res)
-            .then(res => {
-                console.debug(res, " ㅂㅏㄷㅇㅡㄴㄱㅏㅂㅅ")
-                console.debug(res.data.result1)
-                console.debug(res.data.result2)
-                setDatadata({
-                    labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
-                    datasets: [
-                        {
-                            data: [63, 15, 22, 11, 33, 44],
-                            backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
-                            borderWidth: 8,
-                            borderColor: '#FFFFFF',
-                            hoverBorderColor: '#FFFFFF'
-                        }
-                    ],
-
-                })
-            })
-        console.debug(values)
-    }, [values])
+        console.debug("바꿔야해!")
+    }, [datadata])
 
 
     const options = {
@@ -102,9 +107,6 @@ export const Attacker = (props) => {
             stepSize: 1,
             fontColor: theme.palette.text.secondary
         },
-
-
-
     };
     return (
         <Container {...props}>
@@ -113,7 +115,7 @@ export const Attacker = (props) => {
                 <Title>가해자 유형</Title>
                 <Grid item >
                     <TextField
-                        name="student"
+                        name="year"
                         onChange={handleChange}
                         required
                         select
@@ -133,7 +135,7 @@ export const Attacker = (props) => {
 
                     </TextField>
                     <TextField
-                        name="student"
+                        name="type"
                         onChange={handleChange}
                         required
                         select

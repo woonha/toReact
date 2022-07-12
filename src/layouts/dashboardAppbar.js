@@ -11,6 +11,7 @@ import Link from '@mui/material/Link';
 import { Link as Href } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 import { check } from '../auth/auth';
+import logo from './img.png';
 
 
 
@@ -140,7 +141,7 @@ export const DashboardAppbar = () => {
                             mr: 3
                         }}
                     >
-                        Lawbot
+                        {/* <img src={logo} className="App-logo" alt="logo" /> */}
                     </Link>
                     {/* </Href> */}
                     {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}> */}
