@@ -64,13 +64,7 @@ const SettingPasswd = () => {
 
     return (
         <>
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    py: 6
-                }}
-            >
+            <Box component="main" sx={{ flexGrow: 1, py: 6 }}>
                 <Container maxWidth="sm">
                     <ThemeProvider theme={colorTool}>
                         <Typography color="primary" variant="h4" gutterBottom marked="center" align="left">

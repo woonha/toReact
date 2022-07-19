@@ -19,7 +19,7 @@ const colorTool = createTheme({
       contrastText: '#ffebee'
     },
     secondary: { //버튼
-      main: '#E7AB79',//황토황토
+      main: '#fe4279',
       light: '#3FC79A',
       dark: '#0B815A',
       contrastText: '#FFFFFF'
@@ -35,6 +35,11 @@ const colorTool = createTheme({
       dark: '#0E8074',
       contrastText: '#FFFFFF'
     },
+    text: {
+      primary: '#FFB562',
+      secondary: '#65748B',
+      disabled: 'rgba(55, 65, 81, 0.48)'
+    }
   }
 });
 
@@ -99,14 +104,8 @@ const Login = () => {
 
   return (
     <>
-      <Box
-        component="main"
-        sx={{
-
-        }}
-      >
+      <Box component="main">
         <Container maxWidth="xs">
-
           <form onSubmit={formik.handleSubmit}>
             <ThemeProvider theme={colorTool}>
               <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
@@ -124,13 +123,6 @@ const Login = () => {
                   >
                     Lawbot
                   </Typography>
-
-                  {/* <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-              </Typography> */}
                 </Box>
 
                 <TextField
@@ -185,7 +177,7 @@ const Login = () => {
                     </Grid>
                     <Grid item>
                       <Link
-                        href="/settingPasswd"
+                        href="/test1"
                         variant="body2"
                         underline="hover"
                         sx={{

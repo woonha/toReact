@@ -154,7 +154,7 @@ export const theme = createTheme({
     background: {
       default: '#F9FAFC',
       paper: '#F9FAFC',//분홍이
-      color: '#fe4279'
+      color: '#ffebee'
     },
     divider: '#fe4279',
     primary: {
@@ -267,8 +267,9 @@ export const theme = createTheme({
       lineHeight: 1.66
     },
     h1: {
-      fontWeight: 700,
-      fontSize: '3.5rem',
+      fontWeight: 1000,
+      fontSize: '4rem',
+
       lineHeight: 1.375
     },
     h2: {

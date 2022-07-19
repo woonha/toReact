@@ -3,20 +3,12 @@ import { styled, alpha } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Box, Button, ButtonGroup, Container, Grid, Link, TextField, Typography, Paper, Stack } from '@mui/material';
+import { Box, Button, Container, Grid, Link, TextField, Typography, Paper, Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link as Href } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { check } from '../auth/auth';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
 
 // const Search = styled('div')(({ theme }) => ({
 //     borderstyle: 'solid',
@@ -73,14 +65,24 @@ const StyledButton = styled(Button)({
     },
     color: 'inherit'
 });
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+const StyledToolbar1 = styled(Toolbar)(({ theme }) => ({
     // alignItems: 'flex-start',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    // flexDirection: 'column',
+    flexDirection: 'column',
     // Override media queries injected by theme.mixins.toolbar
     '@media all': {
         minHeight: 10,
+    },
+}));
+const StyledAppbar = styled(AppBar)(({ theme }) => ({
+    // alignItems: 'flex-start',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    flexDirection: 'column',
+    // Override media queries injected by theme.mixins.toolbar
+    '@media all': {
+        minHeight: 50,
     },
 }));
 const colorTool = createTheme({
@@ -104,7 +106,7 @@ const colorTool = createTheme({
     shadows: ['none']
 });
 
-export const DashboardAppbar = () => {
+export const DashboardLogobar = () => {
     const [isLogin, setIsLogin] = React.useState(false);
     React.useEffect(() => {
         setIsLogin(check());
@@ -135,38 +137,13 @@ export const DashboardAppbar = () => {
         //setAnchorElNav('');
     };
 
-
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    );
-
-
     return (
         <Box
             width="100%"
-            component="main">
+            component="main"
+        >
             <AppBar position="static" theme={colorTool}>
-                <StyledToolbar>
-                    <Box sx={{ flexGrow: 1 }} />
+                <StyledToolbar1>
                     <Link
                         variant="h1"
                         href="/"
@@ -176,7 +153,7 @@ export const DashboardAppbar = () => {
                         underline="hover"
                         sx={{
                             cursor: 'pointer',
-                            flexGrow: 0.8,
+                            flexGrow: 1,
                             mx: 3,
                             mr: 3,
                         }}
@@ -184,77 +161,13 @@ export const DashboardAppbar = () => {
                         Lawbot
                         {/* <img src={logo} className="App-logo" alt="logo" /> */}
                     </Link>
-
-                    <Stack>
-                        <ThemeProvider theme={colorTool}>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-end'
-                                }}>
-                                <ButtonGroup variant="outlined" aria-label="outlined button group">
-                                    <Button
-                                        href="/login"
-                                        color='secondary'
-                                        sx={{
-                                            fontSize: 15,
-                                            fontWeight: 'normal',
-                                        }}>
-                                        로그인
-                                    </Button>
-                                    <Button
-                                        href="/register"
-                                        color='secondary'
-
-                                        sx={{
-
-                                            fontSize: 15,
-                                            fontWeight: 'normal'
-                                        }}>
-                                        회원가입
-                                    </Button>
-                                </ButtonGroup>
-                            </Box>
-                        </ThemeProvider>
-                    </Stack>
-
-                    {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                    </Box>
-                    {renderMenu} */}
-                </StyledToolbar>
+                </StyledToolbar1>
             </AppBar>
         </Box >
         // {/* {renderMobileMenu}
         // {renderMenu} */}
     );
 };
-DashboardAppbar.propTypes = {
+DashboardLogobar.propTypes = {
     anchorEl: PropTypes.func
 };
