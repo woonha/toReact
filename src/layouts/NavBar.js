@@ -93,6 +93,16 @@ export const DashboardNavbar = (props) => {
                 sx={{ my: 1, mx: 1.5 }}
               >
                 카드뉴스
+                
+              </Link>
+              <Link
+                variant="button"
+                color="text.primary"
+                href="/statute"
+                underline="none"
+                sx={{ my: 1, mx: 1.5 }}
+              >
+                법령
               </Link>
             </nav>
             <Button href="/login" color="secondary" sx={{ my: 1, mx: 1.5 }}>로그인</Button>

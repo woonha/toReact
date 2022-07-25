@@ -233,11 +233,12 @@ export const theme = createTheme({
     button: {
       fontWeight: 600
     },
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+    fontFamily: '"GangwonEdu_OTFBoldA", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
-      lineHeight: 1.5
+      lineHeight: 1.5,
+      fontFamily: 'GangwonEdu_OTFBoldA'
     },
     body2: {
       fontSize: '0.875rem',
@@ -294,7 +295,8 @@ export const theme = createTheme({
     h6: {
       fontWeight: 600,
       fontSize: '1.125rem',
-      lineHeight: 1.375
+      lineHeight: 1.375,
+      fontFamily: 'GangwonEdu_OTFBoldA'
     }
   }
 });

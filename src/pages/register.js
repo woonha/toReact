@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { Link as Ddddd } from 'react-router-dom';
+import { Link as Ddddd, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
@@ -11,8 +11,10 @@ import {
   Link,
   TextField,
   Typography,
-  Paper
+  Paper,
+  formGroupClasses
 } from '@mui/material';
+import axios from 'axios';
 
 const colorTool = createTheme({
   palette: {
@@ -44,47 +46,42 @@ const colorTool = createTheme({
 
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
-      id: '',
-      nickname: '',
-      passwrod: '',
+      email: '',
       name: '',
-      email: ''
-      // policy: false
+      pass: '',
+      policy: formGroupClasses
+    },
+    handleSubmit:()=>{
+      alert("으하하")
+    },
+    onSubmit:values=>{
+      alert("으어으어으어응")
     },
     validationSchema: Yup.object({
-      id: Yup
-        .string()
-        .max(255)
-        .required(
-          '아이디를 입력해주세요.'),
-      nickname: Yup
-        .string()
-        .max(255)
-        .required(
-          '사용할 닉네임을 입력해주세요'),
-      password: Yup
-        .string()
-        .max(255)
-        .required(
-          '비밀번호를 입력해주세요'),
-      confirmpassword: Yup
-        .string()
-        .max(255)
-        .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지않습니다.'),
-      name: Yup
-        .string()
-        .max(255)
-        .required(
-          '이름을 입력해주세요.'),
       email: Yup
         .string()
         .max(255)
         .email('올바른 이메일 형식을 입력해주세요.')
         .required(
           '이메일을 입력해주세요.'),
-
+      name: Yup
+        .string()
+        .max(255)
+        .required(
+          '사용할 닉네임을 입력해주세요'),
+      pass: Yup
+        .string()
+        .max(255)
+        .required(
+          '비밀번호를 입력해주세요'),
+      confirmpass: Yup
+        .string()
+        .max(255)
+        .oneOf([Yup.ref('pass'), null], '비밀번호가 일치하지않습니다.'),
       policy: Yup
         .boolean()
         .oneOf(
@@ -93,9 +90,26 @@ const Register = () => {
         )
     }),
     onSubmit: () => {
-      //router.push('/');
+      alert("zzzzz")
+    },
+    handleSubmit: () => {
+      alert("dddd")
     }
   });
+  const registerTemp = (event) => {
+    event.preventDefault();
+    console.debug(formik.values);
+    axios.post("/member/join", formik.values)
+    .then(res => res)
+    .then(res => {
+        if (res.data==1 && res.status==200){
+          //일단은 제한없이 가입되게됨
+          alert("가입되었습니다")
+          navigate("/login")
+        }
+        console.debug(res)
+    })
+};
 
   return (
     <>
@@ -107,7 +121,7 @@ const Register = () => {
         }}
       >
         <Container maxWidth="xs">
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={registerTemp}>
             <ThemeProvider theme={colorTool}>
               <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
                 <Box sx={{
@@ -149,43 +163,43 @@ const Register = () => {
                 />
 
                 <TextField
-                  error={Boolean(formik.touched.nickname && formik.errors.nickname)}
+                  error={Boolean(formik.touched.name && formik.errors.name)}
                   fullWidth
-                  helperText={formik.touched.nickname && formik.errors.nickname}
+                  helperText={formik.touched.name && formik.errors.name}
                   label="닉네임"
                   margin="dense"
-                  name="nickname"
+                  name="name"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  value={formik.values.nickname}
+                  value={formik.values.name}
                   variant="outlined"
                   size="normal"
                 />
                 <TextField
-                  error={Boolean(formik.touched.password && formik.errors.password)}
+                  error={Boolean(formik.touched.pass && formik.errors.pass)}
                   fullWidth
-                  helperText={formik.touched.password && formik.errors.password}
+                  helperText={formik.touched.pass && formik.errors.pass}
                   label="비밀번호"
                   margin="dense"
-                  name="password"
+                  name="pass"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="password"
-                  value={formik.values.password}
+                  value={formik.values.pass}
                   variant="outlined"
                   size="normal"
                 />
                 <TextField
-                  error={Boolean(formik.touched.confirmpassword && formik.errors.confirmpassword)}
+                  error={Boolean(formik.touched.confirmpass && formik.errors.confirmpass)}
                   fullWidth
-                  helperText={formik.touched.confirmpassword && formik.errors.confirmpassword}
+                  helperText={formik.touched.confirmpass && formik.errors.confirmpass}
                   label="비밀번호 확인"
                   margin="dense"
-                  name="confirmpassword"
+                  name="confirmpass"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="password"
-                  value={formik.values.password2}
+                  value={formik.values.confirmpass}
                   variant="outlined"
                   size="normal"
                 />

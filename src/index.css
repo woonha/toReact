@@ -1,8 +1,10 @@
+
+@font-face { font-family: 'GangwonEdu_OTFBoldA'; src: url(./fonts/강원교육모두\ Light.ttf) format('truetype'); }
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif, 'gangwon';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

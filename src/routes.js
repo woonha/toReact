@@ -10,6 +10,9 @@ import Wordcloud from './pages/cloud/wordCloud';
 import GoogleNews from './pages/card';
 import SettingPasswd from './pages/settingPasswd';
 import Statute from './pages/statute';
+import PrecedentPage from './pages/precedentPage';
+import PrecedentView from './pages/precedentView';
+import PostEditor from './pages/postEditor';
 
 
 
@@ -21,14 +24,17 @@ export default function Router() {
       path: '/',
       element: <DefaultLayout />,
       children: [
-        { path: '/', element: <Main /> },
+        { path: '', element: <Main /> },
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
         { path: 'chart', element: <Chart /> },
         { path: 'wordcloud', element: <Wordcloud /> },
         { path: 'news', element: <GoogleNews /> },
         { path: 'settingPasswd', element: <SettingPasswd /> },
-        { path: 'statute', element: <Statute /> }
+        { path: 'statute', element: <Statute /> },
+        { path: 'precedent', element: <PrecedentPage /> },
+        { path: 'temp', element: <PrecedentView/> },
+        { path: 'editor', element: <PostEditor/> }
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },

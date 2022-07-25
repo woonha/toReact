@@ -43,7 +43,7 @@ export default function DefaultLayout() {
       <DashboardNavbar></DashboardNavbar>
 
       <Outlet />
-      <Footer></Footer>
+      <Footer title="찌미찌미킹" description="찌미생일축하해"></Footer>
     </>
   );
 }

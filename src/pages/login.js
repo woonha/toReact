@@ -7,7 +7,8 @@ import Divider from "@mui/material/Divider";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { loginTemp, logoutTemp } from "../auth/auth";
 import { useNavigate } from "react-router-dom";
-// import { Google as GoogleIcon } from '../icons/google';
+import axios from "axios";
+import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 
 
 const colorTool = createTheme({
@@ -39,53 +40,69 @@ const colorTool = createTheme({
 });
 
 
+
 // ------------------------------------------------
 const Login = () => {
   const navigate = useNavigate();
+  const REST_API_KEY = "26c6196da16420765dc0c6251030d217";
+  const REDIRECT_URI = "http://localhost:3000/login";
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const loginaaaaa = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+  });
   const formik = useFormik({
     initialValues: {
-      id: '',
-      nickname: '',
-      passwrod: '',
-      name: '',
-      email: ''
-      // policy: false
+      email: '',
+      password: ''
     },
     validationSchema: Yup.object({
-
-      nickname: Yup
-        .string()
-        .max(255)
-        .required(
-          '사용할 닉네임을 입력해주세요'),
-      password: Yup
-        .string()
-        .max(255)
-        .required(
-          '비밀번호를 입력해주세요'),
-      confirmpassword: Yup
-        .string()
-        .max(255)
-        .oneOf([Yup.ref('password'), null], '비밀번호가 일치하지않습니다.'),
       email: Yup
         .string()
         .max(255)
         .email('올바른 이메일 형식을 입력해주세요.')
         .required(
           '이메일을 입력해주세요.'),
-      policy: Yup
-        .boolean()
-        .oneOf(
-          [true],
-          'This field must be checked'
-        )
+      pass: Yup
+        .string()
+        .max(255)
+        .required(
+          '비밀번호를 입력해주세요')
     }),
-    onSubmit: () => {
-      // router.push('/');
+    onSubmit: (event) => {
+
     }
   });
-  //const router = useRouter();
+  const onFailure = (res) => {
+    alert("구글 로그인에 실패하였습니다");
+    console.log("err", res);
+  };
+  const onSuccess = (res) => {
+    console.debug("아앙")
+    const profile = res.getBasicProfile();
+    const userdata = {
+      email: profile.getEmail(),
+      image: profile.getImageUrl(),
+      name: profile.getName(),
+    };
+    console.debug(userdata)
+  };
 
+  const loginHahH = (event) => {
+    event.preventDefault();
+    axios.post("/member/login", formik.values)
+      .then(res => res)
+      .then(res => {
+        console.debug("d,dkldldp", res)
+        if (res.status == 200) {
+          loginTemp(res.data)
+          navigate("/statute")
+        }
+      })
+      .error(res => {
+        alert("로그인 실패")
+      })
+  };
   const clickMe1 = () => {
     loginTemp();
     navigate('/');
@@ -107,7 +124,7 @@ const Login = () => {
       >
         <Container maxWidth="xs">
 
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={loginHahH}>
             <ThemeProvider theme={colorTool}>
               <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
                 <Box sx={{
@@ -137,26 +154,26 @@ const Login = () => {
                   error={Boolean(formik.touched.id && formik.errors.id)}
                   fullWidth
                   helperText={formik.touched.id && formik.errors.id}
-                  label="아이디"
+                  label="이메일"
                   margin="normal"
-                  name="id"
+                  name="email"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  type="id"
-                  value={formik.values.id}
+                  type="email"
+                  value={formik.values.email}
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(formik.touched.password && formik.errors.password)}
+                  error={Boolean(formik.touched.pass && formik.errors.pass)}
                   fullWidth
-                  helperText={formik.touched.password && formik.errors.password}
+                  helperText={formik.touched.pass && formik.errors.pass}
                   label="비밀번호"
                   margin="normal"
-                  name="password"
+                  name="pass"
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
                   type="password"
-                  value={formik.values.password}
+                  value={formik.values.pass}
                   variant="outlined"
                 />
                 <Box sx={{ py: 2 }}>
@@ -219,18 +236,26 @@ const Login = () => {
                       <ThemeProvider theme={colorTool}>
                         <Button
                           fullWidth
-
-                          onClick={clickMe1}
+                          href={KAKAO_AUTH_URL}
                           size="large"
                           variant="outlined"
                         >
                           카카오톡 로그인
                         </Button>
 
+                        <GoogleLogin
+                          onSuccess={res => {
+                            console.debug("ㅇ,ㅡ아아")
+                            console.log(res);
+                          }}
+                          onError={() => {
+                            console.log('Login Failed');
+                          }}
+                        />
                         <Button
                           fullWidth
 
-                          onClick={clickMe2}
+                          onClick={() => loginaaaaa()}
                           size="large"
                           variant="outlined"
                         >

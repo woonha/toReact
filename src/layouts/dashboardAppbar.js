@@ -8,9 +8,11 @@ import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { Link as Href } from 'react-router-dom';
+import { Link as Href, useNavigate } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 import { check } from '../auth/auth';
+import { logoutTemp } from "../auth/auth";
+
 import { Avatar, Container, Typography } from '@mui/material';
 
 // const Search = styled('div')(({ theme }) => ({
@@ -80,6 +82,7 @@ const colorTool = createTheme({
 });
 
 export const DashboardAppbar = () => {
+    const navigate = useNavigate();
     const [isLogin, setIsLogin] = React.useState(false);
     React.useEffect(() => {
         setIsLogin(check());
@@ -109,6 +112,18 @@ export const DashboardAppbar = () => {
     const handleCloseNavMenu = () => {
         //setAnchorElNav('');
     };
+
+    const notLogin = ()=>{
+        return (<>
+                    <Button href="/login" color='inherit' >로그인</Button>
+                    <Button href="/register" variant="contained" theme={colorTool} >회원가입</Button>
+                </>)
+    }
+
+    const logoutButton = ()=>{
+        logoutTemp();
+        navigate("/login")
+    }   
 
     return (
 
@@ -152,11 +167,18 @@ export const DashboardAppbar = () => {
                                 variant="h6"
                                 color='inherit'
                                 // color="text.primary"
-                                href="/"
+                                href="/statute"
                                 underline="none"
                                 sx={{ my: 1, mx: 3 }}
-                            >법령사전
-
+                            >법령
+                            </Link>
+                            <Link
+                                variant="h6"
+                                color='inherit'
+                                href="/precedent"
+                                underline="none"
+                                sx={{ mx: 1, mt: 4 }}
+                            >판례
                             </Link>
                             <Link
                                 variant="h6"
@@ -164,6 +186,7 @@ export const DashboardAppbar = () => {
                                 href="/news"
                                 underline="none"
                                 sx={{ my: 1, mx: 4 }}
+                                fontFamily='GangwonEdu_OTFBoldA'
                             >
                                 카드뉴스
                             </Link>
@@ -187,10 +210,9 @@ export const DashboardAppbar = () => {
                             </Link>
                         </nav>
                     </Box>
+                    {isLogin ? <Button onClick={logoutButton}>Logout</Button>: notLogin()}
                     {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
-                    <Button href="/login" color='inherit' >로그인</Button>
-                    <Button href="/register" variant="contained" theme={colorTool} >회원가입</Button>
-
+                    
                     {/* 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (

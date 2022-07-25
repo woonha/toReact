@@ -10,10 +10,10 @@ export function check() {
     return false;
 }
 
-export function loginTemp() {
+export function loginTemp(data) {
     let userData = {
         isLogin: true,
-        mail: "woon.woon.jo@gmail.com"
+        mail: data.email
     };
 
     console.debug("로그인함!")
