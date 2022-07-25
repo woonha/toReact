@@ -1,133 +1,158 @@
-import PropTypes from 'prop-types';
-import { Avatar, Badge, Box, IconButton, Toolbar, Tooltip, Button } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import { Box, Button, Container, Grid, Link, TextField, Typography, Paper, Stack } from '@mui/material';
+import { Link as Href } from 'react-router-dom';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { check } from '../auth/auth';
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+    paddingTop: theme.spacing(0),
+    paddingBottom: theme.spacing(0),
+
+    alignItems: 'center',
+    '@media all': {
+        minHeight: 50,
+    }
+}));
 
 const colorTool = createTheme({
-  palette: {
-    primary: {
-      main: '#fe4279',
-      light: '#fe9D7C',
-      dark: '#FC4279',
-      contrastText: '#ffebee'
-    },
+    palette: {
+        primary: {
+            main: '#fe4279',
+            light: '#fe9D7C',
+            dark: '#FC4279',
+            contrastText: '#ffebee',
+            backgroundColor: '#fe4279'
+        },
+        neutural: {
+            main: '#828df8'
+        },
+        secondary: { //버튼
+            main: '#fe4279',
+            light: '#3FC79A',
+            dark: '#fe4279',
+            contrastText: '#fe4279'
+        },
 
-  }
+    },
+    shadows: ['none'],
+    typography: {
+        h3: {
+            fontWeight: 700,
+            fontSize: '2.25rem',
+            lineHeight: 1.375
+        }
+    }
+
+});
+const StyledButton = styled(Button)({
+    width: 200,
+    height: 'auto',
+    fontSize: 15,
+    fontFamily: "-apple-system",
+
+    '&:hover': {
+        backgroundColor: 'none',
+        borderColor: 'none',
+        boxShadow: 'none',
+        color: 'none',
+    },
+    color: 'inherit'
 });
 
-const Search = styled('div')(({ theme }) => ({
-  borderstyle: 'solid',
-  position: 'relative',
-  // borderRadius: theme.shape.borderRadius,
-  // backgroundColor: alpha(theme.palette.common.white, 0.15),
-  // '&:hover': {
-  //   backgroundColor: alpha(theme.palette.common.white, 0.25),
-  // },
-  marginRight: theme.spacing(2),
-  marginLeft: 10,
-  width: '100%',
-  [theme.breakpoints.up('md')]: {
-    marginLeft: theme.spacing(10),
-    width: 'auto'
-  },
-}));
+const RootStyle = styled('div')({
+    display: 'flex',
+    minHeight: '100%',
+    overflow: 'hidden'
+});
+export const DashboardNavbar = () => {
+    const [isLogin, setIsLogin] = React.useState(false);
+    React.useEffect(() => {
+        setIsLogin(check());
+    })
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+    const isMenuOpen = Boolean(anchorEl);
+    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  position: 'relative',
-  '& .MuiInputBase-input': {
-    width: "auto",
-    border: '8px solid #ffebee',
-    padding: theme.spacing(2, 2, 2, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: "50ch",
-      "&:focus": {
-        width: "50ch",
-        // width: '80ch',
-      }
-    }
-  }
-}));
-// const searchButton = stlyed(Button)(({theme})) => ({
+    const handleProfileMenuOpen = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-// })
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-  // alignItems: 'flex-start',
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(2),
-  // Override media queries injected by theme.mixins.toolbar
-  '@media all': {
-    minHeight: 100,
-  }
-}));
+    const handleMobileMenuClose = () => {
+        setMobileMoreAnchorEl(null);
+    };
 
-const Navbar = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(2),
-  backgroundColor: theme.palette.background.color,
-  boxShadow: theme.shadows[3],
-  '@media all': {
-    minHeight: 100,
-  }
-}));
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        handleMobileMenuClose();
+    };
 
-export const DashboardNavbar = (props) => {
-  const { onSidebarOpen, ...other } = props;
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
+    const handleCloseNavMenu = () => {
+        //setAnchorElNav('');
+    };
 
-  return (
-    <>
-      <Box >
-        < Navbar position="static">
+    return (
+        <RootStyle>
+            <Box
+                component="main"
+                width={'100%'}
+                minHeight='100%'
+            >
+                <AppBar theme={colorTool} position="relative">
+                    <StyledToolbar>
+                        <Grid container width={'100%'} flexWrap='nowrap' justifyContent='center'
+                        >
+                            <Box
+                            >
 
-          <ThemeProvider theme={colorTool}>
-            <StyledToolbar>
-              <Box sx={{
-                flexGrow: 1
-              }} />
-              <Search>
-                <SearchIconWrapper>
+                                <StyledButton
+                                    href="/Statute"
+                                    fontFamily="-apple-system"
+                                >
+                                    법령사전
+                                </StyledButton>
+                            </Box>
+                            <Box item xs={6} sm={3}
+                            >
+                                <StyledButton
+                                    href="/news"
+                                >
+                                    카드뉴스
+                                </StyledButton>
+                            </Box>
+                            <Box item xs={6} sm={3}>
+                                <StyledButton
+                                    href="/wordCloud"
+                                >
+                                    법령 클라우드
+                                </StyledButton>
+                            </Box>
+                            <Box item xs={6} sm={3}>
+                                <StyledButton
+                                    href="/chart"
+                                >
+                                    실태조사
+                                </StyledButton>
+                            </Box>
+                        </Grid>
+                    </StyledToolbar >
 
-                  <SearchIcon />
-                  <Button color='primary' type="submit" sx={{ p: "10px" }}></Button>
+                </AppBar >
+            </Box >
 
-                </SearchIconWrapper>
-                <StyledInputBase
-
-                  placeholder="Search…"
-                  inputProps={{ 'aria-label': 'search' }}
-                >
-
-                </StyledInputBase>
-              </Search>
-
-
-              <Box sx={{
-                flexGrow: 1
-              }} />
-            </StyledToolbar>
-          </ThemeProvider>
-        </Navbar>
-      </Box >
-    </>
-  );
+        </RootStyle>
+    );
 };
-
 DashboardNavbar.propTypes = {
-  onSidebarOpen: PropTypes.func
+    anchorEl: PropTypes.func
 };

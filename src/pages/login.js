@@ -8,7 +8,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { loginTemp, logoutTemp } from "../auth/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 
 const colorTool = createTheme({
@@ -20,7 +20,7 @@ const colorTool = createTheme({
       contrastText: '#ffebee'
     },
     secondary: { //버튼
-      main: '#E7AB79',//황토황토
+      main: '#fe4279',
       light: '#3FC79A',
       dark: '#0B815A',
       contrastText: '#FFFFFF'
@@ -36,6 +36,11 @@ const colorTool = createTheme({
       dark: '#0E8074',
       contrastText: '#FFFFFF'
     },
+    text: {
+      primary: '#FFB562',
+      secondary: '#65748B',
+      disabled: 'rgba(55, 65, 81, 0.48)'
+    }
   }
 });
 
@@ -116,17 +121,11 @@ const Login = () => {
 
   return (
     <>
-      <Box
-        component="main"
-        sx={{
-
-        }}
-      >
-        <Container maxWidth="xs">
-
+      <Box>
+        <Container maxWidth="sm">
           <form onSubmit={loginHahH}>
             <ThemeProvider theme={colorTool}>
-              <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
+              <Paper variant="outlined" sx={{ my: { xs: 3, md: 5 }, p: { xs: 2, md: 3 } }} >
                 <Box sx={{
                   my: 5,
                   marginTop: 1,
@@ -136,18 +135,11 @@ const Login = () => {
                 }}>
                   <Typography
                     fontFamily="-apple-system"
-                    variant="h2"
+                    variant="h3"
                     color="primary"
                   >
-                    Lawbot
+                    Login
                   </Typography>
-
-                  {/* <Typography
-                color="textSecondary"
-                gutterBottom
-                variant="body2"
-              >
-              </Typography> */}
                 </Box>
 
                 <TextField
@@ -202,13 +194,12 @@ const Login = () => {
                     </Grid>
                     <Grid item>
                       <Link
-                        href="/settingPasswd"
+                        href="/settings"
                         variant="body2"
                         underline="hover"
                         sx={{
                           cursor: 'pointer'
                         }}
-                        color="textSecondary"
                       >
                         비밀번호찾기
                       </Link>
@@ -227,7 +218,7 @@ const Login = () => {
                 <Grid item xs>
                   <Box
                     sx={{
-                      my: 1,
+                      my: 3,
                       marginTop: 3,
                       borderColor: 'palette'
                     }}
@@ -276,7 +267,7 @@ const Login = () => {
                   <Link
                     variant="subtitle2"
                     underline="hover"
-                    color="Secondary"
+
                     href="/register"
                   >
                     회원가입

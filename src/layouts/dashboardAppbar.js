@@ -1,72 +1,38 @@
 import * as React from 'react';
+import { useRef, useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import { Box, ButtonGroup, Container, Grid, TextField, Typography, Paper, Stack } from '@mui/material';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { Link as Href, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { createTheme } from '@mui/material/styles';
 import { check } from '../auth/auth';
 import { logoutTemp } from "../auth/auth";
-
-import { Avatar, Container, Typography } from '@mui/material';
-
-// const Search = styled('div')(({ theme }) => ({
-//     borderstyle: 'solid',
-//     position: 'relative',
-//     borderRadius: theme.shape.borderRadius,
-//     backgroundColor: alpha(theme.palette.common.white, 0.15),
-//     '&:hover': {
-//         backgroundColor: alpha(theme.palette.common.white, 0.25),
-//     },
-//     marginRight: theme.spacing(2),
-//     marginLeft: 0,
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//         marginLeft: theme.spacing(3),
-//         width: 'auto',
-//     },
-// }));
-
-// const SearchIconWrapper = styled('div')(({ theme }) => ({
-//     padding: theme.spacing(0, 2),
-//     height: '100%',
-//     position: 'absolute',
-//     pointerEvents: 'none',
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-// }));
-
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//     color: 'inherit',
-//     position: 'relative',
-
-//     '& .MuiInputBase-input': {
-//         padding: theme.spacing(1, 1, 1, 0),
-//         // vertical padding + font size from searchIcon
-//         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//         transition: theme.transitions.create('width'),
-//         width: '100%',
-//         [theme.breakpoints.up('md')]: {
-//             width: '20ch',
-//         },
-//     },
-// }));
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import Face from '@mui/icons-material/Face';
+import MailIcon from '@mui/icons-material/Mail';
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
+import { DashboardSearchbar } from './dashboardSearchbar';
+import Circle_Notifications from '@mui/icons-material/CircleNotifications'
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     // alignItems: 'flex-start',
+
+
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
+    // flexDirection: 'column',
     // Override media queries injected by theme.mixins.toolbar
     '@media all': {
-        minHeight: 50,
+        minHeight: 10,
     },
 }));
-
 const colorTool = createTheme({
     palette: {
         primary: {
@@ -78,7 +44,14 @@ const colorTool = createTheme({
         neutural: {
             main: '#828df8'
         },
-    }
+        secondary: { //버튼
+            main: '#fe4279',//황토황토
+            light: '#3FC79A',
+            dark: '#fe4279',
+            contrastText: '#ffebee'
+        },
+    },
+    shadows: ['none']
 });
 
 export const DashboardAppbar = () => {
@@ -112,6 +85,59 @@ export const DashboardAppbar = () => {
     const handleCloseNavMenu = () => {
         //setAnchorElNav('');
     };
+    const [open, setOpen] = useState(false);
+
+
+    const iconBackColorOpen = 'grey.300';
+    const iconBackColor = 'grey.100';
+
+    const menuId = 'primary-search-account-menu';
+
+    // 네모창 컨트롤
+    const renderMenu = (
+        <Menu
+            id={menuId}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+            anchorEl={anchorEl}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            PaperProps={{
+                elevation: 0,
+                sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 0,
+                    '& .MuiAvatar-root': {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                    },
+                    '&:before': {
+                        content: '""',
+                        display: 'block',
+                        position: 'absolute',
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: 'background.paper',
+                        transform: 'translateY(-50%) rotate(45deg)',
+                        zIndex: 0,
+                    },
+                },
+            }}
+        >
+
+
+            <MenuItem onClick={handleMenuClose}>내 프로필</MenuItem>
+            <MenuItem onClick={handleMenuClose}> 나의 활동</MenuItem>
+            <MenuItem onClick={handleMenuClose}>로그아웃</MenuItem>
+
+        </Menu>
+    );
+
 
     const notLogin = ()=>{
         return (<>
@@ -126,89 +152,91 @@ export const DashboardAppbar = () => {
     }   
 
     return (
-
-        <Box sx={{
-            flexGrow: 1,
-            // bgcolor: 'primary.c1'
-
-        }}>
+        <Box
+            width="100%"
+            component="main">
             <AppBar position="static" theme={colorTool}>
                 <StyledToolbar>
+                    {/* <Box sx={{ flexGrow: 1 }} /> */}
+
                     <Link
-                        variant="h4"
+                        variant="h1"
                         href="/"
                         to="/"
                         color="inherit"
                         noWrap
                         underline="hover"
-                        sx={{
-                            cursor: 'pointer',
-                            flexGrow: 1,
-                            mx: 3,
-                            mr: 3
-                        }}
+                    // sx={{
+                    //     cursor: 'pointer',
+                    //     flexGrow: 0.8,
+                    //     mx: 3,
+                    //     mr: 3,
+                    // }}
                     >
+                        Lawbot
                         {/* <img src={logo} className="App-logo" alt="logo" /> */}
                     </Link>
-                    {/* </Href> */}
-                    {/* <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}> */}
-                    <Box sx={{ flexGrow: 1, display: { md: 'flex' } }}>
-                        {/* <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon />
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                placeholder="Search…"
-                                inputProps={{ 'aria-label': 'search' }}
-                            />
-                        </Search> */}
-                        <nav>
-                            <Link
-                                variant="h6"
-                                color='inherit'
-                                // color="text.primary"
-                                href="/statute"
-                                underline="none"
-                                sx={{ my: 1, mx: 3 }}
-                            >법령
-                            </Link>
-                            <Link
-                                variant="h6"
-                                color='inherit'
-                                href="/precedent"
-                                underline="none"
-                                sx={{ mx: 1, mt: 4 }}
-                            >판례
-                            </Link>
-                            <Link
-                                variant="h6"
-                                color='inherit'
-                                href="/news"
-                                underline="none"
-                                sx={{ my: 1, mx: 4 }}
-                                fontFamily='GangwonEdu_OTFBoldA'
-                            >
-                                카드뉴스
-                            </Link>
-                            <Link
-                                variant="h6"
-                                color='inherit'
-                                href="/wordcloud"
-                                underline="none"
-                                sx={{ my: 1, mx: 3 }}
-                            >
-                                법령 클라우드
-                            </Link>
+                    <DashboardSearchbar></DashboardSearchbar>
 
-                            <Link
-                                variant="h6"
-                                color='inherit'
-                                href="/chart"
-                                underline="none"
-                                sx={{ mx: 6, mt: 9 }}
-                            >실태조사
-                            </Link>
-                        </nav>
+                    {/* <Stack>
+                        <ThemeProvider theme={colorTool}>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'flex-end'
+                                }}>
+                                <ButtonGroup variant="outlined" aria-label="outlined button group">
+                                    <Button
+                                        href="/login"
+                                        color='secondary'
+                                        sx={{
+                                            fontSize: 15,
+                                            fontWeight: 'normal',
+                                        }}>
+                                        로그인
+                                    </Button>
+                                    <Button
+                                        href="/register"
+                                        color='secondary'
+
+                                        sx={{
+
+                                            fontSize: 15,
+                                            fontWeight: 'normal'
+                                        }}>
+                                        회원가입
+                                    </Button>
+                                </ButtonGroup>
+                            </Box>
+                        </ThemeProvider>
+                    </Stack> */}
+
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+
+                        <IconButton
+                            size="large"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                        >
+                            <Badge badgeContent={17} color="error">
+                                <Circle_Notifications />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
+                            <Face
+                                sx={{ width: 30, height: 30 }}
+                                color="inherit"
+                            >
+                            </Face>
+                        </IconButton>
                     </Box>
                     {isLogin ? <Button onClick={logoutButton}>Logout</Button>: notLogin()}
                     {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
@@ -225,10 +253,10 @@ export const DashboardAppbar = () => {
                             </Button>
                         ))}
                     </Box> */}
+                    {renderMenu}
                 </StyledToolbar>
             </AppBar>
         </Box >
-
         // {/* {renderMobileMenu}
         // {renderMenu} */}
     );

@@ -3,8 +3,12 @@ import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { DashboardAppbar } from './dashboardAppbar';
 import { DashboardNavbar } from './dashboardNavbar';
+import { DashboardLogobar } from './dashboardLogobar';
+import { DashboardSearchbar } from './dashboardSearchbar';
+
 import Footer from './footer';
 import { Box } from '@mui/material';
+
 
 // components
 
@@ -35,12 +39,27 @@ export default function DefaultLayout() {
       {/* <HeaderStyle> -> 이거 하면 가로 스크롤 생김
         {/* <Logo /> 
       </HeaderStyle> */}
+      {/* <HeaderStyle>
+        <DashboardAppbar>
+
+        </DashboardAppbar>
+      </HeaderStyle> */}
       <RootStyle>
         {/* <DashboardNavbar /> */}
-        <DashboardAppbar></DashboardAppbar>
+        <DashboardAppbar>
+
+        </DashboardAppbar>
         {/* <PrimarySearchAppBar /> */}
       </RootStyle>
-      <DashboardNavbar></DashboardNavbar>
+      {/* <DashboardLogobar></DashboardLogobar> */}
+      {/* <DashboardSearchbar></DashboardSearchbar> */}
+
+      <DashboardNavbar>
+
+      </DashboardNavbar>
+
+
+
 
       <Outlet />
       <Footer title="찌미찌미킹" description="찌미생일축하해"></Footer>

@@ -64,41 +64,43 @@ const size = [800, 500];
 function Wordcloud() {
   return (
     <>
-      <Container maxWidth="md">
-        <Box sx={{ my: 3, textAlign: 'center' }} >
-          <Divider>
+      <Box
+        component="main">
+        <Container maxWidth="md">
+          <Box sx={{ my: 3, textAlign: 'center' }} >
+            <Divider>
+              <Typography
+                theme={colorTool}
+                color='primary.contrastText'
+                variant="h5"
+              >
+                법령 클라우드
+              </Typography>
+            </Divider>
             <Typography
-              theme={colorTool}
-              color='primary.contrastText'
-              variant="h5"
+              color="textSecondary"
+              gutterBottom
+              variant="body3"
             >
-              법령 클라우드
+              아래의 단어를 클릭해보세요!
             </Typography>
-          </Divider>
-          <Typography
-            color="textSecondary"
-            gutterBottom
-            variant="body3"
+          </Box>
+
+          <Box
+            component="main"
+            style={{ width: "100%", height: "100%" }}
+            sx={{
+              alignItems: 'center',
+              display: 'flex',
+              flexGrow: 1,
+              minHeight: '100%',
+              mt: 2
+            }}
           >
-            아래의 단어를 클릭해보세요!
-          </Typography>
-        </Box>
-
-        <Box
-          component="main"
-          style={{ width: "100%", height: "100%" }}
-          sx={{
-            alignItems: 'center',
-            display: 'flex',
-            flexGrow: 1,
-            minHeight: '100%',
-            mt: 2
-          }}
-        >
-          <ReactWordcloud options={options} words={words} size={size} />
-        </Box>
-      </Container>
-
+            <ReactWordcloud options={options} words={words} size={size} />
+          </Box>
+        </Container>
+      </Box>
     </>
 
   );
