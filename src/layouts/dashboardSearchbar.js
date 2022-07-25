@@ -54,7 +54,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(5),
+  paddingBottom: theme.spacing(3),
   paddingRight: theme.spacing(2),
   backgroundColor: theme.palette.background.color,
   boxShadow: theme.shadows[0],
@@ -112,7 +112,10 @@ export const DashboardSearchbar = (props) => {
 
 
               <Stack spacing={0} direction="row">
-                <StyledInputBase></StyledInputBase>
+                <StyledInputBase
+                  placeholder="예)신체적 폭력, 언어폭력">
+                  inputProps={{ 'aria-label': 'search' }}
+                </StyledInputBase>
                 <Button
                   sx={{ borderRadius: '0' }}
                   justifyContent='center'

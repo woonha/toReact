@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-
 import Footer from './footer';
 import { Box } from '@mui/material';
 import { DashboardLogobar } from './dashboardLogobar';
@@ -42,8 +41,8 @@ export default function Layout() {
                 <DashboardLogobar></DashboardLogobar>
                 {/* <PrimarySearchAppBar /> */}
             </RootStyle>
-            <DashboardSearchbar></DashboardSearchbar>
-            <DashboardNavbar></DashboardNavbar>
+            {/* <DashboardSearchbar></DashboardSearchbar>
+            <DashboardNavbar></DashboardNavbar> */}
             <Outlet />
             <Footer></Footer>
         </>

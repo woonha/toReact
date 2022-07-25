@@ -12,7 +12,10 @@ import SettingPasswd from './pages/settingPasswd';
 import Statute from './pages/statute';
 import { DashboardAppbar } from './layouts/dashboardAppbar';
 import Layout from './layouts/Layout';
-import Test1 from './pages/test1';
+import Settings from './pages/settings';
+import UserUpDate from './pages/userUpdate';
+import Profile from './pages/profile';
+
 
 
 
@@ -28,7 +31,8 @@ export default function Router() {
         { path: 'chart', element: <Chart /> },
         { path: 'wordcloud', element: <Wordcloud /> },
         { path: 'news', element: <GoogleNews /> },
-        { path: 'statute', element: <Statute /> }
+        { path: 'statute', element: <Statute /> },
+
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },
@@ -38,12 +42,11 @@ export default function Router() {
       children: [
         { path: 'login', element: <Login /> },
         { path: 'register', element: <Register /> },
-        { path: 'settingPasswd', element: <SettingPasswd /> },
-        { path: 'test1', element: <Test1 /> },
-
-
+        // { path: 'settingPasswd', element: <SettingPasswd /> },
+        { path: 'settings', element: <Settings /> },
+        { path: 'userUpdate', element: <UserUpDate /> },
+        { path: 'profile', element: <Profile /> }
       ],
     }
-
   ]);
 }

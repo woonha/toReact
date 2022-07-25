@@ -5,6 +5,7 @@ import { DashboardAppbar } from './dashboardAppbar';
 import { DashboardNavbar } from './dashboardNavbar';
 import { DashboardLogobar } from './dashboardLogobar';
 import { DashboardSearchbar } from './dashboardSearchbar';
+
 import Footer from './footer';
 import { Box } from '@mui/material';
 
@@ -38,6 +39,11 @@ export default function DefaultLayout() {
       {/* <HeaderStyle> -> 이거 하면 가로 스크롤 생김
         {/* <Logo /> 
       </HeaderStyle> */}
+      {/* <HeaderStyle>
+        <DashboardAppbar>
+
+        </DashboardAppbar>
+      </HeaderStyle> */}
       <RootStyle>
         {/* <DashboardNavbar /> */}
         <DashboardAppbar>
@@ -46,10 +52,12 @@ export default function DefaultLayout() {
         {/* <PrimarySearchAppBar /> */}
       </RootStyle>
       {/* <DashboardLogobar></DashboardLogobar> */}
-      <DashboardSearchbar></DashboardSearchbar>
+      {/* <DashboardSearchbar></DashboardSearchbar> */}
+
       <DashboardNavbar>
 
       </DashboardNavbar>
+
 
 
 

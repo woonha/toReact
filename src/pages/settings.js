@@ -52,7 +52,7 @@ function getStepContent(step) {
     }
 }
 
-const Test1 = () => {
+const Settings = () => {
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
@@ -145,8 +145,8 @@ const Test1 = () => {
     );
 }
 
-Test1.getLayout = (page) => (
+Settings.getLayout = (page) => (
     { page }
 
 );
-export default Test1;
+export default Settings;

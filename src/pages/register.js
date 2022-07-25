@@ -106,12 +106,12 @@ const Register = () => {
 
         }}
       >
-        <Container maxWidth="xs">
+        <Container maxWidth="sm">
           <form onSubmit={formik.handleSubmit}>
             <ThemeProvider theme={colorTool}>
               <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }} >
                 <Box sx={{
-                  my: 1,
+                  my: 5,
                   marginTop: 0.5,
                   display: 'flex',
                   flexDirection: 'column',
@@ -120,10 +120,10 @@ const Register = () => {
                 }}>
                   <Typography
                     fontFamily="-apple-system"
-                    variant="h2"
+                    variant="h3"
                     color="primary"
                   >
-                    Lawbot
+                    Sing up
                   </Typography>
                   {/* <Typography
                   color="secondary"

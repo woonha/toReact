@@ -13,9 +13,10 @@ import { check } from '../auth/auth';
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(0),
+
     alignItems: 'center',
     '@media all': {
-        maxHeight: 30,
+        minHeight: 50,
     }
 }));
 
@@ -51,9 +52,10 @@ const colorTool = createTheme({
 });
 const StyledButton = styled(Button)({
     width: 200,
-    height: 68,
-    fontSize: 18,
-    fontFamily: ['sans-serif'],
+    height: 'auto',
+    fontSize: 15,
+    fontFamily: "-apple-system",
+
     '&:hover': {
         backgroundColor: 'none',
         borderColor: 'none',
@@ -61,6 +63,12 @@ const StyledButton = styled(Button)({
         color: 'none',
     },
     color: 'inherit'
+});
+
+const RootStyle = styled('div')({
+    display: 'flex',
+    minHeight: '100%',
+    overflow: 'hidden'
 });
 export const DashboardNavbar = () => {
     const [isLogin, setIsLogin] = React.useState(false);
@@ -94,46 +102,55 @@ export const DashboardNavbar = () => {
     };
 
     return (
-        <Box
-            component="main"
-            width='100%'
-        >
-            <AppBar theme={colorTool} position="relative">
-                <StyledToolbar shadows="none">
-                    <Grid container fullWidth justifyContent='space-evenly' alignItems='center'>
-                        <Box>
-                            <StyledButton
-                                href="/Statute"
+        <RootStyle>
+            <Box
+                component="main"
+                width={'100%'}
+                minHeight='100%'
+            >
+                <AppBar theme={colorTool} position="relative">
+                    <StyledToolbar>
+                        <Grid container width={'100%'} flexWrap='nowrap' justifyContent='center'
+                        >
+                            <Box
                             >
-                                법령사전
-                            </StyledButton>
-                        </Box>
-                        <Box item xs={6} sm={3}>
-                            <StyledButton
-                                href="/news"
-                            >
-                                카드뉴스
-                            </StyledButton>
-                        </Box>
-                        <Box item xs={6} sm={3}>
-                            <StyledButton
-                                href="/wordCloud"
-                            >
-                                법령 클라우드
-                            </StyledButton>
-                        </Box>
-                        <Box item xs={6} sm={3}>
-                            <StyledButton
-                                href="/chart"
-                            >
-                                실태조사
-                            </StyledButton>
-                        </Box>
-                    </Grid>
-                </StyledToolbar >
 
-            </AppBar >
-        </Box >
+                                <StyledButton
+                                    href="/Statute"
+                                    fontFamily="-apple-system"
+                                >
+                                    법령사전
+                                </StyledButton>
+                            </Box>
+                            <Box item xs={6} sm={3}
+                            >
+                                <StyledButton
+                                    href="/news"
+                                >
+                                    카드뉴스
+                                </StyledButton>
+                            </Box>
+                            <Box item xs={6} sm={3}>
+                                <StyledButton
+                                    href="/wordCloud"
+                                >
+                                    법령 클라우드
+                                </StyledButton>
+                            </Box>
+                            <Box item xs={6} sm={3}>
+                                <StyledButton
+                                    href="/chart"
+                                >
+                                    실태조사
+                                </StyledButton>
+                            </Box>
+                        </Grid>
+                    </StyledToolbar >
+
+                </AppBar >
+            </Box >
+
+        </RootStyle>
     );
 };
 DashboardNavbar.propTypes = {

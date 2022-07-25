@@ -267,9 +267,8 @@ export const theme = createTheme({
       lineHeight: 1.66
     },
     h1: {
-      fontWeight: 1000,
-      fontSize: '4rem',
-
+      fontWeight: 700,
+      fontSize: '3.45rem',
       lineHeight: 1.375
     },
     h2: {
