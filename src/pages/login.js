@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Stack from '@mui/material/Stack';
@@ -48,6 +48,7 @@ const colorTool = createTheme({
 
 // ------------------------------------------------
 const Login = () => {
+
   const navigate = useNavigate();
   const REST_API_KEY = "26c6196da16420765dc0c6251030d217";
   const REDIRECT_URI = "http://localhost:3000/login";
@@ -56,6 +57,11 @@ const Login = () => {
   const loginaaaaa = useGoogleLogin({
     onSuccess: tokenResponse => console.log(tokenResponse),
   });
+  const params = new URLSearchParams(window.location.search)
+  
+  useEffect(() => {
+    console.debug("로그인하하",params.get("code"));
+  }, [])
   const formik = useFormik({
     initialValues: {
       email: '',

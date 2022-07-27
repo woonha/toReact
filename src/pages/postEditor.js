@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import { Container, createTheme, Grid, Stack, Typography } from '@mui/material';
+import { Button, Container, createTheme, Grid, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import JoditEditor from "jodit-react";
+import axios from 'axios';
 
 const PostEditor = () => {
     const {state} = useLocation();
@@ -17,9 +18,11 @@ const PostEditor = () => {
             },
         }
     });
-    const editor = useRef(null)
-	const [content, setContent] = useState('')
-
+    const navigate = useNavigate();
+    const editor = useRef(null);
+    const [title, setTitle] = useState('');
+	const [content, setContent] = useState('');
+    const [category, setCategory] = useState('');
 	const config = {
 		readonly: false, // all options from https://xdsoft.net/jodit/doc/,
 		placeholder: "dd" || 'Start typings...',
@@ -31,10 +34,36 @@ const PostEditor = () => {
         "showWordsCounter": false,
         "showXPathInStatusbar": false
 	}
+    const write = ()=>{
+        const params = {
+            category : category,
+            title : title,
+            content : content
+        }
+        axios.post("/post/write", params)
+            .then(res => res)
+            .then(res => {
+                console.debug(res)
+                navigate("/board")
+        })
+    }
     useEffect(() => {
 
     }, [])
-
+    const categoryList = [
+        {
+            value: '0',
+            label: '전체'
+        },
+        {
+            value: '1',
+            label: '잡담'
+        },
+        {
+            value: '2',
+            label: '찌미찌미'
+        }
+    ];
     return(
     <>
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -42,8 +71,42 @@ const PostEditor = () => {
         <Typography theme={colorTool} align="center" component="h2" variant="h4" color="primary" gutterBottom>
             {"에디터"}
         </Typography>
-        ㅇㅇ
                 <Stack spacing={3}>
+                <Grid item xs={3} lg={3}>
+                <TextField
+                    name="category"
+                    onChange={(e)=>{setCategory(e.target.value)}}
+                    value = {category}
+                    required
+                    select
+                    SelectProps={{ native: true }}
+                    // value={values.state}
+                    variant="outlined"
+                >
+                    {categoryList.map((option) => (
+                        <option
+                            key={option.value}
+                            data={option.value}
+                            value={option.value}
+                        >
+                            {option.label}
+                        </option>
+                    ))}
+
+                </TextField>
+                </Grid>
+
+                <TextField
+                  fullwidth
+                  label="제목"
+                  margin="dense"
+                  name="name"
+                  onChange={(e) => setTitle(e.target.value)}
+                  value={title}
+                  variant="outlined"
+                  size="normal"
+                />
+
                 <div>
                 <JoditEditor
             	ref={editor}
@@ -56,6 +119,7 @@ const PostEditor = () => {
                 }}
                 />
                 </div>
+                <Button variant="outlined" onClick={write}>작성</Button>
                 </Stack>
             </Grid>
         </Container>

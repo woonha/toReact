@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Button, Container, createTheme, Grid, Link, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Container, createTheme, Grid, Link, Pagination, Paper, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -27,51 +27,91 @@ const BoardPage = () => {
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(10);
     
-    const [precedentList, setPrecedentList] = useState([]);
+    const [postList, setPostList] = useState([]);
     const [maxPage, setMaxPage] = useState(1);
     const handleChange = (event, value) => {
         setPage(value);
       };
-    
+    const write = () => {
+        navigate("/editor")
+      };
     useEffect(() => {
         const params = {"page":page,"size":size};
-        axios.post("/precedent/getList",params)
+        axios.post("/post/getList",params)
         .then(res=>res)
         .then(res=>{
-            setPrecedentList(res.data);
+            setPostList(res.data);
         })
-        
     }, [page])
+    const category = [
+        {
+            value: '0',
+            label: '전체'
+        },
+        {
+            value: '1',
+            label: '잡담'
+        },
+        {
+            value: '2',
+            label: '찌미찌미'
+        }
+    ];
     return(
     <>
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Grid item xs={12} lg={6}>
         <Typography theme={colorTool} align="center" component="h2" variant="h4" color="primary" gutterBottom>
-            {"판례"}
+            {"게시판"}
         </Typography>
                 <Stack spacing={3}>
+                
+                <Grid container justifyContent="flex-end">
+                <TextField
+                    name="category"
+                    onChange={handleChange}
+                    required
+                    select
+                    SelectProps={{ native: true }}
+                    // value={values.state}
+                    variant="outlined"
+                >
+                    {category.map((option) => (
+                        <option
+                            key={option.value}
+                            data={option.value}
+                            value={option.value}
+                        >
+                            {option.label}
+                        </option>
+                    ))}
+
+                </TextField>
+                    <Button variant="outlined" onClick={write}>글쓰기</Button>
+                </Grid>
+                    
                     <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                         <TableRow>
-                            <TableCell>결과</TableCell>
-                            <TableCell align="right">사건번호</TableCell>
-                            <TableCell align="right">사건명</TableCell>
-                            <TableCell align="right">이유</TableCell>
+                            <TableCell>카테고리</TableCell>
+                            <TableCell align="right">제목</TableCell>
+                            <TableCell align="right">작성자</TableCell>
+                            <TableCell align="right">날짜</TableCell>
                         </TableRow>
                         </TableHead>
                         <TableBody>
-                        {precedentList.map((row) => (
+                        {postList.map((row) => (
                             <TableRow
-                            key={row.사건번호}
+                            key={row.postid}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            onClick={()=>{test(row.사건번호)}}>
+                            onClick={()=>{test(row.postid)}}>
                             <TableCell component="th" scope="row">
-                                {row.결과}
+                                {row.category}
                             </TableCell>
-                            <TableCell align="right">{row.사건번호}</TableCell>
-                            <TableCell align="right">{row.사건명}</TableCell>
-                            <TableCell align="right">{row.이유}</TableCell>
+                            <TableCell align="right">{row.title}</TableCell>
+                            <TableCell align="right">{row.member_no}</TableCell>
+                            <TableCell align="right">{row.update_date}</TableCell>
                             </TableRow>
                         ))}
                         </TableBody>

@@ -16,6 +16,7 @@ import Layout from './layouts/Layout';
 import Settings from './pages/settings';
 import UserUpDate from './pages/userUpdate';
 import Profile from './pages/profile';
+import BoardPage from './pages/boardPage';
 
 
 
@@ -35,7 +36,8 @@ export default function Router() {
         { path: 'statute', element: <Statute /> },
         { path: 'precedent', element: <PrecedentPage /> },
         { path: 'temp', element: <PrecedentView/> },
-        { path: 'editor', element: <PostEditor/> }
+        { path: 'editor', element: <PostEditor/> },
+        { path: 'board', element: <BoardPage/> }
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },

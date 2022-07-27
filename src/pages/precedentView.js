@@ -23,14 +23,14 @@ const PrecedentView = () => {
         }
     });
 
-    const [precedent, setPrecedent] = useState({});
+    const [precedent, setPrecedent] = useState({본문:[0]});
     useEffect(() => {
         console.debug("사건번호",state);
         const params = {"사건번호":state};
         axios.post("/precedent/get",params)
         .then(res=>res)
         .then(res=>{
-            console.debug("하",res);
+            console.debug("하",res.data);
             setPrecedent(res.data);
         })
         
@@ -98,7 +98,13 @@ const PrecedentView = () => {
                         <Tab label="Item Seven" {...a11yProps(6)} />
                     </Tabs>
                     <TabPanel value={value} index={0}>
-                        Item One
+
+                        {precedent["본문"].map(gggg=>{
+                            return (<Button>gggg</Button>)
+                        })}
+                        {precedent["각주"].map(gggg=>{
+                            return (<Button>gggg</Button>)
+                        })}
                     </TabPanel>
                     {/* <TabPanel value={value} index={1}>
                         Item Two

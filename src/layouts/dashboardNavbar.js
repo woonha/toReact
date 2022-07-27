@@ -110,16 +110,29 @@ export const DashboardNavbar = () => {
             >
                 <AppBar theme={colorTool} position="relative">
                     <StyledToolbar>
-                        <Grid container width={'100%'} flexWrap='nowrap' justifyContent='center'
-                        >
-                            <Box
-                            >
-
+                        <Grid container width={'100%'} flexWrap='nowrap' justifyContent='center'>
+                            <Box>
                                 <StyledButton
-                                    href="/Statute"
+                                    href="/statute"
                                     fontFamily="-apple-system"
                                 >
-                                    법령사전
+                                    법률
+                                </StyledButton>
+                            </Box>
+                            <Box>
+                                <StyledButton
+                                    href="/precedent"
+                                    fontFamily="-apple-system"
+                                >
+                                    판례
+                                </StyledButton>
+                            </Box>
+                            <Box>
+                                <StyledButton
+                                    href="/board"
+                                    fontFamily="-apple-system"
+                                >
+                                    게시판
                                 </StyledButton>
                             </Box>
                             <Box item xs={6} sm={3}
