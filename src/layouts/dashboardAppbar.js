@@ -133,12 +133,42 @@ export const DashboardAppbar = () => {
 
             <MenuItem onClick={handleMenuClose}>내 프로필</MenuItem>
             <MenuItem onClick={handleMenuClose}> 나의 활동</MenuItem>
-            <MenuItem onClick={handleMenuClose}>로그아웃</MenuItem>
+            <MenuItem onClick={()=>{logoutButton()}}>로그아웃</MenuItem>
 
         </Menu>
     );
 
+    const login = ()=>{
+        return (<>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
+                    <IconButton
+                        size="large"
+                        aria-label="show 17 new notifications"
+                        color="inherit"
+                    >
+                        <Badge badgeContent={17} color="error">
+                            <Circle_Notifications />
+                        </Badge>
+                    </IconButton>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
+                    >
+                        <Face
+                            sx={{ width: 30, height: 30 }}
+                            color="inherit"
+                        >
+                        </Face>
+                    </IconButton>
+                    </Box>
+                    {renderMenu}
+                </>)
+    }
     const notLogin = ()=>{
         return (<>
                     <Button href="/login" color='inherit' >로그인</Button>
@@ -211,34 +241,7 @@ export const DashboardAppbar = () => {
                             </Box>
                         </ThemeProvider>
                     </Stack> */}
-
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={17} color="error">
-                                <Circle_Notifications />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <Face
-                                sx={{ width: 30, height: 30 }}
-                                color="inherit"
-                            >
-                            </Face>
-                        </IconButton>
-                    </Box>
-                    {isLogin ? <Button onClick={logoutButton}>Logout</Button>: notLogin()}
+                    {isLogin ? login() : notLogin()}
                     {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
                     
                     {/* 
@@ -253,7 +256,7 @@ export const DashboardAppbar = () => {
                             </Button>
                         ))}
                     </Box> */}
-                    {renderMenu}
+                    
                 </StyledToolbar>
             </AppBar>
         </Box >

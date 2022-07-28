@@ -61,6 +61,30 @@ const Login = () => {
   
   useEffect(() => {
     console.debug("로그인하하",params.get("code"));
+    let code = params.get("code");
+    if(code!= null){
+      let cli = "kgq7HvEMvLTGJyar3LH0js6bsXQFSFTB";
+      let url = "/kauth/oauth/token?grant_type=authorization_code&client_id="+REST_API_KEY+"&code="+code+"&redirect_uri="+"/login";
+      if (code != null){
+        axios.get(url)
+        .then(res=>res)
+        .then(res=>{
+          console.debug(res.access_token,"res")
+          axios.get("/kauth/v2/user/me", {
+              headers: {
+                  Authorization: `Bearer ${res.access_token}`
+              }
+          })
+          .then(res=>res)
+          .then(res=>{
+            console.debug("진짜 토큰 가져옴?", res)
+          })
+        })
+      }
+    }
+    
+    
+
   }, [])
   const formik = useFormik({
     initialValues: {

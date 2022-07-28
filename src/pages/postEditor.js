@@ -23,17 +23,43 @@ const PostEditor = () => {
     const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
-	const config = {
-		readonly: false, // all options from https://xdsoft.net/jodit/doc/,
-		placeholder: "dd" || 'Start typings...',
-        height: '500px',
-        allowResizeX: false,
-        allowResizeY: false,
-        //toolbar: false,
-        "showCharsCounter": false,
-        "showWordsCounter": false,
-        "showXPathInStatusbar": false
-	}
+    const [config, setConfig] = useState({});
+    
+    useEffect(()=>{
+        let tempConfig = {
+            placeholder: "dd" || 'Start typings...',
+            height: '500px',
+            allowResizeX: false,
+            allowResizeY: false,
+            "showCharsCounter": false,
+            "showWordsCounter": false,
+            "showXPathInStatusbar": false
+        }
+        if(state.mode == 1){
+            
+            axios.post("/post/get", {postid:state.postid})
+            .then(res => res)
+            .then(res => {
+                console.debug(res.data.content)
+
+                setTitle(res.data.title)
+                tempConfig["readonly"] = true
+                // tempConfig["value"] = res.data.content
+                tempConfig["toolbar"] = false
+                setConfig(tempConfig)
+                setContent(res.data.content)
+            })
+            
+        }else if(state.mode == 0){
+            setConfig(tempConfig)
+        }
+        
+        console.debug("헤헿ㅇ",state)
+    },[])
+    useEffect(()=>{
+
+        console.debug("으아아아아앙")
+    },[config])
     const write = ()=>{
         const params = {
             category : category,
@@ -47,9 +73,6 @@ const PostEditor = () => {
                 navigate("/board")
         })
     }
-    useEffect(() => {
-
-    }, [])
     const categoryList = [
         {
             value: '0',
@@ -119,7 +142,10 @@ const PostEditor = () => {
                 }}
                 />
                 </div>
-                <Button variant="outlined" onClick={write}>작성</Button>
+                {
+                    state.mode == 1 ? (<></>):(<><Button variant="outlined" onClick={write}>작성</Button></>) 
+                }
+                
                 </Stack>
             </Grid>
         </Container>

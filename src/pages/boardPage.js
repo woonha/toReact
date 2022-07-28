@@ -18,9 +18,9 @@ const BoardPage = () => {
         }
     });
     const navigate = useNavigate();
-    const test = (data) =>{
+    const postClick = (data) =>{
         console.debug("클릭",data)
-        navigate("/temp",{state:data})
+        navigate("/editor",{state:{mode:1, postid:data}})
     }
 
     const size = 10;
@@ -33,7 +33,7 @@ const BoardPage = () => {
         setPage(value);
       };
     const write = () => {
-        navigate("/editor")
+        navigate("/editor",{state:{mode:0}})
       };
     useEffect(() => {
         const params = {"page":page,"size":size};
@@ -105,7 +105,7 @@ const BoardPage = () => {
                             <TableRow
                             key={row.postid}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                            onClick={()=>{test(row.postid)}}>
+                            onClick={()=>{postClick(row.postid)}}>
                             <TableCell component="th" scope="row">
                                 {row.category}
                             </TableCell>
