@@ -122,7 +122,8 @@ const BoardPage = () => {
                         justifyContent="center"
                         alignItems="center"
                         >
-                <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" />
+                {/* <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" /> */}
+                <Pagination count={1} page={page} onChange={handleChange} variant="outlined" color="primary" />
                 </Box>
                 </Stack>
             </Grid>

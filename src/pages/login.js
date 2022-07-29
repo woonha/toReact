@@ -138,16 +138,6 @@ const Login = () => {
         alert("로그인 실패")
       })
   };
-  const clickMe1 = () => {
-    loginTemp();
-    navigate('/');
-    //router.push('/naver.com')
-  };
-  const clickMe2 = () => {
-    logoutTemp();
-    navigate('/');
-    //router.push('/google.com')
-  };
 
   return (
     <>
@@ -255,7 +245,7 @@ const Login = () => {
                   >
                     <Stack direction="row" spacing={3}>
                       <ThemeProvider theme={colorTool}>
-                        <Button
+                        {/* <Button
                           fullWidth
                           href={KAKAO_AUTH_URL}
                           size="large"
@@ -281,7 +271,7 @@ const Login = () => {
                           variant="outlined"
                         >
                           구글 로그인
-                        </Button>
+                        </Button> */}
                       </ThemeProvider>
                     </Stack>
 

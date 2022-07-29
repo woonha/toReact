@@ -14,5 +14,19 @@ module.exports = function(app) {
             target: 'https://kauth.kakao.com/',
             changeOrigin: true,
         })
+    ),
+    app.use(
+        "/rss/search",
+        createProxyMiddleware({
+            target: 'https://news.google.com/',
+            changeOrigin: true,
+        })
+    ),
+    app.use(
+        "/test",
+        createProxyMiddleware({
+            target: 'http://127.0.0.1:5000/',
+            changeOrigin: true,
+        })
     )
 }

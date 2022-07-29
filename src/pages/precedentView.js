@@ -98,6 +98,8 @@ const PrecedentView = () => {
                         <Tab label="Item Seven" {...a11yProps(6)} />
                     </Tabs>
                     <TabPanel value={value} index={0}>
+                    {precedent["사건명"]}
+                    {precedent["사건번호"]}
 {/* 
                         {precedent["본문"].map(gggg=>{
                             return (<Button>gggg</Button>)
