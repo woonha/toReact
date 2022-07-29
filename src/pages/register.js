@@ -55,10 +55,10 @@ const Register = () => {
       pass: '',
       policy: formGroupClasses
     },
-    handleSubmit:()=>{
+    handleSubmit: () => {
       alert("으하하")
     },
-    onSubmit:values=>{
+    onSubmit: values => {
       alert("으어으어으어응")
     },
     validationSchema: Yup.object({
@@ -100,26 +100,21 @@ const Register = () => {
     event.preventDefault();
     console.debug(formik.values);
     axios.post("/member/join", formik.values)
-    .then(res => res)
-    .then(res => {
-        if (res.data==1 && res.status==200){
+      .then(res => res)
+      .then(res => {
+        if (res.data == 1 && res.status == 200) {
           //일단은 제한없이 가입되게됨
           alert("가입되었습니다")
           navigate("/login")
         }
         console.debug(res)
-    })
-};
+      })
+  };
 
   return (
     <>
 
-      <Box
-        component="main"
-        sx={{
-
-        }}
-      >
+      <Box component="main">
         <Container maxWidth="sm">
           <form onSubmit={registerTemp}>
             <ThemeProvider theme={colorTool}>
@@ -137,7 +132,7 @@ const Register = () => {
                     variant="h3"
                     color="primary"
                   >
-                    Sing up
+                    Sign up
                   </Typography>
                   {/* <Typography
                   color="secondary"

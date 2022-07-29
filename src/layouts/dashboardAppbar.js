@@ -21,6 +21,15 @@ import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import { DashboardSearchbar } from './dashboardSearchbar';
 import Circle_Notifications from '@mui/icons-material/CircleNotifications'
+import ListItemIcon from '@mui/material/ListItemIcon';
+import EditIcon from '@mui/icons-material/Edit';
+import AccountBoxSharpIcon from '@mui/icons-material/AccountBoxSharp';
+import LogoutIcon from '@mui/icons-material/Logout';
+import MoreIcon from '@mui/icons-material/MoreVert';
+
+
+
+
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     // alignItems: 'flex-start',
 
@@ -87,6 +96,10 @@ export const DashboardAppbar = () => {
     };
     const [open, setOpen] = useState(false);
 
+    const goToProfile = () => {
+        navigate("/account");
+    };
+
 
     const iconBackColorOpen = 'grey.300';
     const iconBackColor = 'grey.100';
@@ -129,57 +142,133 @@ export const DashboardAppbar = () => {
                 },
             }}
         >
+            <MenuItem onClick={goToProfile}>
+                <ListItemIcon>
+                    <AccountBoxSharpIcon fontSize="small" />
+                </ListItemIcon>
+                내 프로필
+            </MenuItem>
 
-
-            <MenuItem onClick={handleMenuClose}>내 프로필</MenuItem>
-            <MenuItem onClick={handleMenuClose}> 나의 활동</MenuItem>
-            <MenuItem onClick={()=>{logoutButton()}}>로그아웃</MenuItem>
-
+            <MenuItem onClick={handleMenuClose}>
+                <ListItemIcon>
+                    <EditIcon fontSize="small" />
+                </ListItemIcon>
+                나의 활동
+            </MenuItem>
+            <MenuItem onClick={handleMenuClose}>
+                <ListItemIcon>
+                    <LogoutIcon fontSize="small" />
+                </ListItemIcon>
+                로그아웃
+            </MenuItem>
+        </Menu>
+    );
+    const mobileMenuId = 'primary-search-account-menu-mobile';
+    const renderMobileMenu = (
+        <Menu
+            id={mobileMenuId}
+            open={isMobileMenuOpen}
+            onClose={handleMobileMenuClose}
+            anchorEl={mobileMoreAnchorEl}
+            keepMounted
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            PaperProps={{
+                elevation: 0,
+                sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 0,
+                    '& .MuiAvatar-root': {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                    },
+                    '&:before': {
+                        content: '""',
+                        display: 'block',
+                        position: 'absolute',
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: 'background.paper',
+                        transform: 'translateY(-50%) rotate(45deg)',
+                        zIndex: 0,
+                    },
+                },
+            }}
+        >
+            <MenuItem onClick={handleProfileMenuOpen}>
+                <IconButton
+                    size="medium"
+                    aria-label="account of current user"
+                    aria-controls="primary-search-account-menu"
+                    aria-haspopup="true"
+                    color="inherit"
+                >
+                    <Face />
+                </IconButton>
+                <p>Profile</p>
+            </MenuItem>
+            <MenuItem>
+                <IconButton
+                    size="medium"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                >
+                    <Badge badgeContent={17} color="error">
+                        <Circle_Notifications />
+                    </Badge>
+                </IconButton>
+                <p>Notifications</p>
+            </MenuItem>
         </Menu>
     );
 
-    const login = ()=>{
+    const login = () => {
         return (<>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
 
-                    <IconButton
-                        size="large"
-                        aria-label="show 17 new notifications"
+                <IconButton
+                    size="large"
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                >
+                    <Badge badgeContent={17} color="error">
+                        <Circle_Notifications />
+                    </Badge>
+                </IconButton>
+                <IconButton
+                    size="large"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    color="inherit"
+                >
+                    <Face
+                        sx={{ width: 30, height: 30 }}
                         color="inherit"
                     >
-                        <Badge badgeContent={17} color="error">
-                            <Circle_Notifications />
-                        </Badge>
-                    </IconButton>
-                    <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls={menuId}
-                        aria-haspopup="true"
-                        onClick={handleProfileMenuOpen}
-                        color="inherit"
-                    >
-                        <Face
-                            sx={{ width: 30, height: 30 }}
-                            color="inherit"
-                        >
-                        </Face>
-                    </IconButton>
-                    </Box>
-                    {renderMenu}
-                </>)
+                    </Face>
+                </IconButton>
+            </Box>
+            {renderMenu}
+        </>)
     }
-    const notLogin = ()=>{
+    const notLogin = () => {
         return (<>
-                    <Button href="/login" color='inherit' >로그인</Button>
-                    <Button href="/register" variant="contained" theme={colorTool} >회원가입</Button>
-                </>)
+            <Button href="/login" color='inherit' >로그인</Button>
+            <Button href="/register" variant="contained" theme={colorTool} >회원가입</Button>
+        </>)
     }
 
-    const logoutButton = ()=>{
+    const logoutButton = () => {
         logoutTemp();
         navigate("/login")
-    }   
+    }
 
     return (
         <Box
@@ -243,7 +332,7 @@ export const DashboardAppbar = () => {
                     </Stack> */}
                     {isLogin ? login() : notLogin()}
                     {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
-                    
+
                     {/* 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -256,12 +345,44 @@ export const DashboardAppbar = () => {
                             </Button>
                         ))}
                     </Box> */}
-                    
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="show 17 new notifications"
+                            color="inherit"
+                        >
+                            <Badge badgeContent={17} color="error">
+                                <Circle_Notifications />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            size="large"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
+                            <Face />
+                        </IconButton>
+                    </Box>
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="show more"
+                            aria-controls={mobileMenuId}
+                            aria-haspopup="true"
+                            onClick={handleMobileMenuOpen}
+                            color="inherit"
+                        >
+                            <MoreIcon />
+                        </IconButton>
+                    </Box>
                 </StyledToolbar>
             </AppBar>
+            {renderMobileMenu}
+            {renderMenu}
         </Box >
-        // {/* {renderMobileMenu}
-        // {renderMenu} */}
     );
 };
 DashboardAppbar.propTypes = {

@@ -14,9 +14,11 @@ import PrecedentView from './pages/precedentView';
 import PostEditor from './pages/postEditor';
 import Layout from './layouts/Layout';
 import Settings from './pages/settings';
-import UserUpDate from './pages/userUpdate';
-import Profile from './pages/profile';
 import BoardPage from './pages/boardPage';
+import Account from './pages/account';
+
+
+
 
 
 
@@ -35,9 +37,11 @@ export default function Router() {
         { path: 'news', element: <GoogleNews /> },
         { path: 'statute', element: <Statute /> },
         { path: 'precedent', element: <PrecedentPage /> },
-        { path: 'temp', element: <PrecedentView/> },
-        { path: 'editor', element: <PostEditor/> },
-        { path: 'board', element: <BoardPage/> }
+        { path: 'temp', element: <PrecedentView /> },
+        { path: 'editor', element: <PostEditor /> },
+        { path: 'board', element: <BoardPage /> },
+        { path: 'account', element: <Account /> },
+
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },
@@ -49,8 +53,8 @@ export default function Router() {
         { path: 'register', element: <Register /> },
         // { path: 'settingPasswd', element: <SettingPasswd /> },
         { path: 'settings', element: <Settings /> },
-        { path: 'userUpdate', element: <UserUpDate /> },
-        { path: 'profile', element: <Profile /> }
+
+
       ],
     }
   ]);
