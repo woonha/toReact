@@ -26,36 +26,53 @@ const colorTool = createTheme({
   shadows: ['none']
 
 });
-
+const Search = styled("div")(({ theme }) => ({
+  display: "flex",
+  position: "relative",
+  borderRadius: 30,
+  backgroundColor: "#ffebee",
+  border: "2px",
+  borderStyle: "solid",
+  borderColor: "#fe4279",
+  // marginLeft: 10,
+  // ---------------------------------- add the following styles
+  "& :first-child": {
+    flexGrow: 1
+  },
+  width: "auto",
+  ".MuiInputBase-root": {
+    width: "100%"
+  }
+}));
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: "100%",
-  color: 'inherit',
   position: 'relative',
-  '& .MuiInputBase-input': {
-    border: '5px solid #fe4279',
+  "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em )`,
-    paddingRight: `calc(1em + ${theme.spacing(1)})`,
-    transition: theme.transitions.create('width')
+    paddingLeft: `calc(1em + ${theme.spacing(0)})`,
+    paddingRight: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%"
   }
 }));
 
-// const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-//   justifyContent: 'center',
-//   alignItems: 'stretch',
-//   paddingTop: theme.spacing(2),
-//   paddingBottom: theme.spacing(2),
-//   // Override media queries injected by theme.mixins.toolbar
-//   '@media all': {
-//     minHeight: 10,
-//   }
-// }));
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  // position: 'absolute',
+  // pointerEvents: 'none',
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "flex-end"
+  // backgroundColor: 'black',
+  // -----------------------------------> comment this line: width: "100%"
+}));
 
 const Navbar = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(1),
-  paddingBottom: theme.spacing(3),
-  paddingRight: theme.spacing(2),
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(0),
+  paddingRight: theme.spacing(0),
   backgroundColor: theme.palette.background.color,
   boxShadow: theme.shadows[0],
   // position: 'relative',
@@ -70,68 +87,32 @@ export const DashboardSearchbar = (props) => {
         component="main"
         sx={{ flexGrow: 1 }}>
         <Navbar>
-          {/* <Stack>
-            <ThemeProvider theme={colorTool}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-end'
-                }}>
-                <ButtonGroup variant="outlined" aria-label="outlined button group">
-                  <Button
-                    href="/login"
-                    color='secondary'
-
-                    sx={{
-
-                      fontSize: 15,
-                      fontWeight: 'normal',
-
-                    }}>
-                    로그인
-                  </Button>
-                  <Button
-                    href="/register"
-                    color='secondary'
-
-                    sx={{
-
-                      fontSize: 15,
-                      fontWeight: 'normal'
-                    }}>
-                    회원가입
-                  </Button>
-                </ButtonGroup>
-              </Box>
-            </ThemeProvider>
-          </Stack> */}
-
           <ThemeProvider theme={colorTool}>
-            <Container fixed maxWidth="sm" mdisplay="fiex">
-
-
-              <Stack spacing={0} direction="row">
-                <StyledInputBase
-                  placeholder="예)신체적 폭력, 언어폭력">
-                  inputProps={{ 'aria-label': 'search' }}
-                </StyledInputBase>
-                <Button
-                  sx={{ borderRadius: '0' }}
-                  justifyContent='center'
-                  alignItems='stretch'
-                  width="100%"
-                  variant="contained"
-                  color='secondary'
-                  Shadows="none"
-                  type="submit"
-                >
-                  검색
-                </Button>
-              </Stack>
-            </Container>
-
-
+            <Box sx={{ flexGrow: 1 }}>
+              <Search
+                sx={{
+                  width: { xs: "90vw", md: "30vw", lg: "30vw" },
+                  margin: "auto",
+                  marginBottom: "20px"
+                }}
+              >
+                <form action="/" method="get">
+                  <StyledInputBase
+                    // defaultValue={searchQuery}
+                    placeholder="예) 신체폭력, 언어폭력"
+                    inputProps={{ "aria-label": "search" }}
+                    type="search"
+                    name="s"
+                    id="site-search"
+                  />
+                </form>
+                <SearchIconWrapper>
+                  <IconButton>
+                    <SearchIcon style={{ color: "#fe4279" }} />
+                  </IconButton>
+                </SearchIconWrapper>
+              </Search>
+            </Box>
           </ThemeProvider>
         </Navbar>
       </Box >
@@ -142,3 +123,4 @@ export const DashboardSearchbar = (props) => {
 DashboardSearchbar.propTypes = {
   onSidebarOpen: PropTypes.func
 };
+

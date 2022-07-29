@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { styled } from "@mui/material/styles";
+
 import Stack from '@mui/material/Stack';
 import { Box, Button, Container, Grid, Link, TextField, Typography, Paper } from '@mui/material';
 import Divider from "@mui/material/Divider";
@@ -10,43 +12,25 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
-
-const colorTool = createTheme({
-  palette: {
-    primary: {
-      main: '#fe4279', //메인 분홍이
-      light: '#828DF8',
-      dark: '#3832A0',
-      contrastText: '#ffebee'
-    },
-    secondary: { //버튼
-      main: '#fe4279',
-      light: '#3FC79A',
-      dark: '#0B815A',
-      contrastText: '#FFFFFF'
-    },
-    text: {
-      primary: '#937DC2', //보라보라
-      secondary: '#B25068', //와인
-      disabled: 'rgba(55, 65, 81, 0.48)'
-    },
-    success: {
-      main: '#FFB562', //노랑노랑
-      light: '#43C6B7',
-      dark: '#0E8074',
-      contrastText: '#FFFFFF'
-    },
-    text: {
-      primary: '#FFB562',
-      secondary: '#65748B',
-      disabled: 'rgba(55, 65, 81, 0.48)'
-    }
-  }
-});
-
-
-
 // ------------------------------------------------
+const CssTextField = styled(TextField)({
+
+  '& label.Mui-focused': {
+    color: '#FE4279',
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: '#FE4279',
+  },
+  '& .MuiOutlinedInput-root': {
+    color: '#FE4279'
+  },
+  '& fieldset': {
+    borderColor: '#FE4279',
+  }
+},
+);
+// ----------------------------------------------------
+
 const Login = () => {
 
   const navigate = useNavigate();
@@ -58,32 +42,32 @@ const Login = () => {
     onSuccess: tokenResponse => console.log(tokenResponse),
   });
   const params = new URLSearchParams(window.location.search)
-  
+
   useEffect(() => {
-    console.debug("로그인하하",params.get("code"));
+    console.debug("로그인하하", params.get("code"));
     let code = params.get("code");
-    if(code!= null){
+    if (code != null) {
       let cli = "kgq7HvEMvLTGJyar3LH0js6bsXQFSFTB";
-      let url = "/kauth/oauth/token?grant_type=authorization_code&client_id="+REST_API_KEY+"&code="+code+"&redirect_uri="+"/login";
-      if (code != null){
+      let url = "/kauth/oauth/token?grant_type=authorization_code&client_id=" + REST_API_KEY + "&code=" + code + "&redirect_uri=" + "/login";
+      if (code != null) {
         axios.get(url)
-        .then(res=>res)
-        .then(res=>{
-          console.debug(res.access_token,"res")
-          axios.get("/kauth/v2/user/me", {
+          .then(res => res)
+          .then(res => {
+            console.debug(res.access_token, "res")
+            axios.get("/kauth/v2/user/me", {
               headers: {
-                  Authorization: `Bearer ${res.access_token}`
+                Authorization: `Bearer ${res.access_token}`
               }
+            })
+              .then(res => res)
+              .then(res => {
+                console.debug("진짜 토큰 가져옴?", res)
+              })
           })
-          .then(res=>res)
-          .then(res=>{
-            console.debug("진짜 토큰 가져옴?", res)
-          })
-        })
       }
     }
-    
-    
+
+
 
   }, [])
   const formik = useFormik({
@@ -141,111 +125,108 @@ const Login = () => {
 
   return (
     <>
-      <Box>
+      <Box component="main">
         <Container maxWidth="sm">
           <form onSubmit={loginHahH}>
-            <ThemeProvider theme={colorTool}>
-              <Paper variant="outlined" sx={{ my: { xs: 3, md: 5 }, p: { xs: 2, md: 3 } }} >
-                <Box sx={{
-                  my: 5,
-                  marginTop: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}>
-                  <Typography
-                    fontFamily="-apple-system"
-                    variant="h3"
-                    color="primary"
-                  >
-                    Login
-                  </Typography>
-                </Box>
 
-                <TextField
-                  error={Boolean(formik.touched.id && formik.errors.id)}
-                  fullWidth
-                  helperText={formik.touched.id && formik.errors.id}
-                  label="이메일"
-                  margin="normal"
-                  name="email"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  type="email"
-                  value={formik.values.email}
-                  variant="outlined"
-                />
-                <TextField
-                  error={Boolean(formik.touched.pass && formik.errors.pass)}
-                  fullWidth
-                  helperText={formik.touched.pass && formik.errors.pass}
-                  label="비밀번호"
-                  margin="normal"
-                  name="pass"
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  type="password"
-                  value={formik.values.pass}
-                  variant="outlined"
-                />
-                <Box sx={{ py: 2 }}>
-
-                  <Button
-                    disabled={formik.isSubmitting}
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    sx={{ mt: 2.5 }}
-                  >
-                    로그인
-                  </Button>
-
-                </Box>
+            <Paper variant="undefined" sx={{ my: { xs: 3, md: 5 }, p: { xs: 2, md: 3 } }} >
+              <Box sx={{
+                my: 5,
+                marginTop: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
+              }}>
                 <Typography
-                  color="Secondary"
-                  variant="body2"
+                  fontFamily="-apple-system"
+                  variant="h3"
+                  color="primary"
                 >
+                  Login
+                </Typography>
+              </Box>
 
-                  <Grid container>
-                    <Grid item xs >
+              <CssTextField
+                error={Boolean(formik.touched.id && formik.errors.id)}
+                fullWidth
+                helperText={formik.touched.id && formik.errors.id}
+                label="이메일"
+                margin="normal"
+                name="email"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                type="email"
+                value={formik.values.email}
+                variant="outlined"
+              />
+              <CssTextField
+                error={Boolean(formik.touched.pass && formik.errors.pass)}
+                fullWidth
+                helperText={formik.touched.pass && formik.errors.pass}
+                label="비밀번호"
+                margin="normal"
+                name="pass"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                type="password"
+                value={formik.values.pass}
+                variant="outlined"
+              />
+              <Box sx={{ py: 2 }}>
 
+                <Button
+                  disabled={formik.isSubmitting}
+                  fullWidth
+                  size="large"
+                  type="submit"
+                  variant="contained"
+                  sx={{ mt: 2.5 }}
+                >
+                  로그인
+                </Button>
 
-                    </Grid>
-                    <Grid item>
-                      <Link
-                        href="/settings"
-                        variant="body2"
-                        underline="hover"
-                        sx={{
-                          cursor: 'pointer'
-                        }}
-                      >
-                        비밀번호찾기
-                      </Link>
-                    </Grid>
+              </Box>
+              <Typography
+                color="Secondary"
+                variant="body2"
+              >
+                <Grid container>
+                  <Grid item xs >
                   </Grid>
-                </Typography>
+                  <Grid item>
+                    <Link
+                      href="/settings"
+                      variant="body2"
+                      underline="hover"
+                      sx={{
+                        cursor: 'pointer'
+                      }}
+                    >
+                      비밀번호찾기
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Typography>
 
-                <Grid item xs={12}></Grid>
-                <Typography
-                  color="primary">
-                  <Divider>
-                    간편 로그인
-                  </Divider>
-                </Typography>
+              <Grid item xs={12}></Grid>
+              <Typography
+                color="primary">
+                <Divider>
+                  간편 로그인
+                </Divider>
+              </Typography>
 
-                <Grid item xs>
-                  <Box
-                    sx={{
-                      my: 3,
-                      marginTop: 3,
-                      borderColor: 'palette'
-                    }}
-                  >
-                    <Stack direction="row" spacing={3}>
-                      <ThemeProvider theme={colorTool}>
-                        {/* <Button
+              <Grid item xs>
+                <Box
+                  sx={{
+                    my: 3,
+                    marginTop: 3,
+                    borderColor: 'palette'
+                  }}
+                >
+                  <Stack direction="row" spacing={3}>
+
+                    {/* <Button
                           fullWidth
                           href={KAKAO_AUTH_URL}
                           size="large"
@@ -272,30 +253,29 @@ const Login = () => {
                         >
                           구글 로그인
                         </Button> */}
-                      </ThemeProvider>
-                    </Stack>
+                  </Stack>
 
-                  </Box>
-                </Grid>
-                <Typography
-                  color="textSecondary"
-                  variant="body2"
+                </Box>
+              </Grid>
+              <Typography
+                color="textSecondary"
+                variant="body2"
+              >
+                계정이 없으신가요?
+                {' '}
+
+                <Link
+                  variant="subtitle2"
+                  underline="hover"
+
+                  href="/register"
                 >
-                  계정이 없으신가요?
-                  {' '}
+                  회원가입
+                </Link>
 
-                  <Link
-                    variant="subtitle2"
-                    underline="hover"
+              </Typography>
+            </Paper>
 
-                    href="/register"
-                  >
-                    회원가입
-                  </Link>
-
-                </Typography>
-              </Paper>
-            </ThemeProvider>
           </form>
         </Container>
       </Box>

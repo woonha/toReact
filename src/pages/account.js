@@ -8,9 +8,11 @@ import Toolbar from '@mui/material/Toolbar';
 import AppBar from '@mui/material/AppBar';
 
 const Account = () => (
+
     <>
         <AccountTabs></AccountTabs>
     </>
+
 );
 
 Account.getLayout = (page) => (

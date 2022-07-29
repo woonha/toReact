@@ -28,12 +28,8 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
 
-
-
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     // alignItems: 'flex-start',
-
-
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     // flexDirection: 'column',
@@ -99,10 +95,6 @@ export const DashboardAppbar = () => {
     const goToProfile = () => {
         navigate("/account");
     };
-
-
-    const iconBackColorOpen = 'grey.300';
-    const iconBackColor = 'grey.100';
 
     const menuId = 'primary-search-account-menu';
 
@@ -279,7 +271,7 @@ export const DashboardAppbar = () => {
                     {/* <Box sx={{ flexGrow: 1 }} /> */}
 
                     <Link
-                        variant="h1"
+                        variant="h3"
                         href="/"
                         to="/"
                         color="inherit"

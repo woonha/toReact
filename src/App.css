@@ -6,7 +6,11 @@
   height: 40vmin;
   pointer-events: none;
 }
-@font-face { font-family: 'GangwonEdu_OTFBoldA'; src: url(./fonts/강원교육모두\ Light.ttf) format('truetype'); }
+
+@font-face {
+  font-family: 'GangwonEdu_OTFBoldA';
+  src: url(./fonts/강원교육모두\ Light.ttf) format('truetype');
+}
 
 
 @media (prefers-reduced-motion: no-preference) {

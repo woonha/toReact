@@ -28,7 +28,10 @@ const colorTool = createTheme({
 export default function VerifyEmail() {
     return (
         <React.Fragment>
-            <Typography variant="subtitle2" gutterBottom color="primary">
+            <Typography color="primary" variant="h6" gutterBottom marked="center" align="center">
+                비밀번호 재설정
+            </Typography>
+            <Typography variant="subtitle2" gutterBottom color="primary" margin={3} marginBottom={6}>
                 비밀번호를 재설정해주세요.
             </Typography>
             <Grid container spacing={3}>

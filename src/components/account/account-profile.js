@@ -8,29 +8,9 @@ import FormHelperText from '@mui/material/FormHelperText';
 import InputBase from '@mui/material/InputBase';
 import InputLabel from '@mui/material/InputLabel';
 import { alpha, styled } from "@mui/material/styles";
+import { theme } from '../../theme';
 
 
-const colorTool = createTheme({
-    palette: {
-        primary: {
-            main: '#fe4279', //메인 분홍이
-            light: '#828DF8',
-            dark: '#3832A0',
-            contrastText: '#ffebee'
-        },
-        secondary: { //버튼
-            main: '#E7AB79',//황토황토
-            light: '#3FC79A',
-            dark: '#0B815A',
-            contrastText: '#FFFFFF'
-        },
-        background: {
-            default: '#ffebee',
-            paper: '#ffebee',//분홍이
-            color: '#ffebee'
-        }
-    }
-});
 const StyleTextField = styled((props) => (
     <TextField InputProps={{ disableUnderline: false, style: { fontSize: 20 } }} {...props} />))
     (({ theme }) => ({
@@ -72,7 +52,7 @@ export const AccountProfile = (props) => {
                 noValidate
                 {...props}
             >
-                <ThemeProvider theme={colorTool}>
+                <ThemeProvider theme={theme}>
                     <Paper variant="undefined" sx={{ my: { xs: 3, md: 5 }, p: { xs: 2, md: 3 } }}  >
                         <Box sx={{
                             my: 5,

@@ -152,18 +152,20 @@ export const theme = createTheme({
       disabled: 'rgba(55, 65, 81, 0.26)'
     },
     background: {
-      default: '#F9FAFC',
-      paper: '#F9FAFC',//분홍이
-      color: '#ffebee'
+      // #FEC87D
+      default: '#ffebee',//연한 분홍이
+      paper: '#ffebee',
+      color: '#ffebee',
+      bbb: '#ffffff'
     },
-    divider: '#fe4279',
+    divider: '#FE4279',
     primary: {
-      main: '#5048E5',
+      main: '#FE4279',
       light: '#828DF8',
-      dark: '#3832A0',
-      contrastText: '#FFFFFF'
+      dark: '#FE4279',
+      contrastText: '#ffebee'
     },
-    secondary: {
+    secondary: { //button color
       main: '#10B981',
       light: '#3FC79A',
       dark: '#0B815A',
@@ -195,7 +197,7 @@ export const theme = createTheme({
     },
     text: {
       primary: '#121828',
-      secondary: '#65748B',
+      secondary: '#FE4279',
       disabled: 'rgba(55, 65, 81, 0.48)'
     }
   },
