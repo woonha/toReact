@@ -98,6 +98,11 @@ export const DashboardAppbar = () => {
 
     const menuId = 'primary-search-account-menu';
 
+    const logoutButton = () => {
+        logoutTemp();
+        navigate("/login")
+    }
+
     // 네모창 컨트롤
     const renderMenu = (
         <Menu
@@ -147,7 +152,7 @@ export const DashboardAppbar = () => {
                 </ListItemIcon>
                 나의 활동
             </MenuItem>
-            <MenuItem onClick={handleMenuClose}>
+            <MenuItem onClick={logoutButton}>
                 <ListItemIcon>
                     <LogoutIcon fontSize="small" />
                 </ListItemIcon>
@@ -247,7 +252,20 @@ export const DashboardAppbar = () => {
                     </Face>
                 </IconButton>
             </Box>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                        <IconButton
+                            size="large"
+                            aria-label="show more"
+                            aria-controls={mobileMenuId}
+                            aria-haspopup="true"
+                            onClick={handleMobileMenuOpen}
+                            color="inherit"
+                        >
+                            <MoreIcon />
+                        </IconButton>
+            </Box>
             {renderMenu}
+            {renderMobileMenu}
         </>)
     }
     const notLogin = () => {
@@ -255,11 +273,6 @@ export const DashboardAppbar = () => {
             <Button href="/login" color='inherit' >로그인</Button>
             <Button href="/register" variant="contained" theme={colorTool} >회원가입</Button>
         </>)
-    }
-
-    const logoutButton = () => {
-        logoutTemp();
-        navigate("/login")
     }
 
     return (
@@ -324,56 +337,8 @@ export const DashboardAppbar = () => {
                     </Stack> */}
                     {isLogin ? login() : notLogin()}
                     {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
-
-                    {/* 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))}
-                    </Box> */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={17} color="error">
-                                <Circle_Notifications />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <Face />
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
-                    </Box>
                 </StyledToolbar>
             </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
         </Box >
     );
 };
