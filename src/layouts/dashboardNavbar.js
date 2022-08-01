@@ -3,6 +3,7 @@ import { styled, alpha } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Divider from '@mui/material/Divider';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { Box, Button, Container, Grid, Link, TextField, Typography, Paper, Stack } from '@mui/material';
@@ -13,63 +14,41 @@ import { check } from '../auth/auth';
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(0),
-
     alignItems: 'center',
     '@media all': {
         minHeight: 50,
     }
 }));
 
-const colorTool = createTheme({
+const theme = createTheme({
     palette: {
         primary: {
-            main: '#fe4279',
-            light: '#fe9D7C',
-            dark: '#FC4279',
-            contrastText: '#ffebee',
-            backgroundColor: '#fe4279'
+            // light: will be calculated from palette.primary.main,
+            main: '#ffebee',
+            contrastText: '#FE4279',
+            // dark: will be calculated from palette.primary.main,
+            // contrastText: will be calculated to contrast with palette.primary.main
         },
-        neutural: {
-            main: '#828df8'
+        neutral: {
+            main: '#FE4279',
+            contrastText: '#FE4279',
         },
-        secondary: { //버튼
-            main: '#fe4279',
-            light: '#3FC79A',
-            dark: '#fe4279',
-            contrastText: '#fe4279'
-        },
+
 
     },
-    shadows: ['none'],
-    typography: {
-        h3: {
-            fontWeight: 700,
-            fontSize: '2.25rem',
-            lineHeight: 1.375
-        }
-    }
-
+    shadows: ['none']
 });
+
 const StyledButton = styled(Button)({
-    width: 200,
     height: 'auto',
-    fontSize: 15,
-    fontFamily: "-apple-system",
+    fontSize: 16,
+    color: '#FE4279',
 
-    '&:hover': {
-        backgroundColor: 'none',
-        borderColor: 'none',
-        boxShadow: 'none',
-        color: 'none',
-    },
-    color: 'inherit'
+
+
 });
 
-const RootStyle = styled('div')({
-    display: 'flex',
-    minHeight: '100%',
-    overflow: 'hidden'
-});
+
 export const DashboardNavbar = () => {
     const [isLogin, setIsLogin] = React.useState(false);
     React.useEffect(() => {
@@ -102,60 +81,80 @@ export const DashboardNavbar = () => {
     };
 
     return (
-        <RootStyle>
+        <ThemeProvider theme={theme}>
+
             <Box
                 component="main"
                 width={'100%'}
                 minHeight='100%'
             >
-                <AppBar theme={colorTool} position="relative">
+                <AppBar position="relative">
                     <StyledToolbar>
-                        <Grid container width={'100%'} flexWrap='nowrap' justifyContent='center'>
-                            <Box>
-                                <StyledButton
-                                    href="/statute"
-                                    fontFamily="-apple-system"
-                                >
-                                    법률
-                                </StyledButton>
-                            </Box>
-                            <Box>
-                                <StyledButton
-                                    href="/precedent"
-                                    fontFamily="-apple-system"
-                                >
-                                    판례
-                                </StyledButton>
-                            </Box>
-                            <Box>
-                                <StyledButton
-                                    href="/board"
-                                    fontFamily="-apple-system"
-                                >
-                                    게시판
-                                </StyledButton>
-                            </Box>
-                            <Box item xs={6} sm={3}
+                        <Grid container width={'100%'} justifyContent='flex-end'>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    width: 'fit-content',
+                                    '& svg': {
+                                        m: 1.5,
+                                    },
+                                    '& hr': {
+                                        mx: 2.5,
+                                    },
+                                }}
                             >
-                                <StyledButton
-                                    href="/news"
-                                >
-                                    카드뉴스
-                                </StyledButton>
-                            </Box>
-                            <Box item xs={6} sm={3}>
-                                <StyledButton
-                                    href="/wordCloud"
-                                >
-                                    법령 클라우드
-                                </StyledButton>
-                            </Box>
-                            <Box item xs={6} sm={3}>
-                                <StyledButton
-                                    href="/chart"
-                                >
-                                    실태조사
-                                </StyledButton>
+                                <Box>
+                                    <StyledButton
+                                        paddingBottom={10}
+                                        href="/statute"
+                                    >
+                                        법령
+                                    </StyledButton>
+                                </Box>
+                                <Divider orientation="vertical" variant="middle" flexItem />
+                                <Box>
+                                    <StyledButton
+                                        href="/precedent"
+
+                                    >
+                                        판례
+                                    </StyledButton>
+                                </Box>
+                                <Divider orientation="vertical" variant="middle" flexItem />
+                                <Box>
+                                    <StyledButton
+                                        href="/board"
+
+                                    >
+                                        게시판
+                                    </StyledButton>
+                                </Box>
+                                <Divider orientation="vertical" variant="middle" flexItem />
+                                <Box>
+                                    <StyledButton
+                                        href="/news"
+                                    >
+                                        카드뉴스
+                                    </StyledButton>
+                                </Box>
+                                <Divider orientation="vertical" variant="middle" flexItem />
+                                <Box>
+                                    <StyledButton
+                                        href="/wordCloud"
+
+                                    >
+                                        법령 클라우드
+                                    </StyledButton>
+                                </Box>
+                                <Divider orientation="vertical" variant="middle" flexItem />
+                                <Box>
+                                    <StyledButton
+                                        href="/chart"
+                                    >
+                                        실태조사
+                                    </StyledButton>
+                                </Box>
                             </Box>
                         </Grid>
                     </StyledToolbar >
@@ -163,7 +162,7 @@ export const DashboardNavbar = () => {
                 </AppBar >
             </Box >
 
-        </RootStyle>
+        </ThemeProvider >
     );
 };
 DashboardNavbar.propTypes = {

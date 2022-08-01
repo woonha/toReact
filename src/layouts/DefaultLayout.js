@@ -3,8 +3,6 @@ import { Outlet } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { DashboardAppbar } from './dashboardAppbar';
 import { DashboardNavbar } from './dashboardNavbar';
-import { DashboardLogobar } from './dashboardLogobar';
-import { DashboardSearchbar } from './dashboardSearchbar';
 
 import Footer from './footer';
 import { Box } from '@mui/material';

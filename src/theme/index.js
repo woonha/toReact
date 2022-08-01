@@ -235,7 +235,7 @@ export const theme = createTheme({
     button: {
       fontWeight: 600
     },
-    fontFamily: '"GangwonEdu_OTFBoldA", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+    fontFamily: '"Orbitron-VariableFont_wght","GowunDodum-Regular","GangwonEdu_OTFBoldA", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
@@ -247,6 +247,14 @@ export const theme = createTheme({
       fontWeight: 400,
       lineHeight: 1.57
     },
+
+    body3: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+      lineHeight: 1.57,
+      fontFamily: 'Orbitron-SemiBold'
+    },
+
     subtitle1: {
       fontSize: '1rem',
       fontWeight: 900,

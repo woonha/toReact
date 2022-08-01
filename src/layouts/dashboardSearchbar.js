@@ -6,32 +6,12 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import shadows from '@mui/material/styles/shadows';
 
-
-
-const colorTool = createTheme({
-  palette: {
-    primary: {
-      main: '#fe4279',
-      light: '#fe9D7C',
-      dark: '#FC4279',
-      contrastText: '#ffebee'
-    },
-    secondary: { //버튼
-      main: '#fe4279',
-      light: '#3FC79A',
-      dark: '#0B815A',
-      contrastText: '#ffebee'
-    },
-  },
-  shadows: ['none']
-
-});
 const Search = styled("div")(({ theme }) => ({
   display: "flex",
   position: "relative",
   borderRadius: 30,
   backgroundColor: "#ffebee",
-  border: "2px",
+  border: "4px",
   borderStyle: "solid",
   borderColor: "#fe4279",
   // marginLeft: 10,
@@ -87,33 +67,31 @@ export const DashboardSearchbar = (props) => {
         component="main"
         sx={{ flexGrow: 1 }}>
         <Navbar>
-          <ThemeProvider theme={colorTool}>
-            <Box sx={{ flexGrow: 1 }}>
-              <Search
-                sx={{
-                  width: { xs: "90vw", md: "30vw", lg: "30vw" },
-                  margin: "auto",
-                  marginBottom: "20px"
-                }}
-              >
-                <form action="/" method="get">
-                  <StyledInputBase
-                    // defaultValue={searchQuery}
-                    placeholder="예) 신체폭력, 언어폭력"
-                    inputProps={{ "aria-label": "search" }}
-                    type="search"
-                    name="s"
-                    id="site-search"
-                  />
-                </form>
-                <SearchIconWrapper>
-                  <IconButton>
-                    <SearchIcon style={{ color: "#fe4279" }} />
-                  </IconButton>
-                </SearchIconWrapper>
-              </Search>
-            </Box>
-          </ThemeProvider>
+          <Box sx={{ flexGrow: 1 }}>
+            <Search
+              sx={{
+                width: { xs: "90vw", md: "30vw", lg: "30vw" },
+                margin: "auto",
+                marginBottom: "20px"
+              }}
+            >
+              <form action="/" method="get">
+                <StyledInputBase
+                  // defaultValue={searchQuery}
+                  placeholder="예) 신체폭력, 언어폭력"
+                  inputProps={{ "aria-label": "search" }}
+                  type="search"
+                  name="s"
+                  id="site-search"
+                />
+              </form>
+              <SearchIconWrapper>
+                <IconButton>
+                  <SearchIcon style={{ color: "#fe4279" }} />
+                </IconButton>
+              </SearchIconWrapper>
+            </Search>
+          </Box>
         </Navbar>
       </Box >
     </>

@@ -4,9 +4,7 @@ import { styled, alpha } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import { Box, ButtonGroup, Container, Grid, TextField, Typography, Paper, Stack } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, ButtonGroup, Container, Grid, TextField, Typography, Paper, Stack, useTheme, ThemeProvider } from '@mui/material';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import { useNavigate } from 'react-router-dom';
@@ -27,39 +25,58 @@ import AccountBoxSharpIcon from '@mui/icons-material/AccountBoxSharp';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
+const theme = createTheme({
+    palette: {
+        primary: {
+            // light: will be calculated from palette.primary.main,
+            main: '#ffebee',
+            contrastText: '#FE4279',
+            // dark: will be calculated from palette.primary.main,
+            // contrastText: will be calculated to contrast with palette.primary.main
+        },
+        neutral: {
+            main: '#FE4279',
+            contrastText: '#ffebee',
+        }
+    },
+    typography: {
+        button: {
+            fontWeight: 600
+        },
+        fontFamily: '"Orbitron-VariableFont_wght"'
+    },
+
+    shadows: ['none']
+});
+
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     // alignItems: 'flex-start',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
+    fontFamily: "Orbitron-VariableFont_wght",
     // flexDirection: 'column',
     // Override media queries injected by theme.mixins.toolbar
     '@media all': {
         minHeight: 10,
     },
 }));
-const colorTool = createTheme({
-    palette: {
-        primary: {
-            main: '#ffebee',
-            light: '#fe9D7C',
-            dark: '#FC4279',
-            contrastText: '#fe4279'
-        },
-        neutural: {
-            main: '#828df8'
-        },
-        secondary: { //버튼
-            main: '#fe4279',//황토황토
-            light: '#3FC79A',
-            dark: '#fe4279',
-            contrastText: '#ffebee'
-        },
-    },
-    shadows: ['none']
+
+const StyledButton = styled(Button)({
+
+    height: 'auto',
+    fontSize: 12,
+    fontFamily: "-apple-system",
+    size: "sm",
+    padding: '10px',
+    display: 'flex',
+    justifyContent: 'space-around'
+
 });
 
 export const DashboardAppbar = () => {
+
+
     const navigate = useNavigate();
     const [isLogin, setIsLogin] = React.useState(false);
     React.useEffect(() => {
@@ -253,16 +270,16 @@ export const DashboardAppbar = () => {
                 </IconButton>
             </Box>
             <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MoreIcon />
-                        </IconButton>
+                <IconButton
+                    size="large"
+                    aria-label="show more"
+                    aria-controls={mobileMenuId}
+                    aria-haspopup="true"
+                    onClick={handleMobileMenuOpen}
+                    color="inherit"
+                >
+                    <MoreIcon />
+                </IconButton>
             </Box>
             {renderMenu}
             {renderMobileMenu}
@@ -270,39 +287,46 @@ export const DashboardAppbar = () => {
     }
     const notLogin = () => {
         return (<>
-            <Button href="/login" color='inherit' >로그인</Button>
-            <Button href="/register" variant="contained" theme={colorTool} >회원가입</Button>
+            <StyledButton href="/login" color='inherit'>로그인</StyledButton>
+            <StyledButton href="/register" variant="contained" color="neutral">회원가입</StyledButton>
         </>)
     }
 
     return (
-        <Box
-            width="100%"
-            component="main">
-            <AppBar position="static" theme={colorTool}>
-                <StyledToolbar>
-                    {/* <Box sx={{ flexGrow: 1 }} /> */}
+        <ThemeProvider theme={theme}>
+            <Box
+                width="100%"
+                component="main">
 
-                    <Link
-                        variant="h3"
-                        href="/"
-                        to="/"
-                        color="inherit"
-                        noWrap
-                        underline="hover"
-                    // sx={{
-                    //     cursor: 'pointer',
-                    //     flexGrow: 0.8,
-                    //     mx: 3,
-                    //     mr: 3,
-                    // }}
-                    >
-                        Lawbot
-                        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-                    </Link>
-                    <DashboardSearchbar></DashboardSearchbar>
+                <AppBar position="static">
+                    <StyledToolbar>
+                        {/* <Box sx={{ flexGrow: 1 }} /> */}
+                        <Box
+                            sx={{
+                                typography: 'h3',
+                                fontFamily: 'Orbitron-VariableFont_wght'
+                            }}>
+                            <Link
+                                href="/"
+                                to="/"
+                                color="inherit"
+                                noWrap
+                                underline="none"
 
-                    {/* <Stack>
+                            // sx={{
+                            //     cursor: 'pointer',
+                            //     flexGrow: 0.8,
+                            //     mx: 3,
+                            //     mr: 3,
+                            // }}
+                            >
+                                Lawbot
+                                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                            </Link></Box>
+
+                        <DashboardSearchbar></DashboardSearchbar>
+
+                        {/* <Stack>
                         <ThemeProvider theme={colorTool}>
                             <Box
                                 sx={{
@@ -335,11 +359,14 @@ export const DashboardAppbar = () => {
                             </Box>
                         </ThemeProvider>
                     </Stack> */}
-                    {isLogin ? login() : notLogin()}
-                    {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
-                </StyledToolbar>
-            </AppBar>
-        </Box >
+                        {isLogin ? login() : notLogin()}
+                        {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
+                    </StyledToolbar>
+                </AppBar>
+
+            </Box >
+        </ThemeProvider >
+
     );
 };
 DashboardAppbar.propTypes = {

@@ -1,7 +1,16 @@
 import { Breadcrumbs, Button, Container, createTheme, Grid, Link, Stack, Typography } from '@mui/material';
-import React from 'react';
+// import React from 'react';
 import Title from '../components/chart/title';
 import MainCard from '../components/lawCard';
+// --------------------------------------
+import * as React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 
 const Statute = () => {
@@ -151,145 +160,152 @@ const Statute = () => {
   }
   ]
   function test(test) {
-    let 조문제목 = test["조문제목"] + ")"
+    const 조문제목 = test["조문제목"] + ")"
     return [test["조문내용"].split(조문제목)[0] + test["조문제목"] + ")", test["조문내용"].split(조문제목)[1]]
   }
   return (
-    <>
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Grid item xs={12} lg={6}>
-          <Typography theme={colorTool} align="center" component="h2" variant="h4" color="primary" gutterBottom>
-            {"법령"}
-          </Typography>
-          <Stack spacing={3}>
-            {testData.map(data => {
-              return (
-                <MainCard title={test(data)[0]} codeHighlight>
-                  <Typography variant="body1" gutterBottom>
-                    {test(data)[1]}
-                  </Typography>
 
-                  {data["항"].map(hang => {
-                    return (
-                      <>
-                        <Typography variant="body2" gutterBottom>
-                          {hang["항내용"]}
-                        </Typography>
-                        {hang["호"].map(ho => {
-                          return (
-                            <Typography color="textSecondary" variant="body2" gutterBottom>
-                              {ho["호내용"]}
-                            </Typography>
-                          )
-                        })}
-                      </>
-                    )
-                  })}
-                </MainCard>
-              )
-            })}
+    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 
-            <MainCard title="Gutter Bottom" codeHighlight>
-              <>
-                <Typography variant="body1" gutterBottom>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
-                </Typography>
+      <Grid item xs={12} lg={6}>
+        <Typography theme={colorTool} align="center" component="h2" variant="h4" color="primary" gutterBottom>
+          {"법령"}
+        </Typography>
+        <Stack spacing={3}>
+
+          {testData.map(data => {
+            return (
+              <MainCard title={test(data)[0]} codeHighlight>
+                {/* 1조 */}
                 <Typography variant="body2" gutterBottom>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
+                  {test(data)[1]}
                 </Typography>
-                <Breadcrumbs aria-label="breadcrumb">
-                  <Typography variant="h6">Size: 12px</Typography>
-                  <Typography variant="h6">Weight: Regular</Typography>
-                  <Typography variant="h6">Line Height: 20px</Typography>
-                </Breadcrumbs>
-              </>
-            </MainCard>
-            <MainCard title="Overline" codeHighlight>
-              <Stack spacing={1.5}>
-                <Typography variant="overline">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
-                </Typography>
-                <Breadcrumbs aria-label="breadcrumb">
-                  <Typography variant="h6">Size: 12px</Typography>
-                  <Typography variant="h6">Weight: Regular</Typography>
-                  <Typography variant="h6">Line Height: 20px</Typography>
-                </Breadcrumbs>
-              </Stack>
-            </MainCard>
-            <MainCard title="Link" codeHighlight>
-              <Stack spacing={1.5}>
-                <Link href="#">www.mantis.com</Link>
-                <Breadcrumbs aria-label="breadcrumb">
-                  <Typography variant="h6">Size: 12px</Typography>
-                  <Typography variant="h6">Weight: Regular</Typography>
-                  <Typography variant="h6">Line Height: 20px</Typography>
-                </Breadcrumbs>
-              </Stack>
-            </MainCard>
-            <MainCard title="Colors" codeHighlight>
-              <>
-                <Typography variant="h6" color="textPrimary" gutterBottom>
-                  This is textPrimary text color.
-                </Typography>
-                <Typography variant="h6" color="textSecondary" gutterBottom>
-                  This is textSecondary text color.
-                </Typography>
-                <Typography variant="h6" color="primary" gutterBottom>
-                  This is primary text color.
-                </Typography>
-                <Typography variant="h6" color="secondary" gutterBottom>
-                  This is secondary text color.
-                </Typography>
-                <Typography variant="h6" color="success" gutterBottom>
-                  This is success text color.
-                </Typography>
-                <Typography variant="h6" sx={{ color: 'warning.main' }} gutterBottom>
-                  This is warning text color.
-                </Typography>
-                <Typography variant="h6" color="error" gutterBottom>
-                  This is error text color.
-                </Typography>
-              </>
-            </MainCard>
-            <MainCard title="Paragraph" codeHighlight>
-              <>
-                <Typography variant="body1" gutterBottom>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua.
-                </Typography>
-                <Breadcrumbs aria-label="breadcrumb">
-                  <Typography variant="h6">Size: 14px</Typography>
-                  <Typography variant="h6">Weight: Regular</Typography>
-                  <Typography variant="h6">Line Height: 22px</Typography>
-                </Breadcrumbs>
-              </>
-            </MainCard>
-            <MainCard title="Font Style" codeHighlight>
-              <>
-                <Typography variant="body1" gutterBottom sx={{ fontStyle: 'italic' }}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
-                </Typography>
-                <Typography variant="subtitle1" gutterBottom sx={{ fontStyle: 'italic' }}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
-                </Typography>
-                <Breadcrumbs aria-label="breadcrumb">
-                  <Typography variant="h6">Size: 14px</Typography>
-                  <Typography variant="h6">Weight: Italic Regular & Italic Bold</Typography>
-                  <Typography variant="h6">Line Height: 22px</Typography>
-                </Breadcrumbs>
-              </>
-            </MainCard>
-          </Stack>
-        </Grid>
-      </Container>
 
-    </>
+                {data["항"].map(hang => {
+                  return (
+                    <>
+                      {/* 4조5조 */}
+                      <Typography variant="body2" gutterBottom>
+                        {hang["항내용"]}
+                      </Typography>
+
+
+                      {hang["호"].map(ho => {
+                        return (
+                          // 2조
+                          <Typography color="textSecondary" variant="body2" gutterBottom>
+                            {ho["호내용"]}
+                          </Typography>
+                        )
+                      })}
+                    </>
+                  )
+                })}
+              </MainCard>
+            )
+          })}
+
+          <MainCard title="Gutter Bottom" codeHighlight>
+            <>
+              <Typography variant="body1" gutterBottom>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </Typography>
+              <Typography variant="body2" gutterBottom>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </Typography>
+              <Breadcrumbs aria-label="breadcrumb">
+                <Typography variant="h6">Size: 12px</Typography>
+                <Typography variant="h6">Weight: Regular</Typography>
+                <Typography variant="h6">Line Height: 20px</Typography>
+              </Breadcrumbs>
+            </>
+          </MainCard>
+          <MainCard title="Overline" codeHighlight>
+            <Stack spacing={1.5}>
+              <Typography variant="overline">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </Typography>
+              <Breadcrumbs aria-label="breadcrumb">
+                <Typography variant="h6">Size: 12px</Typography>
+                <Typography variant="h6">Weight: Regular</Typography>
+                <Typography variant="h6">Line Height: 20px</Typography>
+              </Breadcrumbs>
+            </Stack>
+          </MainCard>
+          <MainCard title="Link" codeHighlight>
+            <Stack spacing={1.5}>
+              <Link href="#">www.mantis.com</Link>
+              <Breadcrumbs aria-label="breadcrumb">
+                <Typography variant="h6">Size: 12px</Typography>
+                <Typography variant="h6">Weight: Regular</Typography>
+                <Typography variant="h6">Line Height: 20px</Typography>
+              </Breadcrumbs>
+            </Stack>
+          </MainCard>
+          <MainCard title="Colors" codeHighlight>
+            <>
+              <Typography variant="h6" color="textPrimary" gutterBottom>
+                This is textPrimary text color.
+              </Typography>
+              <Typography variant="h6" color="textSecondary" gutterBottom>
+                This is textSecondary text color.
+              </Typography>
+              <Typography variant="h6" color="primary" gutterBottom>
+                This is primary text color.
+              </Typography>
+              <Typography variant="h6" color="secondary" gutterBottom>
+                This is secondary text color.
+              </Typography>
+              <Typography variant="h6" color="success" gutterBottom>
+                This is success text color.
+              </Typography>
+              <Typography variant="h6" sx={{ color: 'warning.main' }} gutterBottom>
+                This is warning text color.
+              </Typography>
+              <Typography variant="h6" color="error" gutterBottom>
+                This is error text color.
+              </Typography>
+            </>
+          </MainCard>
+          <MainCard title="Paragraph" codeHighlight>
+            <>
+              <Typography variant="body1" gutterBottom>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua.
+              </Typography>
+              <Breadcrumbs aria-label="breadcrumb">
+                <Typography variant="h6">Size: 14px</Typography>
+                <Typography variant="h6">Weight: Regular</Typography>
+                <Typography variant="h6">Line Height: 22px</Typography>
+              </Breadcrumbs>
+            </>
+          </MainCard>
+          <MainCard title="Font Style" codeHighlight>
+            <>
+              <Typography variant="body1" gutterBottom sx={{ fontStyle: 'italic' }}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </Typography>
+              <Typography variant="subtitle1" gutterBottom sx={{ fontStyle: 'italic' }}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
+              </Typography>
+              <Breadcrumbs aria-label="breadcrumb">
+                <Typography variant="h6">Size: 14px</Typography>
+                <Typography variant="h6">Weight: Italic Regular & Italic Bold</Typography>
+                <Typography variant="h6">Line Height: 22px</Typography>
+              </Breadcrumbs>
+            </>
+          </MainCard>
+        </Stack>
+      </Grid>
+    </Container>
+
+
   );
 };
 
