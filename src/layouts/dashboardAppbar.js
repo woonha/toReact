@@ -39,13 +39,6 @@ const theme = createTheme({
             contrastText: '#ffebee',
         }
     },
-    typography: {
-        button: {
-            fontWeight: 600
-        },
-        fontFamily: '"Orbitron-VariableFont_wght"'
-    },
-
     shadows: ['none']
 });
 
@@ -63,10 +56,9 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 const StyledButton = styled(Button)({
-
     height: 'auto',
     fontSize: 12,
-    fontFamily: "-apple-system",
+    fontFamily: "Gowun Dodum",
     size: "sm",
     padding: '10px',
     display: 'flex',
@@ -303,22 +295,23 @@ export const DashboardAppbar = () => {
                         {/* <Box sx={{ flexGrow: 1 }} /> */}
                         <Box
                             sx={{
-                                typography: 'h3',
-                                fontFamily: 'Orbitron-VariableFont_wght'
+
                             }}>
                             <Link
+                                variant='h3'
                                 href="/"
                                 to="/"
                                 color="inherit"
                                 noWrap
                                 underline="none"
 
-                            // sx={{
-                            //     cursor: 'pointer',
-                            //     flexGrow: 0.8,
-                            //     mx: 3,
-                            //     mr: 3,
-                            // }}
+                                sx={{
+                                    cursor: 'pointer',
+                                    flexGrow: 0.8,
+                                    mx: 3,
+                                    mr: 3,
+
+                                }}
                             >
                                 Lawbot
                                 {/* <img src={logo} className="App-logo" alt="logo" /> */}

@@ -16,6 +16,7 @@ import Layout from './layouts/Layout';
 import Settings from './pages/settings';
 import BoardPage from './pages/boardPage';
 import Account from './pages/account';
+import StatuteTest from './pages/statuteTest';
 
 
 
@@ -41,6 +42,8 @@ export default function Router() {
         { path: 'editor', element: <PostEditor /> },
         { path: 'board', element: <BoardPage /> },
         { path: 'account', element: <Account /> },
+        { path: 'statuteTest', element: <StatuteTest /> },
+
 
       ],
     },

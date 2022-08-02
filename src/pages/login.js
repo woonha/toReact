@@ -187,7 +187,7 @@ const Login = () => {
 
               </Box>
               <Typography
-                color="Secondary"
+                color="primary"
                 variant="body2"
               >
                 <Grid container>
@@ -195,6 +195,7 @@ const Login = () => {
                   </Grid>
                   <Grid item>
                     <Link
+                      color="Secondary"
                       href="/settings"
                       variant="body2"
                       underline="hover"

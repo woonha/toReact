@@ -3,16 +3,6 @@ import { Breadcrumbs, Button, Container, createTheme, Grid, Link, Stack, Typogra
 import Title from '../components/chart/title';
 import MainCard from '../components/lawCard';
 // --------------------------------------
-import * as React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-
-
 const Statute = () => {
   const colorTool = createTheme({
     palette: {
@@ -164,9 +154,7 @@ const Statute = () => {
     return [test["조문내용"].split(조문제목)[0] + test["조문제목"] + ")", test["조문내용"].split(조문제목)[1]]
   }
   return (
-
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-
       <Grid item xs={12} lg={6}>
         <Typography theme={colorTool} align="center" component="h2" variant="h4" color="primary" gutterBottom>
           {"법령"}

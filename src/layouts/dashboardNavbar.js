@@ -32,12 +32,26 @@ const theme = createTheme({
         neutral: {
             main: '#FE4279',
             contrastText: '#FE4279',
+        }
+    },
+    typography: {
+        button: {
+            fontWeight: 600
         },
-
-
+        fontFamily: '"Orbitron-VariableFont_wght","GowunDodum-Regular","GangwonEdu_OTFBoldA", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+        body1: {
+            fontSize: '1rem',
+            fontWeight: 400,
+            lineHeight: 1.5,
+            fontFamily: 'GowunDodum-Regula'
+        }
     },
     shadows: ['none']
-});
+
+
+},
+
+);
 
 const StyledButton = styled(Button)({
     height: 'auto',
@@ -106,8 +120,10 @@ export const DashboardNavbar = () => {
                             >
                                 <Box>
                                     <StyledButton
+                                        variant="body1"
                                         paddingBottom={10}
-                                        href="/statute"
+                                        href="/statuteTest"
+
                                     >
                                         법령
                                     </StyledButton>

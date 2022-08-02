@@ -4,8 +4,7 @@ import { styled } from '@mui/material/styles';
 import Footer from './footer';
 import { Box } from '@mui/material';
 import { DashboardLogobar } from './dashboardLogobar';
-import { DashboardSearchbar } from './dashboardSearchbar';
-import { DashboardNavbar } from './dashboardNavbar';
+
 
 // components
 

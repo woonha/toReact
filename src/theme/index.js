@@ -110,7 +110,7 @@ export const theme = createTheme({
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: '#F3F4F6',
+          backgroundColor: '#FE4279',
           '.MuiTableCell-root': {
             color: '#374151'
           },
@@ -235,7 +235,7 @@ export const theme = createTheme({
     button: {
       fontWeight: 600
     },
-    fontFamily: '"Orbitron-VariableFont_wght","GowunDodum-Regular","GangwonEdu_OTFBoldA", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
+    fontFamily: '"Orbitron-VariableFont","GowunDodum","GangwonEdu_OTFBoldA", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
     body1: {
       fontSize: '1rem',
       fontWeight: 400,
@@ -252,7 +252,6 @@ export const theme = createTheme({
       fontSize: '0.875rem',
       fontWeight: 400,
       lineHeight: 1.57,
-      fontFamily: 'Orbitron-SemiBold'
     },
 
     subtitle1: {
@@ -290,7 +289,8 @@ export const theme = createTheme({
     h3: {
       fontWeight: 700,
       fontSize: '2.25rem',
-      lineHeight: 1.375
+      lineHeight: 1.375,
+      fontFamily: "GowunDodum-Regular"
     },
     h4: {
       fontWeight: 700,

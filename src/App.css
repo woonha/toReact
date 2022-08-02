@@ -13,13 +13,13 @@
 }
 
 @font-face {
-  font-family: 'GowunDodum-Regular';
+  font-family: 'Gowun Dodum', sans-serif;
   src: url(./fonts/GowunDodum-Regular.ttf)format('truetype');
 }
 
 @font-face {
-  font-family: 'Orbitron-VariableFont_wght';
-  src: url(./fonts/Orbitron-VariableFont_wght.ttf) format('truetype');
+  font-family: 'Orbitron', sans-serif;
+  src: url(./fonts/Orbitron-VariableFont_wght.ttf) format('woff');
 }
 
 
