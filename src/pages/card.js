@@ -18,42 +18,40 @@ const GoogleNews = () => {
         setNewsList(hihi)
       })
   }, [])
+
+
   return (
-    <>
-      <Container maxWidth="lg" sx={{ mb: 4 }}>
-        <Box
-          sx={{
-            alignItems: 'center',
-            display: 'flex',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            m: 1
-          }}
+
+    <Container maxWidth="lg" sx={{ mb: 4 }}>
+      <Box
+        sx={{
+          alignItems: 'center',
+          display: 'flex',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          m: 1
+        }}
+      >
+        <Typography
+          sx={{ m: 2 }}
+          variant="h4"
         >
-          <Typography
-            sx={{ m: 2 }}
-            variant="h4"
-          >
-            카드뉴스
-          </Typography>
-        </Box>
-        <Grid container maxWidth="lg" spacing={3}>
-
-          <Grid item xs={3}>
-
-            {newsList.map(news => {
-
-              return (
-                <NewsCard title={news.children[0].value} content={news.children[4].value}></NewsCard>)
-            })}
-
-            <NewsCard ></NewsCard>
-          </Grid>
+          카드뉴스
+        </Typography>
+      </Box>
+      <Container maxWidth='lg'>
+        <Grid container spacing={4} >
+          {newsList.map(news => {
+            return (
+              <>
+                <NewsCard title={news.children[0].value} content={news.children[4].value}></NewsCard>
+              </>
+            )
+          })}
+          <NewsCard ></NewsCard>
         </Grid>
-
-
       </Container>
-    </>
+    </Container>
   );
 };
 
@@ -63,4 +61,3 @@ GoogleNews.getLayout = (page) => (
 
 
 export default GoogleNews;
-
