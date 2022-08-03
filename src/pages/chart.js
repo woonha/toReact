@@ -1,13 +1,29 @@
 import { Box, Container, Grid, Paper, Typography } from '@mui/material';
-import { DamageRate } from '../components/chart/damage-rate';
 import { DamageType } from '../components/chart/damage-type';
 import { Attacker } from '../components/chart/attacker';
 import React from 'react';
+import { DamageRate } from '../components/chart/damage-rate';
 
 
 const Chart = () => (
     <>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="lg" sx={{ mb: 4 }}>
+            <Box
+                sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    m: 1
+                }}
+            >
+                <Typography
+                    sx={{ m: 2 }}
+                    variant="h4"
+                >
+                    실태조사
+                </Typography>
+            </Box>
             <Grid container spacing={2}>
                 <Grid item xs={12} md={8} lg={6}>
                     <Paper
@@ -32,7 +48,7 @@ const Chart = () => (
 
                         }}
                     >
-                        <Attacker test="test"/>
+                        <Attacker test="test" />
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,7 +14,6 @@ import { logoutTemp } from "../auth/auth";
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Face from '@mui/icons-material/Face';
-import MailIcon from '@mui/icons-material/Mail';
 import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import { DashboardSearchbar } from './dashboardSearchbar';
@@ -57,7 +56,8 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 const StyledButton = styled(Button)({
     height: 'auto',
-    fontSize: 12,
+    fontWeight: 600,
+    fontSize: 10,
     fontFamily: "Gowun Dodum",
     size: "sm",
     padding: '10px',
@@ -319,6 +319,7 @@ export const DashboardAppbar = () => {
 
                         <DashboardSearchbar></DashboardSearchbar>
 
+
                         {/* <Stack>
                         <ThemeProvider theme={colorTool}>
                             <Box
@@ -354,8 +355,11 @@ export const DashboardAppbar = () => {
                     </Stack> */}
                         {isLogin ? login() : notLogin()}
                         {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
+                        {renderMenu}
+                        {renderMobileMenu}
                     </StyledToolbar>
                 </AppBar>
+
 
             </Box >
         </ThemeProvider >

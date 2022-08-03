@@ -1,24 +1,10 @@
-import { useFormik } from 'formik';
-import { Link as Ddddd } from 'react-router-dom';
 import ReactWordcloud from 'react-wordcloud';
-import * as Yup from 'yup';
 import words from './words';
 import "tippy.js/dist/tippy.css";
 import "tippy.js/animations/scale.css";
-import Divider from '@mui/material/Divider';
-import { createTheme } from '@mui/material/styles';
-import { styled } from '@mui/material/styles';
-import Chip from '@mui/material/Chip';
 import {
-  AppBar,
-  Toolbar,
   Box,
-  Button,
-  Checkbox,
   Container,
-  FormHelperText,
-  Link,
-  TextField,
   Typography
 } from '@mui/material';
 
@@ -40,58 +26,56 @@ const options = {
   spiral: "archimedean",
   transitionDuration: 1000
 };
-const size = [800, 500];
+const size = [1152, 500];
 
 
-function Wordcloud() {
+function WordCloud() {
   return (
     <>
-
-      <Box
-        component="main">
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Toolbar
-              minHeight='3px'>
-              <Box sx={{ flexGrow: 2 }} />
-            </Toolbar>
-          </AppBar>
+      <Container maxWidth="lg" sx={{ mb: '4' }}>
+        <Box
+          sx={{
+            alignItems: 'center',
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            m: 1
+          }}
+        >
+          <Typography
+            sx={{ m: 2 }}
+            variant="h4"
+          >
+            법령 클라우드
+          </Typography>
         </Box>
 
+        <Box
+          component="main"
+          style={{ width: "100%", height: "100%" }}
+          sx={{
+            alignItems: 'center',
+            display: 'flex',
+            flexGrow: 2,
+            minHeight: '100%',
+            mt: 2
+          }}
+        >
+          <ReactWordcloud options={options} words={words} size={size} />
+          <Box sx={{ flexGrow: 3 }} />
+        </Box>
 
+      </Container>
 
-
-        <Container maxWidth="lg">
-          <Typography align="center" component="h2" variant="h4" color="primary" gutterBottom>
-            {"법령"}
-          </Typography>
-
-          <Box
-            component="main"
-            style={{ width: "100%", height: "100%" }}
-            sx={{
-              alignItems: 'center',
-              display: 'flex',
-              flexGrow: 2,
-              minHeight: '100%',
-              mt: 2
-            }}
-          >
-            <ReactWordcloud options={options} words={words} size={size} />
-            <Box sx={{ flexGrow: 3 }} />
-          </Box>
-
-        </Container>
-      </Box>
     </>
 
   );
 }
 
 
-Wordcloud.getLayout = (page) => (
+WordCloud.getLayout = (page) => (
   { page }
 );
 
 
-export default Wordcloud;
+export default WordCloud;

@@ -6,7 +6,7 @@ import DefaultLayout from './layouts/DefaultLayout';
 import Main from './pages/main';
 import Register from './pages/register';
 import Chart from './pages/chart';
-import Wordcloud from './pages/cloud/wordCloud';
+import WordCloud from './pages/cloud/wordCloud';
 import GoogleNews from './pages/card';
 import Statute from './pages/statute';
 import PrecedentPage from './pages/precedentPage';
@@ -14,7 +14,7 @@ import PrecedentView from './pages/precedentView';
 import PostEditor from './pages/postEditor';
 import Layout from './layouts/Layout';
 import Settings from './pages/settings';
-import BoardPage from './pages/boardPage';
+import Board from './pages/board';
 import Account from './pages/account';
 import StatuteTest from './pages/statuteTest';
 
@@ -34,13 +34,13 @@ export default function Router() {
       children: [
         { path: '/', element: <Main /> },
         { path: 'chart', element: <Chart /> },
-        { path: 'wordcloud', element: <Wordcloud /> },
+        { path: 'wordcloud', element: <WordCloud /> },
         { path: 'news', element: <GoogleNews /> },
         { path: 'statute', element: <Statute /> },
         { path: 'precedent', element: <PrecedentPage /> },
         { path: 'temp', element: <PrecedentView /> },
         { path: 'editor', element: <PostEditor /> },
-        { path: 'board', element: <BoardPage /> },
+        { path: 'board', element: <Board /> },
         { path: 'account', element: <Account /> },
         { path: 'statuteTest', element: <StatuteTest /> },
 

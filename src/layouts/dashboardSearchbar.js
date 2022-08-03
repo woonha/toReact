@@ -10,10 +10,12 @@ const Search = styled("div")(({ theme }) => ({
   display: "flex",
   position: "relative",
   borderRadius: 30,
-  backgroundColor: "#ffebee",
-  border: "4px",
+  backgroundColor: "#fff",
+  border: "3px",
   borderStyle: "solid",
   borderColor: "#fe4279",
+  // width: { xs: "90vw", md: "30vw", lg: "30vw" },
+  with: "100%",
   // marginLeft: 10,
   // ---------------------------------- add the following styles
   "& :first-child": {
@@ -68,29 +70,31 @@ export const DashboardSearchbar = (props) => {
         sx={{ flexGrow: 1 }}>
         <Navbar>
           <Box sx={{ flexGrow: 1 }}>
-            <Search
-              sx={{
-                width: { xs: "90vw", md: "30vw", lg: "30vw" },
-                margin: "auto",
-                marginBottom: "20px"
-              }}
-            >
-              <form action="/" method="get">
-                <StyledInputBase
-                  // defaultValue={searchQuery}
-                  placeholder="예) 신체폭력, 언어폭력"
-                  inputProps={{ "aria-label": "search" }}
-                  type="search"
-                  name="s"
-                  id="site-search"
-                />
-              </form>
-              <SearchIconWrapper>
-                <IconButton>
-                  <SearchIcon style={{ color: "#fe4279" }} />
-                </IconButton>
-              </SearchIconWrapper>
-            </Search>
+            <Container maxWidth='sm'>
+              <Search
+                sx={{
+                  margin: "auto",
+                  marginBottom: "20px",
+                }}
+              >
+                <form action="/" method="get">
+                  <StyledInputBase
+                    // defaultValue={searchQuery}
+                    placeholder="예) 신체폭력, 언어폭력"
+                    inputProps={{ "aria-label": "search" }}
+                    type="search"
+                    name="s"
+                    id="site-search"
+                  />
+                </form>
+
+                <SearchIconWrapper>
+                  <IconButton>
+                    <SearchIcon style={{ color: "#fe4279" }} />
+                  </IconButton>
+                </SearchIconWrapper>
+              </Search>
+            </Container>
           </Box>
         </Navbar>
       </Box >
