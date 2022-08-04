@@ -7,16 +7,7 @@ import MainCard from '../components/lawCard';
 
 
 const PrecedentPage = () => {
-    const colorTool = createTheme({
-        palette: {
-            primary: {
-                main: '#fe4279', //메인 분홍이
-                light: '#828DF8',
-                dark: '#3832A0',
-                contrastText: '#ffebee'
-            },
-        }
-    });
+
     const navigate = useNavigate();
     const test = (data) => {
         console.debug("클릭", data)
@@ -44,18 +35,23 @@ const PrecedentPage = () => {
     }, [page])
     return (
         <>
-            <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static">
-                    <Toolbar>
-                        <Box sx={{ flexGrow: 2 }} />
-
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 2 }}>
-                            판 례
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-            </Box>
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Container maxWidth="lg" sx={{ mb: 4 }}>
+                <Box
+                    sx={{
+                        alignItems: 'center',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        flexWrap: 'wrap',
+                        m: 1
+                    }}
+                >
+                    <Typography
+                        sx={{ m: 2 }}
+                        variant="h4"
+                    >
+                        판례
+                    </Typography>
+                </Box>
 
                 <Grid item xs={12} lg={6}>
 

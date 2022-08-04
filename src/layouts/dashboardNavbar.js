@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Divider from '@mui/material/Divider';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
 import { Box, Button, Container, Grid, Link, TextField, Typography, Paper, Stack } from '@mui/material';
-import { Link as Href } from 'react-router-dom';
+// import { Link as Href } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { check } from '../auth/auth';
 
@@ -23,45 +21,38 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 const theme = createTheme({
     palette: {
         primary: {
-            // light: will be calculated from palette.primary.main,
             main: '#ffebee',
-            contrastText: '#FE4279',
-            // dark: will be calculated from palette.primary.main,
-            // contrastText: will be calculated to contrast with palette.primary.main
+            contrastText: '#374151',
         },
         neutral: {
             main: '#FE4279',
-            contrastText: '#FE4279',
+            contrastText: '#374151',
         }
     },
     typography: {
         button: {
-            fontWeight: 600
-        },
-        fontFamily: '"Orbitron-VariableFont_wght","GowunDodum-Regular","GangwonEdu_OTFBoldA", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
-        body1: {
-            fontSize: '1rem',
-            fontWeight: 400,
+            fontWeight: 500,
+            fontSize: '0.9rem',
             lineHeight: 1.5,
             fontFamily: 'GowunDodum-Regula'
-        }
+        },
     },
     shadows: ['none']
-
-
 },
-
 );
-
 const StyledButton = styled(Button)({
-    height: 'auto',
-    fontSize: 16,
-    color: '#FE4279',
-
-
-
+    width: 200,
+    height: 68,
+    fontSize: 18,
+    fontFamily: ['sans-serif'],
+    '&:hover': {
+        backgroundColor: 'none',
+        borderColor: 'none',
+        boxShadow: 'none',
+        color: 'FE4279',
+    },
+    color: 'inherit'
 });
-
 
 export const DashboardNavbar = () => {
     const [isLogin, setIsLogin] = React.useState(false);
@@ -96,7 +87,6 @@ export const DashboardNavbar = () => {
 
     return (
         <ThemeProvider theme={theme}>
-
             <Box
                 component="main"
                 width={'100%'}
@@ -118,59 +108,65 @@ export const DashboardNavbar = () => {
                                     },
                                 }}
                             >
-                                <Box>
-                                    <StyledButton
+                                <Box >
+                                    <Button
                                         variant="body1"
                                         paddingBottom={10}
                                         href="/statuteTest"
 
                                     >
                                         법령
-                                    </StyledButton>
+                                    </Button>
                                 </Box>
                                 <Divider orientation="vertical" variant="middle" flexItem />
                                 <Box>
-                                    <StyledButton
+                                    <Button
+                                        variant="body1"
                                         href="/precedent"
 
                                     >
                                         판례
-                                    </StyledButton>
+                                    </Button>
                                 </Box>
                                 <Divider orientation="vertical" variant="middle" flexItem />
                                 <Box>
-                                    <StyledButton
-                                        href="/board"
-
-                                    >
-                                        게시판
-                                    </StyledButton>
-                                </Box>
-                                <Divider orientation="vertical" variant="middle" flexItem />
-                                <Box>
-                                    <StyledButton
-                                        href="/news"
-                                    >
-                                        카드뉴스
-                                    </StyledButton>
-                                </Box>
-                                <Divider orientation="vertical" variant="middle" flexItem />
-                                <Box>
-                                    <StyledButton
+                                    <Button
+                                        variant="body1"
                                         href="/wordCloud"
 
                                     >
                                         법령 클라우드
-                                    </StyledButton>
+                                    </Button>
                                 </Box>
                                 <Divider orientation="vertical" variant="middle" flexItem />
                                 <Box>
-                                    <StyledButton
+                                    <Button
+                                        variant="body1"
+                                        href="/news"
+                                    >
+                                        카드뉴스
+                                    </Button>
+                                </Box>
+                                <Divider orientation="vertical" variant="middle" flexItem />
+                                <Box>
+                                    <Button
+                                        variant="body1"
                                         href="/chart"
                                     >
                                         실태조사
-                                    </StyledButton>
+                                    </Button>
                                 </Box>
+                                <Divider orientation="vertical" variant="middle" flexItem />
+                                <Box>
+                                    <Button
+                                        variant="body1"
+                                        href="/board"
+
+                                    >
+                                        게시판
+                                    </Button>
+                                </Box>
+
                             </Box>
                         </Grid>
                     </StyledToolbar >

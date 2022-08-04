@@ -108,7 +108,7 @@ export const DashboardLogobar = () => {
                         to="/"
                         color="inherit"
                         noWrap
-                        underline="hover"
+                        underline="none"
                         sx={{
                             cursor: 'pointer',
                             flexGrow: 1,

@@ -30,35 +30,35 @@ let chartForm = {
 }
 
 export const Attacker = (props) => {
-        
+
     const theme = useTheme();
-    const [values, setValues] = useState({ type: "초", year : 2021 });
+    const [values, setValues] = useState({ type: "초", year: 2021 });
     const [datadata, setDatadata] = useState(chartForm);
 
 
-    const chartSetting = () =>{
+    const chartSetting = () => {
 
         const params = {
             chart: 2,
             type: values["type"],
             year: values["year"]
         }
-        console.debug("되고있냐고",params)
+        console.debug("되고있냐고", params)
         axios.post("/chart/chart2", params)
             .then(res => res)
             .then(res => {
                 const result = res.data;
                 const chartData = [result.same_school_same_class
-                                    ,result.same_school_same_grade
-                                    ,result.same_school_other_grade
-                                    ,result.other_school
-                                    ,result.unknown
-                                    ,result.other]
+                    , result.same_school_same_grade
+                    , result.same_school_other_grade
+                    , result.other_school
+                    , result.unknown
+                    , result.other]
                 let temp = chartForm;
                 temp.datasets[0].data = chartData;
-                
+
                 setDatadata(temp)
-                console.debug("되고있는거냐고",temp)
+                console.debug("되고있는거냐고", temp)
             })
     }
     const handleChange = (event) => {
@@ -67,16 +67,16 @@ export const Attacker = (props) => {
             [event.target.name]: event.target.value
         });
     };
-    const returnChart = (data)=>{
+    const returnChart = (data) => {
         return (
-        <Doughnut
-            data={data}
-            options={options}
-        />
+            <Doughnut
+                data={data}
+                options={options}
+            />
         )
     }
     useEffect(() => {
-        
+
         console.debug("바뀌고있니?")
         chartSetting()
     }, [values])

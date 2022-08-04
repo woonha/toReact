@@ -110,7 +110,7 @@ export const theme = createTheme({
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: '#FE4279',
+          backgroundColor: '#F4EBE7',//판례P 표헤더 색상
           '.MuiTableCell-root': {
             color: '#374151'
           },

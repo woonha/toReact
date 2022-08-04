@@ -14,6 +14,8 @@ import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 // ------------------------------------------------
 const CssTextField = styled(TextField)({
+  backgroundColor: '#fff',
+  borderRadius: '9px',
 
   '& label.Mui-focused': {
     color: '#FE4279',

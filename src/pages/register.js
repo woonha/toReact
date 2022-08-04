@@ -17,7 +17,8 @@ import {
 import axios from 'axios';
 // ------------------------------------------------
 const CssTextField = styled(TextField)({
-
+  backgroundColor: '#fff',
+  borderRadius: '9px',
   '& label.Mui-focused': {
     color: '#FE4279',
   },

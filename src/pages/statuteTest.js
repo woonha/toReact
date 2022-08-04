@@ -1,4 +1,4 @@
-import { Breadcrumbs, Button, Container, createTheme, Grid, Link, Stack, TableContainer, Typography } from '@mui/material';
+import { Box, Breadcrumbs, Button, Container, createTheme, Grid, Link, Stack, TableContainer, Typography } from '@mui/material';
 // import React from 'react';
 import Title from '../components/chart/title';
 import MainCard from '../components/lawCard';
@@ -14,16 +14,6 @@ import Paper from '@mui/material/Paper';
 
 // --------------------------------------
 const StatuteTest = () => {
-    const colorTool = createTheme({
-        palette: {
-            primary: {
-                main: '#fe4279', //메인 분홍이
-                light: '#828DF8',
-                dark: '#3832A0',
-                contrastText: '#ffebee'
-            },
-        }
-    });
 
     const testData = [{
         "_id": {
@@ -187,23 +177,41 @@ const StatuteTest = () => {
         return [test["조문내용"].split(조문제목)[0] + test["조문제목"] + ")", test["조문내용"].split(조문제목)[1]]
     }
     return (
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="lg" sx={{ mb: 4 }}>
+            <Box
+                sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    m: 1
+                }}
+            >
+                <Typography
+                    sx={{ m: 2 }}
+                    variant="h4"
+                >
+                    법령
+                </Typography>
+            </Box>
+
             <Grid item xs={12} lg={6}>
 
-                <TableContainer component={Paper}>
+                <TableContainer>
                     <Table sx={{ minWidth: 1000 }} >
-                        <TableHead>
+                        {/* <TableHead>
                             <TableRow>
                                 <TableCell>조</TableCell>
                                 <TableCell>법령 내용</TableCell>
                             </TableRow>
-                        </TableHead>
-                        <TableBody>
+                        </TableHead> */}
+                        <TableBody
+                            borderBottom='1px solid #FE4279'>
                             {testData.map(data => (
                                 <TableRow
 
                                     key={test(data)[1]}
-                                    sx={{ borderBottom: 'primary' }}
+
                                 // sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell
