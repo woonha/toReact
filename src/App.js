@@ -4,7 +4,7 @@ import { theme } from './theme';
 import { check } from './auth/auth'
 import { useEffect } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import './App.css';
+// import './App.css';
 
 function App() {
   useEffect(() => {

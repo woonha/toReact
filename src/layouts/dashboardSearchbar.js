@@ -70,7 +70,7 @@ export const DashboardSearchbar = (props) => {
           <Box sx={{ flexGrow: 1 }}>
             <Search
               sx={{
-                width: { xs: "90vw", md: "30vw", lg: "30vw" },
+                width: { xs: "90vw", md: "40vw", lg: "40vw" },
                 margin: "auto",
                 marginBottom: "20px"
               }}

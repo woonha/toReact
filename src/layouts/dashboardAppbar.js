@@ -24,7 +24,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import AccountBoxSharpIcon from '@mui/icons-material/AccountBoxSharp';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreIcon from '@mui/icons-material/MoreVert';
-
+import logo from '../image/logo.png';
+import "../App.css"
 const theme = createTheme({
     palette: {
         primary: {
@@ -313,8 +314,7 @@ export const DashboardAppbar = () => {
 
                                 }}
                             >
-                                Lawbot
-                                {/* <img src={logo} className="App-logo" alt="logo" /> */}
+                                <img src={logo} className="logo" alt="logo" />
                             </Link></Box>
 
                         <DashboardSearchbar></DashboardSearchbar>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import yuni from "../image/myyuni.png"
+import img from "../image/law.png"
 import "../pages/chat.css"
 const LawChat = () => {
 
@@ -20,7 +20,7 @@ const LawChat = () => {
         }
         return(
           <div className={cls}>
-            {imageUrl!=null ? <figure className="avatar"><img src={yuni}/></figure> : <></>}
+            {imageUrl!=null ? <figure className="avatar"><img src={img}/></figure> : <></>}
           {text}
           </div>
         )
@@ -48,7 +48,7 @@ const LawChat = () => {
     }
     
     useEffect(() => {
-        if(chatList.length>0){
+        if(chatList.length>1){
             axios.get("/test?a="+chatBoxValue)
             .then(res=>res)
             .then(res=>{
@@ -57,7 +57,7 @@ const LawChat = () => {
                     index: chatIndex,
                     text : res.data,
                     speaker : "LAWBOT",
-                    imageUrl : "../image/myyuni.png"
+                    imageUrl : img
                 }
                 setChatIndex(chatIndex+1)
                 setChatList([...chatList,aiTemp])
@@ -72,7 +72,7 @@ const LawChat = () => {
                 <h1>LawBot</h1>
                 <h2>판례기반학교폭력챗봇</h2>
                 <figure className="avatar">
-                <img src={yuni} />
+                <img src={img} />
                 </figure>
             </div>
             <div className="messages">
@@ -80,6 +80,16 @@ const LawChat = () => {
                     {chatList.map(chat=>{
                         return (<Message text={chat.text} speaker={chat.speaker} imageUrl={chat.imageUrl} key= {chat.index}></Message>)
                     })}
+                    <div className="message message-personal">
+                        {"애들이 저를 발로 차고 커터칼로 위협했어요"}
+                    </div>
+                    <div className="message">
+                        <figure className="avatar"><img src={img}/></figure>
+                        <p>{"해당 사례는 신체폭력이며"}</p>
+                        <p>{"출석정지 7일, 서면사과등의 조치가 예상됩니다."}</p>
+                        <p>{"귀하의 상황과 유사한 판례는 다음과 같습니다."}</p>
+                        <p><a href="">인천지방법원071644</a>, <a href="">서울남부법원987215</a>, <a href="">서울동부법원486647</a></p>
+                    </div>
                 </div>
             </div>
             <div className="message-box">

@@ -53,3 +53,13 @@
     transform: rotate(360deg);
   }
 }
+
+
+.logo {
+  -align: center;
+}
+
+.logo {
+  pointer-events: none;
+  width: 200px;
+}
