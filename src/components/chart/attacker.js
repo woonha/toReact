@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useState } from 'react';
 import axios from 'axios';
 import Title from './title';
+import { useSearchParams } from 'react-router-dom';
 
 const states1 = [
     { value: '2021', label: '2021' },
@@ -16,26 +17,38 @@ const states2 = [
     { value: '고', label: '고등학생' }
 ];
 
-let chartForm = {
-    labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
-    datasets: [
-        {
-            data: [],
-            backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
-            borderWidth: 8,
-            borderColor: '#FFFFFF',
-            hoverBorderColor: '#FFFFFF'
-        }
-    ],
-}
+
 
 export const Attacker = (props) => {
 
     const theme = useTheme();
     const [values, setValues] = useState({ type: "초", year: 2021 });
-    const [datadata, setDatadata] = useState(chartForm);
 
-
+    const [realData, setRealData] = useState([])
+    let chartForm = {
+        labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
+        datasets: [
+            {
+                data: realData,
+                backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
+                borderWidth: 8,
+                borderColor: '#FFFFFF',
+                hoverBorderColor: '#FFFFFF'
+            }
+        ],
+    }
+    const [datadata, setDatadata] = useState({
+        labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
+        datasets: [
+            {
+                data: realData,
+                backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
+                borderWidth: 8,
+                borderColor: '#FFFFFF',
+                hoverBorderColor: '#FFFFFF'
+            }
+        ],
+    });
     const chartSetting = () => {
 
         const params = {
@@ -54,11 +67,12 @@ export const Attacker = (props) => {
                     , result.other_school
                     , result.unknown
                     , result.other]
-                let temp = chartForm;
-                temp.datasets[0].data = chartData;
+                setRealData(chartData)
+                setDatadata(chartForm)
+                // const copy = JSON.parse(JSON.stringify(object));
+                console.debug(chartData, "  어케되냐고")
 
-                setDatadata(temp)
-                console.debug("되고있는거냐고", temp)
+                console.debug("되고있는거냐고")
             })
     }
     const handleChange = (event) => {
@@ -67,25 +81,13 @@ export const Attacker = (props) => {
             [event.target.name]: event.target.value
         });
     };
-    const returnChart = (data) => {
-        return (
-            <Doughnut
-                data={data}
-                options={options}
-            />
-        )
-    }
-    useEffect(() => {
 
-        console.debug("바뀌고있니?")
+    useEffect(() => {
         chartSetting()
     }, [values])
-
     useEffect(() => {
-        console.debug("바꿔야해!")
-    }, [datadata])
-
-
+        chartSetting()
+    }, [])
     const options = {
         pieSliceText: 'label',
         pieHole: 0.41,

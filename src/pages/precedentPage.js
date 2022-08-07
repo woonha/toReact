@@ -11,7 +11,7 @@ const PrecedentPage = () => {
     const navigate = useNavigate();
     const test = (data) => {
         console.debug("클릭", data)
-        navigate("/temp", { state: data })
+        navigate("/case", { state: data })
     }
 
     const size = 10;
@@ -29,6 +29,7 @@ const PrecedentPage = () => {
         axios.post("/precedent/getList", params)
             .then(res => res)
             .then(res => {
+                console.debug(res)
                 setPrecedentList(res.data);
             })
 
@@ -60,10 +61,9 @@ const PrecedentPage = () => {
                             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>결과</TableCell>
-                                        <TableCell align="right">사건번호</TableCell>
-                                        <TableCell align="right">사건명</TableCell>
-                                        <TableCell align="right">이유</TableCell>
+                                        <TableCell width="10%" align="right">결과</TableCell>
+                                        <TableCell width="30%" align="right">사건명</TableCell>
+                                        <TableCell width="30%" align="right">사건번호</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -72,12 +72,11 @@ const PrecedentPage = () => {
                                             key={row.사건번호}
                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                             onClick={() => { test(row.사건번호) }}>
-                                            <TableCell component="th" scope="row">
+                                            <TableCell align="right" component="th" scope="row">
                                                 {row.결과}
                                             </TableCell>
-                                            <TableCell align="right">{row.사건번호}</TableCell>
                                             <TableCell align="right">{row.사건명}</TableCell>
-                                            <TableCell align="right">{row.이유}</TableCell>
+                                            <TableCell align="right">{row.사건번호}</TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

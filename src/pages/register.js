@@ -15,6 +15,10 @@ import {
   formGroupClasses
 } from '@mui/material';
 import axios from 'axios';
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useEffect } from 'react';
+import { GoogleLogindd } from 'react-google-login';
+
 // ------------------------------------------------
 const CssTextField = styled(TextField)({
   backgroundColor: '#fff',
@@ -37,7 +41,65 @@ const CssTextField = styled(TextField)({
 
 const Register = () => {
   const navigate = useNavigate();
+  const REST_API_KEY = "26c6196da16420765dc0c6251030d217";
+  const REDIRECT_URI = "http://localhost:3000/register";
+  const responseGoogle = (response) => {
+    console.log(response);
+  }
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const loginaaaaa = useGoogleLogin({
+    onSuccess: tokenResponse => console.log(tokenResponse),
+  });
+  const params = new URLSearchParams(window.location.search)
 
+  useEffect(() => {
+    console.debug("회원가입하하", params.get("code"));
+    let code = params.get("code");
+    if (code != null) {
+      let cli = "kgq7HvEMvLTGJyar3LH0js6bsXQFSFTB";
+
+      let url = "/oauth/token?grant_type=authorization_code&client_id=" + REST_API_KEY + "&code=" + code + "&redirect_uri=" + REDIRECT_URI;
+      if (code != null) {
+        //navigate(url)
+
+        const tokenParam = {
+          "code": code,
+          redirect_uri: REDIRECT_URI,
+          grant_type: "authorization_code",
+          client_id: REST_API_KEY
+        }
+        let header = { 'Content-Type': 'application/x-www-urlencoded' };
+        axios({
+          method: "post",
+          url: "https://kauth.kakao.com/oauth/token",
+          params: tokenParam,
+          config: {
+            headers: header
+          }
+        })
+          .then(res => res)
+          .then(res => {
+            console.debug(res, "ddddddres")
+            axios({
+              method: "post",
+              url: "https://kapi.kakao.com/v2/user/me",
+              headers: {
+                Authorization: `Bearer ${res.data.access_token}`,
+                'Content-Type': 'application/x-www-urlencoded'
+              }
+            })
+              .then(res => res)
+              .then(res => {
+                console.debug("진짜 토큰 가져옴?", res)
+              })
+
+          })
+      }
+    }
+
+
+
+  }, [])
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -235,6 +297,40 @@ const Register = () => {
                   가입하기
                 </Button>
               </Box>
+              <Button
+                fullWidth
+                href={KAKAO_AUTH_URL}
+                size="large"
+                variant="outlined"
+              >
+                카카오톡 회원가입
+              </Button>
+
+              <GoogleLogin
+                onSuccess={res => {
+                  //console.debug("ㅇ,ㅡ아아")
+                  console.log(res);
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              />
+              <GoogleLogin
+                clientId="526924998787-bh0o65d1lcjp7q5ptptsfvvdam04vged.apps.googleusercontent.com"
+                buttonText="Login"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy={'single_host_origin'}
+              />
+              <Button
+                fullWidth
+
+                onClick={() => loginaaaaa()}
+                size="large"
+                variant="outlined"
+              >
+                구글 회원가입
+              </Button>
               <Typography
                 color="textSecondary"
                 variant="body2"

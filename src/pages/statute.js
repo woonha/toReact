@@ -1,4 +1,6 @@
 import { Breadcrumbs, Button, Container, createTheme, Grid, Link, Stack, Typography } from '@mui/material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 // import React from 'react';
 import Title from '../components/chart/title';
 import MainCard from '../components/lawCard';
@@ -15,7 +17,7 @@ const Statute = () => {
     }
   });
 
-  const testData = [{
+  const [testData, setTestData] = useState[{
     "_id": {
       "$oid": "62b1848c2b16e3f2b1c0578e"
     },
@@ -149,6 +151,15 @@ const Statute = () => {
     ]
   }
   ]
+
+  useEffect(() => {
+    axios.post("/statute/getList")
+      .then(res => res)
+      .then(res => {
+        setTestData(res.data)
+        console.debug(res, " 어떻게나오")
+      })
+  }, [])
   function test(test) {
     const 조문제목 = test["조문제목"] + ")"
     return [test["조문내용"].split(조문제목)[0] + test["조문제목"] + ")", test["조문내용"].split(조문제목)[1]]

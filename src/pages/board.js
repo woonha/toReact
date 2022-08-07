@@ -16,7 +16,11 @@ const BoardPage = () => {
         console.debug("클릭", data)
         navigate("/editor", { state: { mode: 1, postid: data } })
     }
-
+    const getFullYmdStr = (time) => {
+        var d = new Date(time);
+        //return d.getFullYear() + "년 " + (d.getMonth() + 1) + "월 " + d.getDate() + "일 " + d.getHours() + "시 " + d.getMinutes() + "분 " + d.getSeconds() + "초 " + '일월화수목금토'.charAt(d.getUTCDay()) + '요일';
+        return d.getFullYear() + "" + (("00" + (d.getMonth() + 1)).slice(-2)) + ("00" + d.getDate()).slice(-2) + ("00" + d.getHours()).slice(-2) + ("00" + d.getMinutes()).slice(-2);
+    }
     const size = 10;
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(10);
@@ -51,6 +55,15 @@ const BoardPage = () => {
             label: '찌미찌미'
         }
     ];
+    const categoryPrint = (value) => {
+        if (value == 0) {
+            return "전체"
+        } else if (value == 1) {
+            return "잡담"
+        } else if (value == 2) {
+            return "찌미찌미"
+        }
+    }
     return (
         <>
             <Container maxWidth="lg" sx={{ mb: 4 }}>
@@ -102,10 +115,10 @@ const BoardPage = () => {
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>카테고리</TableCell>
-                                    <TableCell align="right">제목</TableCell>
-                                    <TableCell align="right">작성자</TableCell>
-                                    <TableCell align="right">날짜</TableCell>
+                                    <TableCell width="10%" align="center">카테고리</TableCell>
+                                    <TableCell width="50%" align="center">제목</TableCell>
+                                    <TableCell width="20%" align="center">작성자</TableCell>
+                                    <TableCell width="20%" align="center">날짜</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -115,11 +128,11 @@ const BoardPage = () => {
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                         onClick={() => { postClick(row.postid) }}>
                                         <TableCell component="th" scope="row">
-                                            {row.category}
+                                            {categoryPrint(row.category)}
                                         </TableCell>
                                         <TableCell align="right">{row.title}</TableCell>
-                                        <TableCell align="right">{row.member_no}</TableCell>
-                                        <TableCell align="right">{row.update_date}</TableCell>
+                                        <TableCell align="right">{row.member_no == 0 ? "익명" : row.member_no}</TableCell>
+                                        <TableCell align="right">{getFullYmdStr(row.update_date)}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

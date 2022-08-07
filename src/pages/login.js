@@ -117,7 +117,7 @@ const Login = () => {
         console.debug("d,dkldldp", res)
         if (res.status == 200) {
           loginTemp(res.data)
-          navigate("/statute")
+          navigate("/")
         }
       })
       .error(res => {
@@ -229,33 +229,33 @@ const Login = () => {
                 >
                   <Stack direction="row" spacing={3}>
 
-                    {/* <Button
-                          fullWidth
-                          href={KAKAO_AUTH_URL}
-                          size="large"
-                          variant="outlined"
-                        >
-                          카카오톡 로그인
-                        </Button>
+                    <Button
+                      fullWidth
+                      href={KAKAO_AUTH_URL}
+                      size="large"
+                      variant="outlined"
+                    >
+                      카카오톡 로그인
+                    </Button>
 
-                        <GoogleLogin
-                          onSuccess={res => {
-                            console.debug("ㅇ,ㅡ아아")
-                            console.log(res);
-                          }}
-                          onError={() => {
-                            console.log('Login Failed');
-                          }}
-                        />
-                        <Button
-                          fullWidth
+                    <GoogleLogin
+                      onSuccess={res => {
+                        console.debug("ㅇ,ㅡ아아")
+                        console.log(res);
+                      }}
+                      onError={() => {
+                        console.log('Login Failed');
+                      }}
+                    />
+                    <Button
+                      fullWidth
 
-                          onClick={() => loginaaaaa()}
-                          size="large"
-                          variant="outlined"
-                        >
-                          구글 로그인
-                        </Button> */}
+                      onClick={() => loginaaaaa()}
+                      size="large"
+                      variant="outlined"
+                    >
+                      구글 로그인
+                    </Button>
                   </Stack>
 
                 </Box>

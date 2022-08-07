@@ -38,7 +38,7 @@ export default function Router() {
         { path: 'news', element: <GoogleNews /> },
         { path: 'statute', element: <Statute /> },
         { path: 'precedent', element: <PrecedentPage /> },
-        { path: 'temp', element: <PrecedentView /> },
+        { path: 'case', element: <PrecedentView /> },
         { path: 'editor', element: <PostEditor /> },
         { path: 'board', element: <Board /> },
         { path: 'account', element: <Account /> },

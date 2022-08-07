@@ -10,12 +10,14 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 // --------------------------------------
 const StatuteTest = () => {
 
-    const testData = [{
+    const [testData, setTestData] = useState([{
         "_id": {
             "$oid": "62b1848c2b16e3f2b1c0578e"
         },
@@ -148,30 +150,16 @@ const StatuteTest = () => {
             }
         ]
     }
-    ]
-    // const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    //     backgroundColor: theme.palette.primary,
-    //     borderBottom: '3px solid #FE4279',
-    //     [`&.${tableCellClasses.head}`]: {
-    //         backgroundColor: theme.palette.primary,
-    //         color: theme.palette.common.white,
-    //         borderBottom: '3px solid #FE4279',
-    //     },
-    //     [`&.${tableCellClasses.body}`]: {
-    //         fontSize: 14,
-    //         backgroundColor: 'inherit',
-    //     }
-    // }));
+    ])
+    useEffect(() => {
+        axios.post("/statute/getList", {})
+            .then(res => res)
+            .then(res => {
+                setTestData(res.data)
+                console.debug(res, " 어떻게fhk")
+            })
+    }, [])
 
-    // const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    //     "&:nth-of-type(odd)": {
-    //         backgroundColor: theme.palette.action.hover
-    //     },
-    //     // hide last border
-    //     "&:last-child td, &:last-child th": {
-    //         border: 1
-    //     }
-    // }));
     function test(test) {
         const 조문제목 = test["조문제목"] + ")"
         return [test["조문내용"].split(조문제목)[0] + test["조문제목"] + ")", test["조문내용"].split(조문제목)[1]]
