@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
-import { Button, Container, createTheme, Divider, Grid, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
+import { Button, Chip, Container, createTheme, Divider, Grid, Icon, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from '@mui/material';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import JoditEditor from "jodit-react";
 import axios from 'axios';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
+import FeedbackIcon from '@mui/icons-material/Feedback';
 
 const PostEditor = () => {
     const { state } = useLocation();
@@ -38,7 +41,11 @@ const PostEditor = () => {
         "showXPathInStatusbar": false,
         toolbar: false
     });
-
+    const getFullYmdStr = (time) => {
+        var d = new Date(time);
+        //return d.getFullYear() + "년 " + (d.getMonth() + 1) + "월 " + d.getDate() + "일 " + d.getHours() + "시 " + d.getMinutes() + "분 " + d.getSeconds() + "초 " + '일월화수목금토'.charAt(d.getUTCDay()) + '요일';
+        return d.getFullYear() + "" + (("00" + (d.getMonth() + 1)).slice(-2)) + ("00" + d.getDate()).slice(-2) + ("00" + d.getHours()).slice(-2) + ("00" + d.getMinutes()).slice(-2);
+    }
     useEffect(() => {
         let tempConfig = {
             placeholder: "dd" || 'Start typings...',
@@ -73,6 +80,12 @@ const PostEditor = () => {
                     setConfig(tempConfig);
                     setViewMode(true);
                     setContent(res.data.content);
+                    axios.post("/comment/getList", { postid: state.postid })
+                        .then(res => res)
+                        .then(res => {
+                            console.debug(res.data)
+                            setCommentList(res.data)
+                        })
                 })
 
         } else if (state.mode == 0) {
@@ -102,7 +115,8 @@ const PostEditor = () => {
             return
         }
         const params = {
-            postId: 0
+            postid: state.postid,
+            content: comment
         }
         axios.post("/comment/write", params)
             .then(res => res)
@@ -185,9 +199,22 @@ const PostEditor = () => {
                                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell width="10%" align="center">작성자</TableCell>
-                                                    <TableCell width="50%" align="center">내용</TableCell>
-                                                    <TableCell width="20%" align="center">날짜</TableCell>
+                                                    {commentList.length == 0 ?
+                                                        (
+                                                            <>
+                                                                <TableCell align="center">코멘트가 없습니다</TableCell>
+                                                            </>
+                                                        )
+                                                        :
+                                                        (
+                                                            <>
+                                                                <TableCell width="10%" align="center">작성자</TableCell>
+                                                                <TableCell width="50%" align="center">내용</TableCell>
+                                                                <TableCell width="20%" align="right">날짜</TableCell>
+                                                                <TableCell width="10%" align="center"></TableCell>
+                                                            </>
+                                                        )}
+
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -196,11 +223,16 @@ const PostEditor = () => {
                                                         key={comment.postid}
                                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                         onClick={() => { console.debug("히히") }}>
-                                                        <TableCell component="th" scope="row">
-                                                            {comment.category}
+                                                        <TableCell align="center" component="th" scope="row">
+                                                            {comment.writer == null ? "익명" : comment.writer}
                                                         </TableCell>
-                                                        <TableCell align="right">{comment.title}</TableCell>
-                                                        <TableCell align="right">{comment.update_date}</TableCell>
+                                                        <TableCell align="left" dangerouslySetInnerHTML={{ __html: comment.content }}></TableCell>
+                                                        <TableCell align="right">{getFullYmdStr(comment.update_date)}</TableCell>
+                                                        <TableCell align="right">
+                                                            <Icon component={DeleteForeverIcon} color="primary" fontSize="small" />
+                                                            <Icon component={EditIcon} color="primary" fontSize="small" />
+                                                            <Icon component={FeedbackIcon} color="primary" fontSize="small" />
+                                                        </TableCell>
                                                     </TableRow>
                                                 ))}
                                             </TableBody>

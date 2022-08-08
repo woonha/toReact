@@ -8,79 +8,45 @@ import Title from './title';
 
 const states = [
     {
-        value: '초',
+        value: 'elementary',
         label: '초등학생'
     },
     {
-        value: '중',
+        value: 'middle',
         label: '중학생'
     },
     {
-        value: '고',
+        value: 'high',
         label: '고등학생'
     }
 ];
 
 export const DamageRate = (props) => {
     const theme = useTheme();
-    // const [test, setTestdata] = useState(setTestdata)
-    const [datadata, setDatadata] = useState({
-        labels: ['2019', '2020', '2021'],
-        datasets: [
-            {
-                type: 'bar',
-                backgroundColor: '#fca4cc',
-                color: theme.palette.text.secondary,
-                barPercentage: 0.5,
-                barThickness: 30,
-                borderRadius: 10,
-                categoryPercentage: 0.5,
-                // maxBarThickness: 10,
-                data: [45.5, 19.2, 28.8],
+    const [values, setValues] = useState({ colName: 'high', states: 'high' });
+    const [datadata, setDatadata] = useState({ datasets: [] });
+    const chartSetting = () => {
 
-            },
-            {
-                type: 'line',
-                color: theme.palette.text.inherit,
-                backgroundColor: '#b0a3e0',
-                borderColor: '#b0a3e0',
-                // barPercentage: 0.5,
-                barThickness: 12,
-                // borderRadius: 4,
-                // categoryPercentage: 0.5,
-                maxBarThickness: 10,
-                data: [3.6, 1.8, 2.5],
-                yAxisID: 'y_sub'
-            }
-        ]
-    });
-    const [values, setValues] = useState({ student: "초등학생" });
-    const handleChange = (event) => {
-        let tempData = [1, 2, 10]
-        if (event.target.value == '초등학생') {
-            tempData = [11, 12, 110]
-        } else if (event.target.value == '중학생') {
-            tempData = [111, 122, 10]
-        }
-        console.debug(event.target.value, "ㅋㅋㅋ")
-        console.debug(event.target.name, " dmd")
-        setValues({
-            ...values,
-            [event.target.name]: event.target.value
-
-        });
-    };
-    useEffect(() => {
         const params = {
-            type: "1",
-            student: values["student"]
+            chart: 1,
+            colName: values["colName"]
         }
+        console.debug("되고있냐고1111", params)
         axios.post("/chart/chart1", params)
             .then(res => res)
             .then(res => {
-                console.debug(res, " ㅂㅏㄷㅇㅡㄴㄱㅏㅂㅅ")
-                console.debug(res.data.result1)
-                console.debug(res.data.result2)
+                console.debug(res.data, "어떻게되냐dd????")
+                const result = res.data;
+                let barArray = [];
+                let lineArray = [];
+
+                result.map((el) => {
+                    if (el["type"] == "비율") {
+                        barArray.push(el[params.colName]);
+                    } else {
+                        lineArray.push(el[params.colName]);
+                    }
+                })
                 setDatadata({
                     labels: ['2019', '2020', '2021'],
                     datasets: [
@@ -93,7 +59,7 @@ export const DamageRate = (props) => {
                             borderRadius: 10,
                             categoryPercentage: 0.5,
                             // maxBarThickness: 10,
-                            data: res.data.result1,
+                            data: lineArray
 
                         },
                         {
@@ -106,7 +72,7 @@ export const DamageRate = (props) => {
                             // borderRadius: 4,
                             // categoryPercentage: 0.5,
                             maxBarThickness: 10,
-                            data: res.data.result2,
+                            data: barArray,
                             yAxisID: 'y_sub'
                         }
                     ]
@@ -114,9 +80,20 @@ export const DamageRate = (props) => {
 
                 })
             })
-        console.debug(values)
+    }
+    const handleChange = (event) => {
+        setValues({
+            ...values,
+            [event.target.name]: event.target.value
+        });
+    };
 
+    useEffect(() => {
+        chartSetting()
     }, [values])
+    useEffect(() => {
+        chartSetting()
+    }, [])
 
     const options = {
         responsive: true,
@@ -198,12 +175,12 @@ export const DamageRate = (props) => {
                 <Title>피해 경험 추이</Title>
 
                 <TextField
-                    name="student"
+                    name="colName"
                     onChange={handleChange}
                     required
                     select
                     SelectProps={{ native: true }}
-                    value={values.state}
+                    value={values.colName}
                     variant="outlined"
                 >
                     {states.map((option) => (

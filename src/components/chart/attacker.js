@@ -23,32 +23,8 @@ export const Attacker = (props) => {
 
     const theme = useTheme();
     const [values, setValues] = useState({ type: "초", year: 2021 });
+    const [datadata, setDatadata] = useState({ datasets: [{ data: [] }] });
 
-    const [realData, setRealData] = useState([])
-    let chartForm = {
-        labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
-        datasets: [
-            {
-                data: realData,
-                backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
-                borderWidth: 8,
-                borderColor: '#FFFFFF',
-                hoverBorderColor: '#FFFFFF'
-            }
-        ],
-    }
-    const [datadata, setDatadata] = useState({
-        labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
-        datasets: [
-            {
-                data: realData,
-                backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
-                borderWidth: 8,
-                borderColor: '#FFFFFF',
-                hoverBorderColor: '#FFFFFF'
-            }
-        ],
-    });
     const chartSetting = () => {
 
         const params = {
@@ -67,11 +43,19 @@ export const Attacker = (props) => {
                     , result.other_school
                     , result.unknown
                     , result.other]
-                setRealData(chartData)
-                setDatadata(chartForm)
-                // const copy = JSON.parse(JSON.stringify(object));
-                console.debug(chartData, "  어케되냐고")
 
+                setDatadata({
+                    labels: ['같은 학교 같은 반', '같은 학교 같은 학년', '같은 학교 다른 학년', '다른 학교 학생', '잘 모르는 사람', '기타'],
+                    datasets: [
+                        {
+                            data: chartData,
+                            backgroundColor: ['#FFC288', '#F4E06D', '#B1BCE6', '#B7E5DD', '#FFFFDE', '#FF7396'],
+                            borderWidth: 8,
+                            borderColor: '#FFFFFF',
+                            hoverBorderColor: '#FFFFFF'
+                        }
+                    ],
+                })
                 console.debug("되고있는거냐고")
             })
     }
