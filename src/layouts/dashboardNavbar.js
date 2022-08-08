@@ -166,6 +166,16 @@ export const DashboardNavbar = () => {
                                         게시판
                                     </Button>
                                 </Box>
+                                <Divider orientation="vertical" variant="middle" flexItem />
+                                <Box>
+                                    <Button
+                                        variant="body1"
+                                        href="/account"
+
+                                    >
+                                        마이페이지 테스트
+                                    </Button>
+                                </Box>
 
                             </Box>
                         </Grid>
