@@ -13,7 +13,8 @@ export function check() {
 export function loginTemp(data) {
     let userData = {
         isLogin: true,
-        mail: data.email
+        mail: data.email,
+        member_no: data.pk_member_no
     };
 
     console.debug("로그인함!")

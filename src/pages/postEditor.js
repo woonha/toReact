@@ -220,7 +220,7 @@ const PostEditor = () => {
                                             <TableBody>
                                                 {commentList.map((comment) => (
                                                     <TableRow
-                                                        key={comment.postid}
+                                                        key={comment.commentid}
                                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                         onClick={() => { console.debug("히히") }}>
                                                         <TableCell align="center" component="th" scope="row">
