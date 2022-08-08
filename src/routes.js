@@ -17,6 +17,7 @@ import Settings from './pages/settings';
 import Board from './pages/board';
 import Account from './pages/account';
 import StatuteTest from './pages/statuteTest';
+import SearchHa from './pages/searchhh';
 
 
 
@@ -43,6 +44,8 @@ export default function Router() {
         { path: 'board', element: <Board /> },
         { path: 'account', element: <Account /> },
         { path: 'statuteTest', element: <StatuteTest /> },
+        { path: 'searchgg', element: <SearchHa /> },
+
 
 
       ],
