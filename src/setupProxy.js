@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
     app.use(
-        ["member/**", "precedent/**", "chart/**", "post/**", "comment/**", "statute/**"],
+        ["/member/**", "/precedent/**", "/chart/**", "/post/**", "/comment/**", "/statute/**"],
         createProxyMiddleware({
             target: 'http://3.37.220.80:8080/',
             changeOrigin: true,
