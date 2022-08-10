@@ -36,7 +36,7 @@ const BoardPage = () => {
     useEffect(() => {
         const params = { "page": page, "size": size };
         axios({
-            method: 'post', url: "/post/getList", baseURL: "http://localhost:8080/", data: {}
+            method: 'post', url: "/post/getList", baseURL: "http://3.37.220.80:8080/", data: {}
         })
             .then(res => res)
             .then(res => {
