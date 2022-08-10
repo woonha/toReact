@@ -6,6 +6,7 @@ module.exports = function (app) {
         createProxyMiddleware({
             target: 'http://3.37.220.80:8080',
             changeOrigin: true,
+            secure: false,
         })
     ),
         app.use(
@@ -13,6 +14,7 @@ module.exports = function (app) {
             createProxyMiddleware({
                 target: 'https://kauth.kakao.com',
                 changeOrigin: true,
+                secure: false,
             })
         ),
         app.use(
@@ -20,6 +22,7 @@ module.exports = function (app) {
             createProxyMiddleware({
                 target: 'https://accounts.kakao.com',
                 changeOrigin: true,
+                secure: false,
             })
         ),
         app.use(
@@ -27,6 +30,7 @@ module.exports = function (app) {
             createProxyMiddleware({
                 target: 'kapi.kakao.com',
                 changeOrigin: true,
+                secure: false,
             })
         ),
 
@@ -36,6 +40,7 @@ module.exports = function (app) {
             createProxyMiddleware({
                 target: 'https://news.google.com/',
                 changeOrigin: true,
+                secure: false,
             })
         ),
         app.use(
@@ -43,6 +48,7 @@ module.exports = function (app) {
             createProxyMiddleware({
                 target: 'http://3.39.242.42:5000/',
                 changeOrigin: true,
+                secure: false,
             })
         )
 }
