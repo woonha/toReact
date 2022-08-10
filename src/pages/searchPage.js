@@ -7,15 +7,23 @@ import Title from '../components/chart/title';
 import MainCard from '../components/lawCard';
 import SearchTabs from '../components/search/search-tabs';
 // --------------------------------------
-const SearchHa = () => {
-  <>
-    <SearchTabs></SearchTabs>
-  </>
+const SearchPage = () => {
+  const params = new URLSearchParams(window.location.search)
+  const [searchText, setSearchText] = useState("");
+  useEffect(() => {
+    console.debug("서치텍스트어케돼?", params.get("searchText"))
+    setSearchText(params.get("searchText"));
+  }, [searchText])
+  return (
+    <>
+      <SearchTabs searchText={searchText}></SearchTabs>
+    </>
+  )
 };
 
 
 
-SearchHa.getLayout = (page) => (
+SearchPage.getLayout = (page) => (
   { page }
 );
-export default SearchHa;
+export default SearchPage;

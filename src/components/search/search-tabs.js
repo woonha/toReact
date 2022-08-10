@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -46,9 +46,12 @@ const a11yProps = (index) => {
     };
 }
 
-export default function SearchTabs() {
+export default function SearchTabs(props) {
+    useEffect(() => {
+        console.debug("hahahah", props)
+    }, [props])
+
     const [value, setValue] = React.useState(0);
-    console.debug("dmdlgmdlgsㅇㅎㅇㄴgmklsdmgklsdmgkldsmkglmsdklg")
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -59,14 +62,12 @@ export default function SearchTabs() {
         <Box
             sx={{
                 flexGrow: 1,
-                bgcolor: "background.color",
                 display: "flex",
-
                 justifyContent: 'center'
             }}
         >
-            <Box sx={{ width: '50%' }}>
-                <Box sx={{ borderBottom: 1, borderColor: "background.paper", backgroundColor: "background.color" }}>
+            <Box >{/*sx={{ width: '70%' }} */}
+                <Box sx={{ borderBottom: 1, borderColor: "background.paper" }}>
                     <TabList
                         value={value}
                         onChange={handleChange}
@@ -79,7 +80,7 @@ export default function SearchTabs() {
                     </TabList>
                 </Box>
                 <TabPanel value={value} index={0}>
-                    <SearchAll />
+                    <SearchAll searchText={props.searchText} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     <SearchStatute />
