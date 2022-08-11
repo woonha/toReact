@@ -19,12 +19,6 @@ import Account from './pages/account';
 import StatuteTest from './pages/statuteTest';
 import SearchPage from './pages/searchPage';
 
-
-
-
-
-
-
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -45,9 +39,6 @@ export default function Router() {
         { path: 'account', element: <Account /> },
         { path: 'statuteTest', element: <StatuteTest /> },
         { path: 'search', element: <SearchPage /> },
-
-
-
       ],
     },
     { path: '*', element: <Navigate to="/404" replace /> },
@@ -59,8 +50,6 @@ export default function Router() {
         { path: 'register', element: <Register /> },
         // { path: 'settingPasswd', element: <SettingPasswd /> },
         { path: 'settings', element: <Settings /> },
-
-
       ],
     }
   ]);

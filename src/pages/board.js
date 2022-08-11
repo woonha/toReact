@@ -35,13 +35,10 @@ const BoardPage = () => {
     };
     useEffect(() => {
         const params = { "page": page, "size": size };
-        axios({
-            method: 'post', url: "/post/getList", baseURL: "http://3.37.220.80:8080/", data: {}
-        })
+        axios.post("/post/getList", params)
             .then(res => res)
             .then(res => {
-                console.debug(" 하하시발", res.data)
-
+                setPostList(res.data)
             })
     }, [page])
     const category = [

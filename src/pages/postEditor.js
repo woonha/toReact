@@ -67,6 +67,7 @@ const PostEditor = () => {
         }
 
         if (state.mode == 1) {
+            /*
             axios({
                 method: 'post', url: "/post/getList", baseURL: "http://localhost:8080/", data: {
                     postid: state.postid
@@ -77,7 +78,7 @@ const PostEditor = () => {
                     console.debug(" 하하시발", res.data.content)
 
                 })
-            /*
+*/
             axios.post("post/get", { postid: state.postid })
                 .then(res => res)
                 .then(res => {
@@ -97,7 +98,7 @@ const PostEditor = () => {
                             setCommentList(res.data)
                         })
                 })
-*/
+
         } else if (state.mode == 0) {
             setConfig(tempConfig)
         }
