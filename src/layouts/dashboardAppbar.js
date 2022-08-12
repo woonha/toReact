@@ -1,30 +1,21 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, createTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import { Box, ButtonGroup, Container, Grid, TextField, Typography, Paper, Stack, useTheme, ThemeProvider } from '@mui/material';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+import { Box, ThemeProvider, AppBar, Toolbar, Button, Link, Menu, MenuItem, ListItemIcon, IconButton, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { createTheme } from '@mui/material/styles';
-import { check } from '../auth/auth';
-import { logoutTemp } from "../auth/auth";
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import { check, logoutTemp } from '../auth/auth';
 import Face from '@mui/icons-material/Face';
-import IconButton from "@mui/material/IconButton";
 import Badge from "@mui/material/Badge";
 import { DashboardSearchbar } from './dashboardSearchbar';
 import Circle_Notifications from '@mui/icons-material/CircleNotifications'
-import ListItemIcon from '@mui/material/ListItemIcon';
 import EditIcon from '@mui/icons-material/Edit';
 import AccountBoxSharpIcon from '@mui/icons-material/AccountBoxSharp';
 import LogoutIcon from '@mui/icons-material/Logout';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import logo from '../image/logo.png';
 import "../App.css"
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -68,35 +59,44 @@ const StyledButton = styled(Button)({
 });
 
 export const DashboardAppbar = () => {
-
-
     const navigate = useNavigate();
     const [isLogin, setIsLogin] = React.useState(false);
     React.useEffect(() => {
         setIsLogin(check());
     })
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl2, setAnchorEl2] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
+    const isMenuOpen2 = Boolean(anchorEl2);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
+    };
+    const handleProfileMenuOpen2 = (event) => {
+        setAnchorEl2(event.currentTarget);
+    };
+    const handleMobileMenuOpen = (event) => {
+        setMobileMoreAnchorEl(event.currentTarget);
+    };
+
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+        handleMobileMenuClose();
+    };
+    const handleMenuClose2 = () => {
+        setAnchorEl2(null);
+        handleMobileMenuClose();
     };
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
     };
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
-
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
     const handleCloseNavMenu = () => {
         //setAnchorElNav('');
     };
@@ -105,8 +105,12 @@ export const DashboardAppbar = () => {
     const goToProfile = () => {
         navigate("/account");
     };
+    const goToNotifications = () => {
+        navigate("/board");
+    };
 
     const menuId = 'primary-search-account-menu';
+    const menuId2 = "account-menu";
 
     const logoutButton = () => {
         logoutTemp();
@@ -156,12 +160,6 @@ export const DashboardAppbar = () => {
                 내 프로필
             </MenuItem>
 
-            <MenuItem onClick={handleMenuClose}>
-                <ListItemIcon>
-                    <EditIcon fontSize="small" />
-                </ListItemIcon>
-                나의 활동
-            </MenuItem>
             <MenuItem onClick={logoutButton}>
                 <ListItemIcon>
                     <LogoutIcon fontSize="small" />
@@ -170,6 +168,52 @@ export const DashboardAppbar = () => {
             </MenuItem>
         </Menu>
     );
+
+    const notificationsMenu = (
+        <Menu
+            id={menuId2}
+            open={isMenuOpen2}
+            onClose={handleMenuClose2}
+            anchorEl={anchorEl2}
+            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+            PaperProps={{
+                elevation: 0,
+                sx: {
+                    overflow: 'visible',
+                    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                    mt: 0,
+                    '& .MuiAvatar-root': {
+                        width: 32,
+                        height: 32,
+                        ml: -0.5,
+                        mr: 1,
+                    },
+                    '&:before': {
+                        content: '""',
+                        display: 'block',
+                        position: 'absolute',
+                        top: 0,
+                        right: 14,
+                        width: 10,
+                        height: 10,
+                        bgcolor: 'background.paper',
+                        transform: 'translateY(-50%) rotate(45deg)',
+                        zIndex: 0,
+                    },
+                },
+            }}
+        >
+            <MenuItem onClick={goToNotifications}>
+                <ListItemIcon>
+                    <AccountBoxSharpIcon fontSize="small" />
+                </ListItemIcon>
+                알림
+            </MenuItem>
+        </Menu>
+    );
+
+
     const mobileMenuId = 'primary-search-account-menu-mobile';
     const renderMobileMenu = (
         <Menu
@@ -208,39 +252,38 @@ export const DashboardAppbar = () => {
             }}
         >
             <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="medium"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <Face />
-                </IconButton>
-                <p>Profile</p>
+                <ListItemIcon>
+                    <Face size="medium"
+                        aria-label="account of current user"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                    />
+                </ListItemIcon>
+                마이 페이지
             </MenuItem>
             <MenuItem>
-                <IconButton
-                    size="medium"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <Circle_Notifications />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
+                <ListItemIcon>
+                    <Circle_Notifications size="medium"
+                        aria-label="account of current user"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                    />
+                </ListItemIcon>
+                알림
             </MenuItem>
         </Menu>
     );
 
     const login = () => {
         return (<>
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ display: { xs: 'flex', md: 'flex' } }}>
 
                 <IconButton
                     size="large"
-                    aria-label="show 17 new notifications"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen2}
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
@@ -262,7 +305,7 @@ export const DashboardAppbar = () => {
                     </Face>
                 </IconButton>
             </Box>
-            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={{ display: { xs: 'none', md: 'none' } }}>
                 <IconButton
                     size="large"
                     aria-label="show more"
@@ -276,6 +319,7 @@ export const DashboardAppbar = () => {
             </Box>
             {renderMenu}
             {renderMobileMenu}
+            {notificationsMenu}
         </>)
     }
     const notLogin = () => {
@@ -286,84 +330,39 @@ export const DashboardAppbar = () => {
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            <Box
-                width="100%"
-                component="main">
-
+        <React.Fragment>
+            <ThemeProvider theme={theme}>
                 <AppBar position="static">
                     <StyledToolbar>
-                        {/* <Box sx={{ flexGrow: 1 }} /> */}
-                        <Box
+                        <Link
+                            variant='h3'
+                            href="/"
+                            to="/"
+                            color="inherit"
+                            noWrap
+                            underline="none"
+
                             sx={{
-
-                            }}>
-                            <Link
-                                variant='h3'
-                                href="/"
-                                to="/"
-                                color="inherit"
-                                noWrap
-                                underline="none"
-
-                                sx={{
-                                    cursor: 'pointer',
-                                    flexGrow: 0.8,
-                                    mx: 3,
-                                    mr: 3,
-
-                                }}
-                            >
-                                <img src={logo} className="logo" alt="logo" />
-                            </Link></Box>
-
+                                cursor: 'pointer',
+                                flexGrow: 0.8,
+                                mx: 3,
+                                mr: 3,
+                            }}
+                        >
+                            <img src={logo} className="logo" alt="logo" />
+                        </Link>
                         <DashboardSearchbar></DashboardSearchbar>
+                        <Box sx={{ flexGrow: 1 }} />
 
-
-                        {/* <Stack>
-                        <ThemeProvider theme={colorTool}>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-end'
-                                }}>
-                                <ButtonGroup variant="outlined" aria-label="outlined button group">
-                                    <Button
-                                        href="/login"
-                                        color='secondary'
-                                        sx={{
-                                            fontSize: 15,
-                                            fontWeight: 'normal',
-                                        }}>
-                                        로그인
-                                    </Button>
-                                    <Button
-                                        href="/register"
-                                        color='secondary'
-
-                                        sx={{
-
-                                            fontSize: 15,
-                                            fontWeight: 'normal'
-                                        }}>
-                                        회원가입
-                                    </Button>
-                                </ButtonGroup>
-                            </Box>
-                        </ThemeProvider>
-                    </Stack> */}
                         {isLogin ? login() : notLogin()}
                         {/* {isLogin ? <Button>login</Button> : <Button>logout</Button>} */}
                         {renderMenu}
                         {renderMobileMenu}
+                        {notificationsMenu}
                     </StyledToolbar>
                 </AppBar>
-
-
-            </Box >
-        </ThemeProvider >
-
+            </ThemeProvider >
+        </React.Fragment>
     );
 };
 DashboardAppbar.propTypes = {

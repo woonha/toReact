@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
-import { Box, Container, Divider, Grid, Paper, Table, TableCell, TableContainer, TableHead, TableRow, TableBody } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { Box, Paper, Table, TableCell, TableContainer, TableHead, TableRow, TableBody, Container, Grid } from '@mui/material';
 import { styled } from "@mui/material/styles";
 import axios from 'axios';
 
@@ -9,27 +9,21 @@ const CssContainer = styled(Container)({
         paddingLeft: 0,
         marginTop: 0
     }
-
 })
 
-const size = 10;
-export const AccountBoard = () => {
+export const AccountComment = () => {
+
     const [page, setPage] = useState(0);
 
-    const [myPostList, setMyPostList] = useState([]);
-
-    const onChange = useCallback(e => {
-        setPage(e.target.postMyList);
-    })
+    const [myCommentList, setCommentList] = useState([]);
 
     useEffect(() => {
-        const params = { "page": page, "size": size };
-        axios.post("/post/getMyList", params)
+        const params = { "commentid": 0 };
+        axios.post("/comment/getMyList", params)
             .then(res => res)
             .then(res => {
-
-                console.debug("내가 쓴 글 리스트", res)
-                setMyPostList(res.data)
+                console.debug("내가 쓴 댓글 리스트", res)
+                setCommentList(res.data)
             })
     }, [page])
 
@@ -50,34 +44,34 @@ export const AccountBoard = () => {
     }
 
     return (
-        <CssContainer maxWidth="lg" sx={{ my: 9, px: 0 }}>
+        <CssContainer maxWidth="lg" sx={{ mb: 4 }}>
             <Grid item xs={12} lg={6}>
 
                 <TableContainer component={Paper}>
-
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell width="10%" align="center">카테고리</TableCell>
-                                <TableCell width="30%" align="center">제목</TableCell>
-                                <TableCell width="40%" align="center">내용</TableCell>
+                                {/* <TableCell width="10%" align="center">카테고리</TableCell> */}
+                                <TableCell width="60%" align="center">댓글 내용</TableCell>
                                 <TableCell width="30%" align="center">날짜</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody
                             sx={{ backgroundColor: '#fff' }}>
-                            {myPostList.map((row) => (
+                            {myCommentList.map((comment) => (
                                 <TableRow
-                                    key={row.postid}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {categoryPrint(row.category)}
-                                    </TableCell>
-
-                                    <TableCell align="center">{row.title}</TableCell>
-                                    <TableCell align="center" dangerouslySetInnerHTML={{ __html: row.content }}></TableCell>
-                                    <TableCell align="center">{getFullYmdStr(row.update_date)}</TableCell>
+                                    key={comment.commentid}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                    {/* <TableCell align="center" component="th" scope="row">
+                                        {categoryPrint(comment.category)}
+                                    </TableCell> */}
+                                    <TableCell align="center" dangerouslySetInnerHTML={{ __html: comment.content }}></TableCell>
+                                    <TableCell align="center">{getFullYmdStr(comment.update_date)}</TableCell>
+                                    {/* <TableCell align="right">
+                                        <Icon component={DeleteForeverIcon} color="primary" fontSize="small" />
+                                        <Icon component={EditIcon} color="primary" fontSize="small" />
+                                        <Icon component={FeedbackIcon} color="primary" fontSize="small" />
+                                    </TableCell> */}
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -95,8 +89,3 @@ export const AccountBoard = () => {
         </CssContainer>
     );
 };
-
-AccountBoard.getLayout = (page) => (
-    { page }
-);
-export default AccountBoard;

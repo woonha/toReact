@@ -81,6 +81,7 @@ export const DashboardSearchbar = (props) => {
                   sx={{
                     margin: "auto",
                     marginBottom: "20px",
+                    display: { xs: 'none', md: 'flex' },
                   }}
                 >
                   <StyledInputBase

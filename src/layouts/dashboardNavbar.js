@@ -1,58 +1,19 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
-import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Divider from '@mui/material/Divider';
-import { Box, Button, Container, Grid, Link, TextField, Typography, Paper, Stack } from '@mui/material';
+import { Container, Link } from '@mui/material';
 // import { Link as Href } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import { check } from '../auth/auth';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(0),
-    alignItems: 'center',
-    '@media all': {
-        minHeight: 50,
-    }
+    color: '#ffebee',
+    backgroundColor: theme.primary,
 }));
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#ffebee',
-            contrastText: '#374151',
-        },
-        neutral: {
-            main: '#FE4279',
-            contrastText: '#374151',
-        }
-    },
-    typography: {
-        button: {
-            fontWeight: 500,
-            fontSize: '0.9rem',
-            lineHeight: 1.5,
-            fontFamily: 'GowunDodum-Regula'
-        },
-    },
-    shadows: ['none']
-},
-);
-const StyledButton = styled(Button)({
-    width: 200,
-    height: 68,
-    fontSize: 18,
-    fontFamily: ['sans-serif'],
-    '&:hover': {
-        backgroundColor: 'none',
-        borderColor: 'none',
-        boxShadow: 'none',
-        color: 'FE4279',
-    },
-    color: 'inherit'
-});
 
 export const DashboardNavbar = () => {
     const [isLogin, setIsLogin] = React.useState(false);
@@ -86,105 +47,91 @@ export const DashboardNavbar = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-            <Box
-                component="main"
-                width={'100%'}
-                minHeight='100%'
-            >
-                <AppBar position="relative">
-                    <StyledToolbar>
-                        <Grid container width={'100%'} justifyContent='flex-end'>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    width: 'fit-content',
-                                    '& svg': {
-                                        m: 1.5,
-                                    },
-                                    '& hr': {
-                                        mx: 2.5,
-                                    },
-                                }}
-                            >
-                                <Box >
-                                    <Button
-                                        variant="body1"
-                                        paddingBottom={10}
-                                        href="/statuteTest"
+        <React.Fragment>
 
-                                    >
-                                        법령
-                                    </Button>
-                                </Box>
-                                <Divider orientation="vertical" variant="middle" flexItem />
-                                <Box>
-                                    <Button
-                                        variant="body1"
-                                        href="/precedent"
+            <Container maxWidth="md">
 
-                                    >
-                                        판례
-                                    </Button>
-                                </Box>
-                                <Divider orientation="vertical" variant="middle" flexItem />
-                                <Box>
-                                    <Button
-                                        variant="body1"
-                                        href="/wordCloud"
+                <StyledToolbar
+                    component="nav"
+                    variant="dense"
+                    sx={{ justifyContent: 'space-between', overflowX: 'auto', p: 1, flexShrink: 0 }}
+                >
+                    <Link
+                        sx={{ p: 1, flexShrink: 0 }}
+                        variant="body1"
+                        href="/statuteTest"
+                        noWrap
+                    >
+                        법령
+                    </Link>
+                    {/* </Box> */}
+                    <Divider orientation="vertical" variant="middle" flexItem />
+                    <Link
+                        sx={{ p: 1, flexShrink: 0 }}
+                        variant="body1"
+                        href="/precedent"
+                        noWrap
+                    >
+                        판례
+                    </Link>
 
-                                    >
-                                        법령 클라우드
-                                    </Button>
-                                </Box>
-                                <Divider orientation="vertical" variant="middle" flexItem />
-                                <Box>
-                                    <Button
-                                        variant="body1"
-                                        href="/news"
-                                    >
-                                        카드뉴스
-                                    </Button>
-                                </Box>
-                                <Divider orientation="vertical" variant="middle" flexItem />
-                                <Box>
-                                    <Button
-                                        variant="body1"
-                                        href="/chart"
-                                    >
-                                        실태조사
-                                    </Button>
-                                </Box>
-                                <Divider orientation="vertical" variant="middle" flexItem />
-                                <Box>
-                                    <Button
-                                        variant="body1"
-                                        href="/board"
+                    <Divider orientation="vertical" variant="middle" flexItem />
 
-                                    >
-                                        게시판
-                                    </Button>
-                                </Box>
-                                <Divider orientation="vertical" variant="middle" flexItem />
-                                <Box>
-                                    <Button
-                                        variant="body1"
-                                        href="/account"
+                    <Link
+                        sx={{ p: 1, flexShrink: 0 }}
+                        variant="body1"
+                        href="/wordCloud"
+                        noWrap
+                    >
+                        법령 클라우드
+                    </Link>
 
-                                    >
-                                        마이페이지 테스트
-                                    </Button>
-                                </Box>
+                    <Divider orientation="vertical" variant="middle" flexItem />
 
-                            </Box>
-                        </Grid>
-                    </StyledToolbar >
+                    <Link
+                        sx={{ p: 1, flexShrink: 0 }}
+                        variant="body1"
+                        href="/news"
+                        noWrap
+                    >
+                        카드뉴스
+                    </Link>
 
-                </AppBar >
-            </Box >
+                    <Divider orientation="vertical" variant="middle" flexItem />
 
-        </ThemeProvider >
+                    <Link
+                        sx={{ p: 1, flexShrink: 0 }}
+                        variant="body1"
+                        href="/chart"
+                        noWrap
+                    >
+                        실태조사
+                    </Link>
+
+                    <Divider orientation="vertical" variant="middle" flexItem />
+
+                    <Link
+                        sx={{ p: 1, flexShrink: 0 }}
+                        variant="body1"
+                        href="/board"
+                        noWrap
+                    >
+                        게시판
+                    </Link>
+
+                    <Divider orientation="vertical" variant="middle" flexItem />
+
+                    <Link
+                        sx={{ p: 1, flexShrink: 0 }}
+                        variant="body1"
+                        href="/account"
+                        noWrap
+                    >
+                        마이페이지 테스트
+                    </Link>
+                </StyledToolbar >
+            </Container>
+        </React.Fragment>
     );
 };
 DashboardNavbar.propTypes = {

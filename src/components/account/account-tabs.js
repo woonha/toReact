@@ -1,15 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import TabList from '@mui/material/Tabs';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Typography } from '@mui/material';
 
 
-import { useEffect } from "react";
 import { AccountProfile } from "./account-profile";
-import { AccountMyBoard } from "./account-board";
-import { Box, ButtonGroup, Container, Grid, TextField, Typography, Paper, Stack } from '@mui/material';
+import { AccountBoard } from "./account-board";
+import { AccountComment } from "./account-comment";
+
 
 const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
@@ -25,7 +24,7 @@ const TabPanel = (props) => {
             {...other}
         >
             {value === index && (
-                <Box sx={{ p: 3, padding: 0 }}>
+                <Box>
                     <Typography>{children}</Typography>
                 </Box>
 
@@ -69,8 +68,8 @@ export default function AccountTabs() {
             }}
         >
 
-            <Box sx={{ width: '50%' }}>
-                <Box sx={{ borderBottom: 1, borderColor: "background.paper", backgroundColor: "background.color" }}>
+            <Box sx={{ width: { xs: '90%', md: '50%' }, mt: 8 }}>
+                <Box>
                     <TabList
                         value={value}
                         onChange={handleChange}
@@ -86,14 +85,14 @@ export default function AccountTabs() {
                     <AccountProfile />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    <AccountMyBoard />
+                    <AccountBoard />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    <AccountProfile />
+                    <AccountComment />
                 </TabPanel>
             </Box >
 
-        </Box>
+        </Box >
     );
 }
 
