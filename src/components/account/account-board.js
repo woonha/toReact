@@ -68,7 +68,7 @@ export const AccountBoard = () => {
                             sx={{ backgroundColor: '#fff' }}>
                             {myPostList.map((row) => (
                                 <TableRow
-                                    key={row.postid}
+                                    key={row.post_idx}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                 >
                                     <TableCell component="th" scope="row">

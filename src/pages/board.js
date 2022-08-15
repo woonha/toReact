@@ -14,7 +14,7 @@ const BoardPage = () => {
     const navigate = useNavigate();
     const postClick = (data) => {
         console.debug("클릭", data)
-        navigate("/editor", { state: { mode: 1, postid: data } })
+        navigate("/editor", { state: { mode: 1, post_idx: data } })
     }
     const getFullYmdStr = (time) => {
         var d = new Date(time);
@@ -34,11 +34,11 @@ const BoardPage = () => {
         navigate("/editor", { state: { mode: 0 } })
     };
     useEffect(() => {
-        const params = { "page": page, "size": size };
+        const params = { "paging": { "page": page, "size": 10 } };
         axios.post("/post/getList", params)
             .then(res => res)
             .then(res => {
-                setPostList(res.data)
+                setPostList(res.data.list)
             })
     }, [page])
     const category = [
@@ -124,9 +124,9 @@ const BoardPage = () => {
                             <TableBody>
                                 {postList.map((row) => (
                                     <TableRow
-                                        key={row.postid}
+                                        key={row.post_idx}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                        onClick={() => { postClick(row.postid) }}>
+                                        onClick={() => { postClick(row.post_idx) }}>
                                         <TableCell component="th" scope="row">
                                             {categoryPrint(row.category)}
                                         </TableCell>

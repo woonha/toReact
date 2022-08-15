@@ -18,7 +18,7 @@ export const AccountComment = () => {
     const [myCommentList, setCommentList] = useState([]);
 
     useEffect(() => {
-        const params = { "commentid": 0 };
+        const params = { "comment_idx": 0 };
         axios.post("/comment/getMyList", params)
             .then(res => res)
             .then(res => {
@@ -60,7 +60,7 @@ export const AccountComment = () => {
                             sx={{ backgroundColor: '#fff' }}>
                             {myCommentList.map((comment) => (
                                 <TableRow
-                                    key={comment.commentid}
+                                    key={comment.comment_idx}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                     {/* <TableCell align="center" component="th" scope="row">
                                         {categoryPrint(comment.category)}

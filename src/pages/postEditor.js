@@ -79,7 +79,7 @@ const PostEditor = () => {
 
                 })
 */
-            axios.post("post/get", { postid: state.postid })
+            axios.post("post/get", { post_idx: state.post_idx })
                 .then(res => res)
                 .then(res => {
                     console.debug(res.data.content)
@@ -91,7 +91,7 @@ const PostEditor = () => {
                     setConfig(tempConfig);
                     setViewMode(true);
                     setContent(res.data.content);
-                    axios.post("/comment/getList", { postid: state.postid })
+                    axios.post("/comment/getList", { post_idx: state.post_idx })
                         .then(res => res)
                         .then(res => {
                             console.debug(res.data)
@@ -126,7 +126,7 @@ const PostEditor = () => {
             return
         }
         const params = {
-            postid: state.postid,
+            post_idx: state.post_idx,
             content: comment
         }
         axios.post("/comment/write", params)
@@ -231,7 +231,7 @@ const PostEditor = () => {
                                             <TableBody>
                                                 {commentList.map((comment) => (
                                                     <TableRow
-                                                        key={comment.commentid}
+                                                        key={comment.comment_idx}
                                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                         onClick={() => { console.debug("히히") }}>
                                                         <TableCell align="center" component="th" scope="row">

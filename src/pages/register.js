@@ -15,8 +15,9 @@ import {
   formGroupClasses
 } from '@mui/material';
 import axios from 'axios';
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import { useEffect } from 'react';
+import GoogleLoginH from 'react-google-login';
 
 // ------------------------------------------------
 const CssTextField = styled(TextField)({
@@ -47,12 +48,24 @@ const Register = () => {
   }
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const loginaaaaa = useGoogleLogin({
-    onSuccess: tokenResponse => console.log(tokenResponse),
+    onSuccess: tokenResponse => {
+      axios.post("/member/googleLogin", { access_token: tokenResponse.access_token })
+        .then(res => res)
+        .then(res => {
+          console.debug(res, "으힌의항ㄴ")
+        })
+    }
   });
+
+
+  const hoihoi = () => {
+    console.log()
+  }
+
   const params = new URLSearchParams(window.location.search)
 
   useEffect(() => {
-    console.debug("회원가입하하", params.get("code"));
+    console.debug("회원가입", params.get("code"));
     let code = params.get("code");
     if (code != null) {
       let cli = "kgq7HvEMvLTGJyar3LH0js6bsXQFSFTB";
@@ -68,7 +81,13 @@ const Register = () => {
           client_id: REST_API_KEY
         }
         let header = { 'Content-Type': 'application/x-www-urlencoded' };
-        axios({
+        axios.post("/member/kakaoLogin", tokenParam)
+          .then(res => res)
+          .then(res => {
+            console.debug("하하하하하하하ㅏ하하하하하하", res)
+          })
+
+        /*axios({
           method: "post",
           url: "https://kauth.kakao.com/oauth/token",
           params: tokenParam,
@@ -93,6 +112,7 @@ const Register = () => {
               })
 
           })
+          */
       }
     }
 
@@ -324,12 +344,21 @@ const Register = () => {
               <Button
                 fullWidth
 
-                onClick={() => loginaaaaa()}
+                onClick={() => {
+                  loginaaaaa()
+
+
+                }}
                 size="large"
                 variant="outlined"
               >
                 구글 회원가입
               </Button>
+              <GoogleLoginH
+                clientId='526924998787-bh0o65d1lcjp7q5ptptsfvvdam04vged.apps.googleusercontent.com'
+                buttonText='Google'
+                onSuccess={result => { console.debug(result) }}
+                onFailure={result => console.log(result)} />
               <Typography
                 color="textSecondary"
                 variant="body2"
