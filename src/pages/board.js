@@ -23,7 +23,7 @@ const BoardPage = () => {
     }
     const size = 10;
     const [page, setPage] = useState(1);
-    const [count, setCount] = useState(10);
+    const [total, setTotal] = useState(0);
 
     const [postList, setPostList] = useState([]);
     const [maxPage, setMaxPage] = useState(1);
@@ -39,6 +39,8 @@ const BoardPage = () => {
             .then(res => res)
             .then(res => {
                 setPostList(res.data.list)
+                setMaxPage(res.data.paging.maxPage)
+                setTotal(res.data.paging.total)
             })
     }, [page])
     const category = [
@@ -110,7 +112,7 @@ const BoardPage = () => {
 
                 <Grid item xs={12} lg={6}>
 
-
+                    총 개수 : {total}
                     <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
@@ -131,7 +133,7 @@ const BoardPage = () => {
                                             {categoryPrint(row.category)}
                                         </TableCell>
                                         <TableCell align="right">{row.title}</TableCell>
-                                        <TableCell align="right">{row.member_no == 0 ? "익명" : row.member_no}</TableCell>
+                                        <TableCell align="right">{row.writer}</TableCell>
                                         <TableCell align="right">{getFullYmdStr(row.update_date)}</TableCell>
                                     </TableRow>
                                 ))}
@@ -143,8 +145,7 @@ const BoardPage = () => {
                         justifyContent="center"
                         alignItems="center"
                     >
-                        {/* <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" /> */}
-                        <Pagination count={1} page={page} onChange={handleChange} variant="outlined" color="primary" />
+                        <Pagination count={maxPage} page={page} onChange={handleChange} variant="outlined" color="primary" />
                     </Box>
                     {/* </Stack> */}
                 </Grid>

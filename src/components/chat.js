@@ -63,7 +63,7 @@ const LawChat = () => {
         axios.post("/chat/send", chatLog)
             .then(res => res)
             .then(res => {
-                console.debug(res, " gkgkgkgkgkgkgk")
+                console.debug(res, "  gkgkgkgk하하하하!!!")
                 let aiTemp = {
                     index: chatIndex + 1,
                     text: res.data.message,
