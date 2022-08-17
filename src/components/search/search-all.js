@@ -82,22 +82,6 @@ export const SearchAll = (props) => {
             >
                 <ThemeProvider theme={colorTool}>
                     <Paper variant="undefined" sx={{ my: { xs: 3, md: 5 }, p: { xs: 2, md: 3 } }}  >
-                        <Box sx={{
-                            my: 5,
-                            marginTop: 1,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center'
-                        }}>
-                            <Typography
-                                fontFamily="Segoe UI"
-                                variant="h5"
-                                color="primary"
-                            >
-                                All
-                            </Typography>
-                        </Box>
-
                         <Container maxWidth="md">
                             {/* <Box
                                 component="form"
@@ -108,61 +92,92 @@ export const SearchAll = (props) => {
                                     gap: 2,
                                 }}
                             >
-
-
                             </Box> */}
-                            <Divider>법령</Divider>
+                            <Divider>
+                                <Typography
+                                    fontFamily="Segoe UI"
+                                    variant="h5"
+                                    color="primary"
+                                >
+                                    법령
+                                </Typography>
+                            </Divider>
                             <Box
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: 'flex-end',
-                                    p: 2
-                                }}
+                            // sx={{
+                            //     display: 'flex',
+                            //     justifyContent: 'flex-end',
+                            //     p: 2
+                            // }}
                             >
                                 <Stack spacing={3}>
                                     <Container>
                                         <Grid item xs={12} lg={6}>
 
-                                            <TableContainer>
-                                                <Table>
-                                                    <TableBody
-                                                        borderBottom='1px solid #FE4279'>
-                                                        {statuteList.map(data => (
-                                                            <TableRow
-                                                                key={data["_id"]}
-                                                            >
-                                                                <TableCell
-                                                                    borderBottom='1px solid ##FE4279' >
-                                                                    {test(data)[0]}
-                                                                </TableCell >
-                                                                <TableCell align="left">
-                                                                    <Typography variant="body2" gutterBottom>
-                                                                        {test(data)[1]}
-                                                                    </Typography>
-                                                                    {data["항"].map(hang => {
-                                                                        return (
-                                                                            <>
-                                                                                <Typography variant="body2" gutterBottom>
-                                                                                    {hang["항내용"]}
-                                                                                </Typography>
-
-                                                                                {hang["호"].map(ho => {
-                                                                                    return (
-                                                                                        <Typography color="textSecondary" variant="body2" gutterBottom>
-                                                                                            {ho["호내용"]}
+                                            <TableContainer >
+                                                {statuteList.length > 0 ? (
+                                                    <>
+                                                        <Table>
+                                                            <TableBody
+                                                                borderBottom='1px solid #FE4279'>
+                                                                {statuteList.map(data => (
+                                                                    <TableRow
+                                                                        key={data["_id"]}
+                                                                    >
+                                                                        <TableCell
+                                                                            borderBottom='1px solid ##FE4279' >
+                                                                            {test(data)[0]}
+                                                                        </TableCell >
+                                                                        <TableCell align="left">
+                                                                            <Typography variant="body2" gutterBottom>
+                                                                                {test(data)[1]}
+                                                                            </Typography>
+                                                                            {data["항"].map(hang => {
+                                                                                return (
+                                                                                    <>
+                                                                                        <Typography variant="body2" gutterBottom>
+                                                                                            {hang["항내용"]}
                                                                                         </Typography>
-                                                                                    )
-                                                                                })}
-                                                                            </>
-                                                                        )
-                                                                    })
-                                                                    }
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        ))}
-                                                    </TableBody>
-                                                </Table>
+
+                                                                                        {hang["호"].map(ho => {
+                                                                                            return (
+                                                                                                <Typography color="textSecondary" variant="body2" gutterBottom>
+                                                                                                    {ho["호내용"]}
+                                                                                                </Typography>
+                                                                                            )
+                                                                                        })}
+                                                                                    </>
+                                                                                )
+                                                                            })
+                                                                            }
+                                                                        </TableCell>
+                                                                    </TableRow>
+                                                                ))}
+                                                            </TableBody>
+                                                        </Table>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <Table>
+                                                            <TableHead>
+                                                                <TableRow>
+                                                                    <TableCell align="center">결과가 없습니다</TableCell>
+                                                                </TableRow>
+                                                            </TableHead>
+                                                        </Table>
+                                                    </>)}
+
                                             </TableContainer>
+                                            {statuteList.length > 0 ? (
+                                                <>
+                                                    <Box
+                                                        display="flex"
+                                                        justifyContent="center"
+                                                        alignItems="center"
+                                                    >
+                                                        <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" />
+                                                    </Box>
+                                                </>
+                                            ) : (<></>)}
                                         </Grid >
                                     </Container>
                                 </Stack>
@@ -172,43 +187,76 @@ export const SearchAll = (props) => {
 
                         <Container maxWidth="md">
 
-                            <Divider>판례</Divider>
+                            <Divider>
+                                <Typography
+                                    fontFamily="Segoe UI"
+                                    variant="h5"
+                                    color="primary"
+                                >
+                                    판례
+                                </Typography>
+                            </Divider>
                             <Box>
                                 <Stack spacing={3}>
                                     <Container>
                                         <Grid item xs={12} lg={6}>
                                             <TableContainer component={Paper}>
                                                 <Table aria-label="simple table">
-                                                    <TableHead>
-                                                        <TableRow>
-                                                            <TableCell width="10%" align="right">결과</TableCell>
-                                                            <TableCell width="30%" align="right">사건명</TableCell>
-                                                            <TableCell width="30%" align="right">사건번호</TableCell>
-                                                        </TableRow>
-                                                    </TableHead>
-                                                    <TableBody>
-                                                        {precedentList.map((row) => (
-                                                            <TableRow
-                                                                key={row.사건번호}
-                                                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                                onClick={() => { test(row.사건번호) }}>
-                                                                <TableCell align="right" component="th" scope="row">
-                                                                    {row.결과}
-                                                                </TableCell>
-                                                                <TableCell align="right">{row.사건명}</TableCell>
-                                                                <TableCell align="right">{row.사건번호}</TableCell>
-                                                            </TableRow>
-                                                        ))}
-                                                    </TableBody>
+                                                    {precedentList.length > 0 ? (
+                                                        <>
+                                                            <TableHead>
+                                                                <TableRow>
+                                                                    <TableCell width="10%" align="right">결과</TableCell>
+                                                                    <TableCell width="30%" align="right">사건명</TableCell>
+                                                                    <TableCell width="30%" align="right">사건번호</TableCell>
+                                                                </TableRow>
+                                                            </TableHead>
+                                                            <TableBody>
+                                                                {precedentList.map((row) => (
+                                                                    <TableRow
+                                                                        key={row.사건번호}
+                                                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                                        onClick={() => { test(row.사건번호) }}>
+                                                                        <TableCell align="right" component="th" scope="row">
+                                                                            {row.결과}
+                                                                        </TableCell>
+                                                                        <TableCell align="right">{row.사건명}</TableCell>
+                                                                        <TableCell align="right">{row.사건번호}</TableCell>
+                                                                    </TableRow>
+                                                                ))}
+                                                            </TableBody>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <TableHead>
+                                                                <TableRow>
+                                                                    <TableCell align="center">결과가 없습니다</TableCell>
+                                                                </TableRow>
+                                                            </TableHead>
+                                                            {/* <TableBody>
+
+                                                                <TableRow>
+                                                                    <TableCell align="center" component="th" scope="row">
+                                                                        결과가 없습니다
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            </TableBody> */}
+                                                        </>)}
+
                                                 </Table>
                                             </TableContainer>
-                                            <Box
-                                                display="flex"
-                                                justifyContent="center"
-                                                alignItems="center"
-                                            >
-                                                <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" />
-                                            </Box>
+                                            {precedentList.length > 0 ? (
+                                                <>
+                                                    <Box
+                                                        display="flex"
+                                                        justifyContent="center"
+                                                        alignItems="center"
+                                                    >
+                                                        <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" />
+                                                    </Box>
+                                                </>
+                                            ) : (<></>)}
+
                                         </Grid >
                                     </Container>
                                 </Stack>

@@ -66,7 +66,7 @@ export default function SearchTabs(props) {
                 justifyContent: 'center'
             }}
         >
-            <Box >{/*sx={{ width: '70%' }} */}
+            <Box sx={{ width: '70%' }} >{/*sx={{ width: '70%' }} */}
                 <Box sx={{ borderBottom: 1, borderColor: "background.paper" }}>
                     <TabList
                         value={value}

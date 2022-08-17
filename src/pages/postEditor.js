@@ -7,6 +7,7 @@ import axios from 'axios';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import FeedbackIcon from '@mui/icons-material/Feedback';
+import { check, getUserProfile } from '../auth/auth'
 
 const PostEditor = () => {
     const { state } = useLocation();
@@ -24,16 +25,28 @@ const PostEditor = () => {
     const navigate = useNavigate();
     const editor = useRef(null);
     const commentEditor = useRef(null);
+    const recommentEditor = useRef(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [name, setName] = useState('');
+    const [pass, setPass] = useState('');
+
+    const [commentName, setCommentName] = useState('');
+    const [commentPass, setCommentPass] = useState('');
+
+    const [isReComment, setIsReComment] = useState(0);
+    const [level, setLevel] = useState(1);
+
     const [category, setCategory] = useState(0);
     const [config, setConfig] = useState({});
     const [viewMode, setViewMode] = useState(false);
     const [comment, setComment] = useState("");
+    const [recomment, setRecomment] = useState("");
     const [commentList, setCommentList] = useState([]);
     const [commentEditorConfig, setCommentEditorConfig] = useState({
         placeholder: "댓글을 입력하세요" || 'Start typings...',
-        height: '50px',
+        "minHeight": 100,
+        "maxHeight": 100,
         allowResizeX: false,
         allowResizeY: false,
         "showCharsCounter": false,
@@ -120,15 +133,48 @@ const PostEditor = () => {
                 navigate("/board")
             })
     }
+    const reCommentWrite = () => {
+        if (recomment == "") {
+            alert("코멘트를 입력하세요")
+            return
+        }
+        let userData = getUserProfile();
+        let params = {
+            parent_comment_idx: isReComment,
+            level: level + 1,
+            post_idx: state.post_idx,
+            content: recomment,
+            member_no: userData.member_no,
+            writer: userData.name
+        }
+        if (!check()) {
+            params.writer = commentName
+            params.pass = commentPass
+        }
+
+        axios.post("/comment/write", params)
+            .then(res => res)
+            .then(res => {
+                navigate("/board")
+            })
+    }
     const commentWrite = () => {
         if (comment == "") {
             alert("코멘트를 입력하세요")
             return
         }
-        const params = {
+        let userData = getUserProfile();
+        let params = {
             post_idx: state.post_idx,
-            content: comment
+            content: comment,
+            member_no: userData.member_no,
+            writer: userData.name
         }
+        if (!check()) {
+            params.writer = commentName
+            params.pass = commentPass
+        }
+
         axios.post("/comment/write", params)
             .then(res => res)
             .then(res => {
@@ -154,19 +200,38 @@ const PostEditor = () => {
         <>
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid item xs={12} lg={6}>
-                    {/* <Typography theme={colorTool} align="center" component="h2" variant="h4" color="primary" gutterBottom>
-                        {"에디터"}
-                    </Typography> */}
+                    <Divider>게시물 정보</Divider>
+                    {check() ? (<>로그인된상태</>) : (
+                        <>
+                            <Grid item xs={5} lg={12}>
+                                <TextField
+                                    fullwidth
+                                    label="이름"
+                                    required
+                                    name="name"
+                                    onChange={(e) => setName(e.target.value)}
+                                    value={name}
+                                    variant="outlined"
+                                    style={{ width: '30%' }}
+                                    disabled={viewMode}
+                                />
+                            </Grid>
+                        </>
+                    )}
                     <Stack spacing={3}>
-                        <Grid item xs={3} lg={3}>
+
+                        <Grid item xs={5} lg={12}>
                             <TextField
+                                label="category"
                                 name="category"
                                 onChange={(e) => setCategory(e.target.value)}
                                 required
+                                style={{ width: '10%' }}
                                 select
                                 SelectProps={{ native: true }}
                                 value={category}
                                 variant="outlined"
+                                disabled={viewMode}
                             >
                                 {categoryList.map((option) => (
                                     <option
@@ -179,20 +244,19 @@ const PostEditor = () => {
                                 ))}
 
                             </TextField>
+                            <TextField
+                                fullwidth
+                                label="제목"
+                                required
+                                name="title"
+                                onChange={(e) => setTitle(e.target.value)}
+                                value={title}
+                                variant="outlined"
+                                style={{ width: '90%' }}
+                                disabled={viewMode}
+                            />
                         </Grid>
-
-                        <TextField
-                            fullwidth
-                            label="제목"
-                            margin="dense"
-                            name="title"
-                            onChange={(e) => setTitle(e.target.value)}
-                            value={title}
-                            variant="outlined"
-                            size="normal"
-                            disabled={viewMode}
-                        />
-
+                        <Divider>내용</Divider>
                         <div>
                             <JoditEditor
                                 ref={editor}
@@ -230,26 +294,102 @@ const PostEditor = () => {
                                             </TableHead>
                                             <TableBody>
                                                 {commentList.map((comment) => (
-                                                    <TableRow
-                                                        key={comment.comment_idx}
-                                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                        onClick={() => { console.debug("히히") }}>
-                                                        <TableCell align="center" component="th" scope="row">
-                                                            {comment.writer == null ? "익명" : comment.writer}
-                                                        </TableCell>
-                                                        <TableCell align="left" dangerouslySetInnerHTML={{ __html: comment.content }}></TableCell>
-                                                        <TableCell align="right">{getFullYmdStr(comment.update_date)}</TableCell>
-                                                        <TableCell align="right">
-                                                            <Icon component={DeleteForeverIcon} color="primary" fontSize="small" />
-                                                            <Icon component={EditIcon} color="primary" fontSize="small" />
-                                                            <Icon component={FeedbackIcon} color="primary" fontSize="small" />
-                                                        </TableCell>
-                                                    </TableRow>
+                                                    <>
+                                                        <TableRow
+                                                            key={comment.comment_idx}
+                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                            onClick={() => {
+                                                                setIsReComment(comment.comment_idx)
+                                                                setLevel(comment.level)
+                                                            }}>
+                                                            <TableCell align="center" component="th" scope="row">
+                                                                {comment.writer == null ? "익명" : comment.writer}
+                                                            </TableCell>
+                                                            <TableCell align="left" dangerouslySetInnerHTML={{ __html: comment.content }}></TableCell>
+                                                            <TableCell align="right">{getFullYmdStr(comment.update_date)}</TableCell>
+                                                            <TableCell align="right">
+                                                                <Icon component={DeleteForeverIcon} color="primary" fontSize="small" />
+                                                                <Icon component={EditIcon} color="primary" fontSize="small" />
+                                                                {/* <Icon component={FeedbackIcon} color="primary" fontSize="small" /> */}
+                                                            </TableCell>
+                                                        </TableRow>
+                                                        {isReComment > 0 & comment.comment_idx == isReComment ? (
+                                                            <>
+                                                                <TableRow>
+                                                                    <TableCell width="10%" align="center"></TableCell>
+                                                                    <TableCell colSpan={3}>
+                                                                        {check() ? (<>로그인된상태</>) : (
+                                                                            <>
+
+                                                                                <TextField
+                                                                                    fullwidth
+                                                                                    label="이름"
+                                                                                    required
+                                                                                    name="commentName"
+                                                                                    onChange={(e) => setCommentName(e.target.value)}
+                                                                                    value={commentName}
+                                                                                    variant="outlined"
+                                                                                    style={{ width: '30%' }}
+                                                                                />
+                                                                                <TextField
+                                                                                    fullwidth
+                                                                                    label="비밀번호"
+                                                                                    required
+                                                                                    name="commentPass"
+                                                                                    onChange={(e) => setCommentPass(e.target.value)}
+                                                                                    value={commentPass}
+                                                                                    variant="outlined"
+                                                                                    style={{ width: '30%' }}
+                                                                                />
+                                                                            </>
+                                                                        )}
+                                                                        <JoditEditor
+                                                                            ref={recommentEditor}
+                                                                            value={recomment}
+                                                                            config={commentEditorConfig}
+                                                                            tabIndex={1} // tabIndex of textarea
+                                                                            onBlur={newComment => setRecomment(newComment)}
+                                                                        />
+                                                                        <Button variant="outlined" onClick={reCommentWrite}>댓글작성</Button>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            </>
+                                                        ) : (
+                                                            <>
+
+                                                            </>)}
+                                                    </>
                                                 ))}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
                                     <Divider>댓글</Divider>
+                                    {check() ? (<>로그인된상태</>) : (
+                                        <>
+                                            <Grid item xs={5} lg={12}>
+                                                <TextField
+                                                    fullwidth
+                                                    label="이름"
+                                                    required
+                                                    name="commentName"
+                                                    onChange={(e) => setCommentName(e.target.value)}
+                                                    value={commentName}
+                                                    variant="outlined"
+                                                    style={{ width: '30%' }}
+                                                />
+                                                <TextField
+                                                    fullwidth
+                                                    label="비밀번호"
+                                                    required
+                                                    name="commentPass"
+                                                    onChange={(e) => setCommentPass(e.target.value)}
+                                                    value={commentPass}
+                                                    variant="outlined"
+                                                    style={{ width: '30%' }}
+                                                />
+                                            </Grid>
+                                        </>
+                                    )}
                                     <JoditEditor
                                         ref={commentEditor}
                                         value={comment}

@@ -10,11 +10,25 @@ export function check() {
     return false;
 }
 
+export function getUserProfile() {
+    if (check()) {
+        let userData = sessionStorage.getItem("user")
+        console.debug("유저데이터", userData)
+        return JSON.parse(userData)
+    } else {
+        return {
+            member_no: 0,
+            name: ''
+        }
+    }
+}
+
 export function loginTemp(data) {
     let userData = {
         isLogin: true,
         mail: data.email,
-        member_no: data.pk_member_no
+        member_no: data.pk_member_no,
+        name: data.name
     };
 
     console.debug("로그인함!")

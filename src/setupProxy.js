@@ -9,6 +9,14 @@ module.exports = function (app) {
         })
     ),
         app.use(
+            ["/site"],
+            createProxyMiddleware({
+                target: 'https://opengraph.io/api/1.1/site/',
+                changeOrigin: true,
+                secure: false,
+            })
+        ),
+        app.use(
             ["/kauth", "/oauth/**"],
             createProxyMiddleware({
                 target: 'https://kauth.kakao.com',
