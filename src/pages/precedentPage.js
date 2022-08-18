@@ -16,7 +16,7 @@ const PrecedentPage = () => {
 
     const size = 10;
     const [page, setPage] = useState(1);
-    const [count, setCount] = useState(10);
+    const [total, setTotal] = useState(10);
 
     const [precedentList, setPrecedentList] = useState([]);
     const [maxPage, setMaxPage] = useState(1);
@@ -25,12 +25,12 @@ const PrecedentPage = () => {
     };
 
     useEffect(() => {
-        const params = { "page": page, "size": size };
+        const params = { paging: { "page": page, "size": size } };
         axios.post("/precedent/getList", params)
             .then(res => res)
             .then(res => {
                 console.debug(res)
-                setPrecedentList(res.data);
+                setPrecedentList(res.data.list);
             })
 
     }, [page])

@@ -73,15 +73,8 @@ const LawChat = () => {
                 setChattList([...chatList, chattemp, aiTemp])
                 setChatBoxValue("")
             })
-
-        console.debug("내챗ㅇ,ㄴ", myChatList)
     }
 
-
-    useEffect(() => {
-
-
-    }, [myChatList])
     return (
         <>
             <div className="chat">

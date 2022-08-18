@@ -2,7 +2,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
     app.use(
-        ["/member/**", "/precedent/**", "/chart/**", "/post/**", "/comment/**", "/statute/**", "/chat/**"],
+        ["/member/**", "/precedent/**", "/chart/**", "/post/**", "/comment/**", "/statute/**", "/chat/**", "/word/**"],
         createProxyMiddleware({
             target: 'http://localhost:8080/',
             changeOrigin: true,
@@ -49,13 +49,14 @@ module.exports = function (app) {
                 changeOrigin: true,
                 secure: false,
             })
-        ),
-        app.use(
-            "/chatbot",
-            createProxyMiddleware({
-                target: 'http://3.39.242.42:5000/',
-                changeOrigin: true,
-                secure: false,
-            })
         )
+    //이젠 직접보낼 일 없음
+    // app.use(
+    //     "/chatbot",
+    //     createProxyMiddleware({
+    //         target: 'http://3.39.242.42:5000/',
+    //         changeOrigin: true,
+    //         secure: false,
+    //     })
+    // )
 }
