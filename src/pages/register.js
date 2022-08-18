@@ -12,7 +12,9 @@ import {
   TextField,
   Typography,
   Paper,
-  formGroupClasses
+  formGroupClasses,
+  Divider,
+  Icon
 } from '@mui/material';
 import axios from 'axios';
 import { GoogleLogin, GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
@@ -266,45 +268,6 @@ const Register = () => {
                 variant="outlined"
                 size="normal"
               />
-              {/* ------------------약관---------------------- */}
-              <Box
-                sx={{
-                  py: 1,
-                  alignItems: 'center',
-                  display: 'flex',
-                  ml: -1
-                }}
-              >
-                <Checkbox
-                  checked={formik.values.policy}
-                  name="policy"
-                  onChange={formik.handleChange}
-                />
-                <Typography
-                  color="textSecondary"
-                  variant="body2"
-                >
-                  이용약관에 동의합니다.
-                  {' '}
-                  <Ddddd
-                    to="/"
-                  >
-                    <Link
-                      color="primary"
-                      underline="always"
-                      variant="subtitle2"
-                    >
-                      약관보기
-                    </Link>
-                  </Ddddd>
-                </Typography>
-              </Box>
-              {Boolean(formik.touched.policy && formik.errors.policy) && (
-                <FormHelperText error>
-                  {formik.errors.policy}
-                </FormHelperText>
-              )}
-
               <Box sx={{ py: 3 }}>
                 <Button
                   disabled={formik.isSubmitting}
@@ -316,7 +279,36 @@ const Register = () => {
                   가입하기
                 </Button>
               </Box>
+
+              <Typography
+                color="primary">
+                <Divider>
+                  간편 가입
+                </Divider>
+              </Typography>
               <Button
+                fullWidth
+                href={KAKAO_AUTH_URL}
+                size="large"
+                variant="outlined"
+              >
+                카카오톡 회원가입
+              </Button>
+              <Button
+                fullWidth
+
+                onClick={() => {
+                  loginaaaaa()
+
+
+                }}
+                size="large"
+                variant="outlined"
+              >
+                구글 회원가입
+              </Button>
+
+              {/* <Button
                 fullWidth
                 href={KAKAO_AUTH_URL}
                 size="large"
@@ -358,7 +350,7 @@ const Register = () => {
                 clientId='526924998787-bh0o65d1lcjp7q5ptptsfvvdam04vged.apps.googleusercontent.com'
                 buttonText='Google'
                 onSuccess={result => { console.debug(result) }}
-                onFailure={result => console.log(result)} />
+                onFailure={result => console.log(result)} /> */}
               <Typography
                 color="textSecondary"
                 variant="body2"

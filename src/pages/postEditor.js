@@ -396,7 +396,7 @@ const PostEditor = () => {
                                 <>
                                     <Divider>댓글목록</Divider>
                                     <TableContainer>
-                                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                                        <Table aria-label="simple table">
                                             <TableHead>
                                                 <TableRow>
                                                     {commentList.length == 0 ?

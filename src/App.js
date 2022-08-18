@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 // import './App.css';
 import "./css/fonts.css"
-
+import "./css/social.css"
 function App() {
   useEffect(() => {
     console.debug(check(), "로그인체크체크")

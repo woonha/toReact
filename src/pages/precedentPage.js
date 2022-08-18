@@ -63,7 +63,7 @@ const PrecedentPage = () => {
 
                     <Stack spacing={3}>
                         <TableContainer component={Paper}>
-                            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <Table aria-label="simple table">
                                 <TableHead>
                                     <TableRow>
                                         <TableCell width="10%" align="right">결과</TableCell>

@@ -218,8 +218,39 @@ const Login = () => {
                   간편 로그인
                 </Divider>
               </Typography>
-
               <Grid item xs>
+                <Box
+                  sx={{
+                    my: 3,
+                    marginTop: 3,
+                    borderColor: 'palette'
+                  }}
+                >
+                  <Stack direction="row" spacing={3}>
+
+                    <Button
+                      fullWidth
+                      href={KAKAO_AUTH_URL}
+                      size="large"
+                      variant="outlined"
+                    >
+                      카카오톡 로그인
+                    </Button>
+
+                    <Button
+                      fullWidth
+
+                      onClick={() => loginaaaaa()}
+                      size="large"
+                      variant="outlined"
+                    >
+                      구글 로그인
+                    </Button>
+                  </Stack>
+
+                </Box>
+              </Grid>
+              {/* <Grid item xs>
                 <Box
                   sx={{
                     my: 3,
@@ -259,7 +290,7 @@ const Login = () => {
                   </Stack>
 
                 </Box>
-              </Grid>
+              </Grid> */}
               <Typography
                 color="textSecondary"
                 variant="body2"

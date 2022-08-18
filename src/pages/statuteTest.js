@@ -66,7 +66,7 @@ const StatuteTest = () => {
             <Grid item xs={12} lg={6}>
 
                 <TableContainer>
-                    <Table sx={{ minWidth: 1000 }} >
+                    <Table>
                         <TableBody
                             borderBottom='1px solid #FE4279'>
                             {testData.map(data => (

@@ -90,7 +90,7 @@ function WordCloud() {
           </Typography>
         </Box>
         <Grid item xs={12} lg={6}>
-          <ReactWordcloud callbacks={callbacks} options={options} words={wordList} size={size} align="center" />
+          <ReactWordcloud callbacks={callbacks} options={options} words={wordList} align="center" />
         </Grid>
       </Container>
     </>
