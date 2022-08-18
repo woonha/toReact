@@ -23,7 +23,7 @@ const states = [
 
 export const DamageRate = (props) => {
     const theme = useTheme();
-    const [values, setValues] = useState({ colName: 'high', states: 'high' });
+    const [values, setValues] = useState({ colName: 'elementary', states: 'elementary' });
     const [datadata, setDatadata] = useState({ datasets: [] });
     const chartSetting = () => {
 
@@ -58,6 +58,7 @@ export const DamageRate = (props) => {
                             barThickness: 30,
                             borderRadius: 10,
                             categoryPercentage: 0.5,
+                            label: "명수",
                             // maxBarThickness: 10,
                             data: lineArray
 
@@ -67,6 +68,7 @@ export const DamageRate = (props) => {
                             color: theme.palette.text.inherit,
                             backgroundColor: '#b0a3e0',
                             borderColor: '#b0a3e0',
+                            label: "비율",
                             // barPercentage: 0.5,
                             barThickness: 12,
                             // borderRadius: 4,
@@ -109,7 +111,7 @@ export const DamageRate = (props) => {
 
         plugins: {
             legend: {
-                display: false,
+                display: true,
             },
 
         },
@@ -172,7 +174,7 @@ export const DamageRate = (props) => {
         <Container {...props}>
 
             <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-                <Title>피해 경험 추이</Title>
+                <Title>피해 응답률</Title>
 
                 <TextField
                     name="colName"

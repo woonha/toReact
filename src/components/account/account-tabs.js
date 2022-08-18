@@ -49,7 +49,7 @@ const a11yProps = (index) => {
 }
 
 export default function AccountTabs() {
-    const [value, setValue] = React.useState(0);
+    const [value, setValue] = React.useState(2);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

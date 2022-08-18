@@ -136,7 +136,7 @@ export const DamageType = (props) => {
   return (
     <Container {...props}>
       <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-        <Title>피해 경험 추이</Title>
+        <Title>피해 유형별 비율</Title>
 
         <TextField
           name="year"
