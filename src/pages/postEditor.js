@@ -26,6 +26,7 @@ const PostEditor = () => {
     const editor = useRef(null);
     const commentEditor = useRef(null);
     const recommentEditor = useRef(null);
+    const commentUpdateEditor = useRef(null);
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [name, setName] = useState('');
@@ -35,6 +36,9 @@ const PostEditor = () => {
     const [commentPass, setCommentPass] = useState('');
 
     const [isReComment, setIsReComment] = useState(0);
+
+    const [isCommentEdit, setIsCommentEdit] = useState(0);
+
     const [level, setLevel] = useState(1);
 
     const [category, setCategory] = useState(0);
@@ -42,6 +46,7 @@ const PostEditor = () => {
     const [viewMode, setViewMode] = useState(false);
     const [comment, setComment] = useState("");
     const [recomment, setRecomment] = useState("");
+    const [commentEdit, setCommentEdit] = useState("");
     const [commentList, setCommentList] = useState([]);
     const [commentEditorConfig, setCommentEditorConfig] = useState({
         placeholder: "댓글을 입력하세요" || 'Start typings...',
@@ -104,12 +109,7 @@ const PostEditor = () => {
                     setConfig(tempConfig);
                     setViewMode(true);
                     setContent(res.data.content);
-                    axios.post("/comment/getList", { post_idx: state.post_idx })
-                        .then(res => res)
-                        .then(res => {
-                            console.debug(res.data)
-                            setCommentList(res.data)
-                        })
+                    commentFresh()
                 })
 
         } else if (state.mode == 0) {
@@ -117,6 +117,105 @@ const PostEditor = () => {
         }
     }, [])
 
+    const commentFresh = () => {
+        setIsCommentEdit(0)
+        setIsReComment(0)
+        axios.post("/comment/getList", { post_idx: state.post_idx })
+            .then(res => res)
+            .then(res => {
+                console.debug(res.data)
+                setCommentList(res.data)
+                setComment("")
+                setRecomment("")
+                setCommentEdit("")
+            })
+    }
+    const postDelete = () => {
+        let params = {
+            post_idx: state.post_idx
+        }
+        axios.post("/post/delete", params)
+            .then(res => res)
+            .then(res => {
+                navigate("/board")
+                console.debug("삭제되엇음")
+            })
+    }
+    const postUpdate = () => {
+        setConfig({
+            placeholder: "dd" || 'Start typings...',
+            height: '500px',
+            allowResizeX: false,
+            allowResizeY: false,
+            "showCharsCounter": false,
+            "showWordsCounter": false,
+            "showXPathInStatusbar": false,
+            readonly: false
+        });
+        setViewMode(false)
+    }
+    const postUpdateButtonClick = () => {
+        let userData = getUserProfile();
+        let params = {
+            post_idx: state.post_idx,
+            content: content,
+            title: title,
+            category: category,
+            writer: userData.name
+        }
+        if (!check()) {
+            params.writer = name
+            //params.pass = pass
+        }
+        console.debug(params, " 업뎃시 파랆")
+        axios.post("/post/update", params)
+            .then(res => res)
+            .then(res => {
+
+
+                console.debug("업뎃됨")
+
+                setConfig({
+                    placeholder: "dd" || 'Start typings...',
+                    height: '500px',
+                    allowResizeX: false,
+                    allowResizeY: false,
+                    "showCharsCounter": false,
+                    "showWordsCounter": false,
+                    "showXPathInStatusbar": false,
+                    readonly: true
+                });
+                setViewMode(true)
+            })
+    }
+    const commentDelete = (comment_idx) => {
+        let params = {
+            comment_idx: comment_idx
+        }
+        axios.post("/comment/delete", params)
+            .then(res => res)
+            .then(res => {
+                console.debug("삭제되엇음")
+                commentFresh()
+            })
+    }
+
+    const commentUpdate = (comment_idx, content) => {
+        setIsCommentEdit(comment_idx)
+        setIsReComment(0)
+        setCommentEdit(content)
+
+        // let params = {
+        //     comment_idx : comment_idx
+        // }
+        // axios.post("/comment/update",params)
+        // .then(res=>res)
+        // .then(res=>{
+
+
+        //     console.debug("업뎃됨")
+        // })
+    }
     const write = () => {
         if (title == "") {
             alert("제목을 입력하세요")
@@ -131,6 +230,30 @@ const PostEditor = () => {
             .then(res => res)
             .then(res => {
                 navigate("/board")
+            })
+    }
+
+    const updateCommentWrite = () => {
+        if (commentEdit == "") {
+            alert("코멘트를 입력하세요")
+            return
+        }
+        let userData = getUserProfile();
+        let params = {
+            comment_idx: isCommentEdit,
+            content: commentEdit,
+            member_no: userData.member_no,
+            writer: userData.name
+        }
+        if (!check()) {
+            params.writer = commentName
+            params.pass = commentPass
+        }
+
+        axios.post("/comment/update", params)
+            .then(res => res)
+            .then(res => {
+                commentFresh()
             })
     }
     const reCommentWrite = () => {
@@ -155,7 +278,7 @@ const PostEditor = () => {
         axios.post("/comment/write", params)
             .then(res => res)
             .then(res => {
-                navigate("/board")
+                commentFresh()
             })
     }
     const commentWrite = () => {
@@ -178,7 +301,7 @@ const PostEditor = () => {
         axios.post("/comment/write", params)
             .then(res => res)
             .then(res => {
-                navigate("/board")
+                commentFresh()
             })
     }
 
@@ -201,6 +324,8 @@ const PostEditor = () => {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid item xs={12} lg={6}>
                     <Divider>게시물 정보</Divider>
+                    <Icon component={DeleteForeverIcon} onClick={() => postDelete()} color="primary" fontSize="big" />
+                    <Icon component={EditIcon} onClick={() => postUpdate()} color="primary" fontSize="big" />
                     {check() ? (<>로그인된상태</>) : (
                         <>
                             <Grid item xs={5} lg={12}>
@@ -298,23 +423,74 @@ const PostEditor = () => {
                                                         <TableRow
                                                             key={comment.comment_idx}
                                                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                            onClick={() => {
-                                                                setIsReComment(comment.comment_idx)
-                                                                setLevel(comment.level)
-                                                            }}>
+                                                        >
                                                             <TableCell align="center" component="th" scope="row">
                                                                 {comment.writer == null ? "익명" : comment.writer}
                                                             </TableCell>
-                                                            <TableCell align="left" dangerouslySetInnerHTML={{ __html: comment.content }}></TableCell>
+                                                            <TableCell align="left" dangerouslySetInnerHTML={{ __html: comment.content }} onClick={() => {
+                                                                setIsCommentEdit(0)
+                                                                setIsReComment(comment.comment_idx)
+                                                                setLevel(comment.level)
+                                                            }}></TableCell>
                                                             <TableCell align="right">{getFullYmdStr(comment.update_date)}</TableCell>
                                                             <TableCell align="right">
-                                                                <Icon component={DeleteForeverIcon} color="primary" fontSize="small" />
-                                                                <Icon component={EditIcon} color="primary" fontSize="small" />
+                                                                <Icon component={DeleteForeverIcon} onClick={() => commentDelete(comment.comment_idx)} color="primary" fontSize="small" />
+                                                                <Icon component={EditIcon} onClick={() => commentUpdate(comment.comment_idx, comment.content)} color="primary" fontSize="small" />
                                                                 {/* <Icon component={FeedbackIcon} color="primary" fontSize="small" /> */}
                                                             </TableCell>
                                                         </TableRow>
+
+                                                        {isCommentEdit > 0 & comment.comment_idx == isCommentEdit ? (
+                                                            <>
+                                                                댓글수정
+                                                                <TableRow>
+                                                                    <TableCell width="10%" align="center"></TableCell>
+                                                                    <TableCell colSpan={3}>
+                                                                        {check() ? (<>로그인된상태</>) : (
+                                                                            <>
+
+                                                                                <TextField
+                                                                                    fullwidth
+                                                                                    label="이름"
+                                                                                    required
+                                                                                    name="commentName"
+                                                                                    onChange={(e) => setCommentName(e.target.value)}
+                                                                                    value={commentName}
+                                                                                    variant="outlined"
+                                                                                    style={{ width: '30%' }}
+                                                                                />
+                                                                                <TextField
+                                                                                    fullwidth
+                                                                                    label="비밀번호"
+                                                                                    required
+                                                                                    name="commentPass"
+                                                                                    onChange={(e) => setCommentPass(e.target.value)}
+                                                                                    value={commentPass}
+                                                                                    variant="outlined"
+                                                                                    style={{ width: '30%' }}
+                                                                                />
+                                                                            </>
+                                                                        )}
+                                                                        <JoditEditor
+                                                                            ref={commentUpdateEditor}
+                                                                            value={commentEdit}
+                                                                            config={commentEditorConfig}
+                                                                            tabIndex={1} // tabIndex of textarea
+                                                                            onBlur={newComment => setCommentEdit(newComment)}
+                                                                        />
+                                                                        <Button variant="outlined" onClick={updateCommentWrite}>댓글수정</Button>
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            </>
+                                                        ) : (
+                                                            <>
+
+                                                            </>)}
+
+
                                                         {isReComment > 0 & comment.comment_idx == isReComment ? (
                                                             <>
+                                                                리댓글작성
                                                                 <TableRow>
                                                                     <TableCell width="10%" align="center"></TableCell>
                                                                     <TableCell colSpan={3}>
@@ -399,7 +575,17 @@ const PostEditor = () => {
                                     />
                                     <Button variant="outlined" onClick={commentWrite}>댓글작성</Button>
                                 </>
-                            ) : (<><Button variant="outlined" onClick={write}>작성</Button></>)
+                            ) : (
+                                <>
+                                    {state.mode == 0 ? (
+                                        <Button variant="outlined" onClick={write}>작성</Button>
+                                    )
+                                        : (
+                                            <Button variant="outlined" onClick={postUpdateButtonClick}>수정</Button>
+                                        )}
+
+                                </>
+                            )
                         }
                     </Stack>
                 </Grid>

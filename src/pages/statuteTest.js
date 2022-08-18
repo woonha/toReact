@@ -16,13 +16,23 @@ import axios from 'axios';
 
 // --------------------------------------
 const StatuteTest = () => {
+    const size = 10;
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(10);
+
+    // const [precedentList, setPrecedentList] = useState([]);
+    const [maxPage, setMaxPage] = useState(1);
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
 
     const [testData, setTestData] = useState([])
     useEffect(() => {
-        axios.post("/statute/getList", {})
+        const params = { paging: { "page": page, "size": size } };
+        axios.post("/statute/getList", params)
             .then(res => res)
             .then(res => {
-                setTestData(res.data)
+                setTestData(res.data.list)
                 console.debug(res, " 어떻게fhk")
             })
     }, [])

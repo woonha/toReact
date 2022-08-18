@@ -114,6 +114,7 @@ Messages
   padding: 6px 10px 7px;
   border-radius: 10px 10px 10px 0;
   background: #ffebee;
+  border: 1px solid #ffa4b1;
   color: black;
   margin: 8px 0;
   font-size: 11px;
@@ -151,7 +152,7 @@ Messages
   overflow: hidden;
   margin: 0;
   padding: 0;
-  border: 2px solid rgba(255, 255, 255, 0.24);
+  border: 2px solid rgb(183 32 32 / 24%);
 }
 
 .messages .message .avatar img {
@@ -287,9 +288,9 @@ Message Box
   z-index: 1;
   top: 9px;
   right: 10px;
-  color: #fff;
+  color: #f00;
   border: none;
-  background: #248a52;
+  background: #ffffff;
   font-size: 10px;
   text-transform: uppercase;
   line-height: 1;

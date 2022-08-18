@@ -41,32 +41,68 @@ export const SearchAll = (props) => {
 
     const [statuteList, setStatuteList] = useState([]);
     const [precedentList, setPrecedentList] = useState([]);
-    const [page, setPage] = useState(1);
+
+    const [statutePage, setStatutePage] = useState(1);
+    const [precedentPage, setPrecedentPage] = useState(1);
+
+    const [statuteMaxPage, setStatuteMaxPage] = useState(1);
+    const [precedentMaxPage, setPrecedentMaxPage] = useState(1);
+
+    const [statuteTotal, setStatuteTotal] = useState(0);
+    const [precedentTotal, setPrecedentTotal] = useState(0);
+
+
     const size = 10;
 
-    const handleChange = (event, value) => {
-        setPage(value);
-    };
     useEffect(() => {
+        statuteRefresh()
+    }, [statutePage])
 
-        console.debug(props, "하하하하")
+    useEffect(() => {
+        precedentRefresh()
+    }, [precedentPage])
+
+    const precedentRefresh = () => {
         const param = {
-            searchText: props.searchText,
-            page: page,
-            size: size
+            paging: {
+                searchText: props.searchText,
+                page: precedentPage,
+                size: size
+            }
+        }
+        axios.post("/precedent/getList", param)
+            .then(res => res)
+            .then(res => {
+                console.debug("판례 ", res.data)
+                setPrecedentList(res.data.list)
+                setPrecedentTotal(res.data.paging.total)
+                setPrecedentMaxPage(res.data.paging.maxPage)
+            })
+    }
+
+    const statuteRefresh = () => {
+        const param = {
+            paging: {
+                searchText: props.searchText,
+                page: statutePage,
+                size: size
+            }
         }
         axios.post("/statute/getList", param)
             .then(res => res)
             .then(res => {
                 console.debug("법령 ", res.data)
-                setStatuteList(res.data)
+                setStatuteList(res.data.list)
+                setStatuteTotal(res.data.paging.total)
+                setStatuteMaxPage(res.data.paging.maxPage)
             })
-        axios.post("/precedent/getList", param)
-            .then(res => res)
-            .then(res => {
-                console.debug("판례 ", res.data)
-                setPrecedentList(res.data)
-            })
+    }
+
+    useEffect(() => {
+
+        console.debug(props, "하하하하")
+        precedentRefresh()
+        statuteRefresh()
     }, [props])
     function test(test) {
         const 조문제목 = test["조문제목"] + ")"
@@ -174,7 +210,7 @@ export const SearchAll = (props) => {
                                                         justifyContent="center"
                                                         alignItems="center"
                                                     >
-                                                        <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" />
+                                                        <Pagination count={statuteMaxPage} page={statutePage} onChange={(event, value) => setStatutePage(value)} variant="outlined" color="primary" />
                                                     </Box>
                                                 </>
                                             ) : (<></>)}
@@ -252,7 +288,10 @@ export const SearchAll = (props) => {
                                                         justifyContent="center"
                                                         alignItems="center"
                                                     >
-                                                        <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" />
+                                                        <Pagination count={precedentMaxPage} page={precedentPage} onChange={(event, value) => {
+                                                            console.debug(event, value)
+                                                            setPrecedentPage(value)
+                                                        }} variant="outlined" color="primary" />
                                                     </Box>
                                                 </>
                                             ) : (<></>)}

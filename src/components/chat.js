@@ -22,7 +22,7 @@ const LawChat = () => {
         return (
             <div className={cls}>
                 {imageUrl != null ? <figure className="avatar"><img src={img} /></figure> : <></>}
-                {text}
+                <p dangerouslySetInnerHTML={{ __html: text }}></p>
             </div>
         )
 
@@ -40,46 +40,41 @@ const LawChat = () => {
             index: chatIndex,
             text: chatBoxValue,
             speaker: undefined,
-            imageUrl: undefined
-        }
-        console.debug(chattemp)
-        setMyChatList([...myChatList, chattemp])
-        console.debug("내챗ㅇ,ㄴ", myChatList)
-    }
-
-
-    useEffect(() => {
-        const chattemp = {
-            index: chatIndex,
-            text: chatBoxValue,
-            speaker: null,
-            imageUrl: null
-        }
-        console.debug(chattemp)
-        const chatLog = {
+            imageUrl: undefined,
             message: chatBoxValue
         }
-        setChattList([...chatList, chattemp])
-        axios.post("/chat/send", chatLog)
+        console.debug(chattemp)
+
+        //setChattList([...chatList, chattemp])
+        axios.post("/chat/send", chattemp)
             .then(res => res)
             .then(res => {
-                console.debug(res, " gkgkgkgkgkgkgk")
+                console.debug(res)
+
+                let response = res.data.result;
+                //console.debug(response['1'][0])
+                let temp = [response['1'][0], response['2'][0], response['3'][0]]
+
+                // <p>{"해당 사례는 신체폭력이며"}</p>
+                // <p>{"출석정지 7일, 서면사과등의 조치가 예상됩니다."}</p>
+                // <p>{"귀하의 상황과 유사한 판례는 다음과 같습니다."}</p>
+                // <p><a href="">인천지방법원071644</a>, <a href="">서울남부법원987215</a>, <a href="">서울동부법원486647</a></p>
+                let resultMessage = `<p>해당 사례는 ${response['1'][0]} 유형에 해당되며,</p><p>${response['2'][0]} 등의 조치가 예상됩니다.</p><p>귀하의 상황과 유사한 판례는 다음과 같습니다.</p><p>${response['3'][0]}</p>`
+                console.debug(res.data.result)
+                console.debug(resultMessage)
+                setChatIndex(chatIndex + 1)
                 let aiTemp = {
                     index: chatIndex + 1,
-                    text: res.data.message,
+                    text: resultMessage,
                     speaker: "LAWBOT",
                     imageUrl: img
                 }
                 console.debug(aiTemp, "aiTemp")
-                setChatIndex(chatIndex + 1)
-
-                setChattList(chatList.concat(aiTemp))
-                console.debug(chatList)
+                setChattList([...chatList, chattemp, aiTemp])
                 setChatBoxValue("")
             })
+    }
 
-
-    }, [myChatList])
     return (
         <>
             <div className="chat">
