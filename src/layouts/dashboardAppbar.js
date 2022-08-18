@@ -103,10 +103,10 @@ export const DashboardAppbar = () => {
     const [open, setOpen] = useState(false);
 
     const goToProfile = () => {
-        navigate("/account");
+        navigate("/account", { state: { value: 0 } });
     };
     const goToNotifications = () => {
-        navigate("/board");
+        navigate("/account", { state: { value: 2 } });
     };
 
     const menuId = 'primary-search-account-menu';

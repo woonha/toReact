@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import Tab from "@mui/material/Tab";
 import TabList from '@mui/material/Tabs';
@@ -8,7 +8,7 @@ import { Box, Typography } from '@mui/material';
 import { AccountProfile } from "./account-profile";
 import { AccountBoard } from "./account-board";
 import { AccountComment } from "./account-comment";
-
+import { AccountNotifications } from "./account-notifications";
 
 const TabPanel = (props) => {
     const { children, value, index, ...other } = props;
@@ -48,8 +48,12 @@ const a11yProps = (index) => {
     };
 }
 
-export default function AccountTabs() {
-    const [value, setValue] = React.useState(0);
+export default function AccountTabs(props) {
+
+    useEffect(() => {
+        console.debug("어카운트탭 페이지에서 프롭", props.value)
+    }, [])
+    const [value, setValue] = React.useState(props.value);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -79,6 +83,7 @@ export default function AccountTabs() {
                         <Tab label="프로필" {...a11yProps(0)} />
                         <Tab label="내가 쓴 글" {...a11yProps(1)} />
                         <Tab label="댓글" {...a11yProps(2)} />
+                        <Tab label="알림" {...a11yProps(3)} />
                     </TabList>
                 </Box>
                 <TabPanel value={value} index={0}>
@@ -89,6 +94,9 @@ export default function AccountTabs() {
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <AccountComment />
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                    <AccountNotifications />
                 </TabPanel>
             </Box >
 

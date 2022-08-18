@@ -1,157 +1,93 @@
 import * as React from 'react';
-import VerifyEmail from '../components/passwd/verifyEmail';
-import ResetPasswd from '../components/passwd/resetPasswd';
-import AuthenticationNumber from '../components/passwd/authenticationNumber';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Button, Container, Typography, Stack, Link, Paper, Stepper, Step, StepLabel } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { Box, Button, Container, Paper, CardContent, CardHeader, Divider, Link } from '@mui/material';
+import axios from 'axios';
+import { PropaneSharp } from '@mui/icons-material';
 
 
-const steps = ['이메일 입력', '인증번호 확인', '비밀번호 재설정'];
+const Settings = (props) => {
 
-function getStepContent(step) {
-    switch (step) {
-        case 0:
-            return <VerifyEmail />;
-        case 1:
-            return <ResetPasswd />;
-        case 2:
-            return <AuthenticationNumber />;
+    const [values, setValues] = useState({
+        email: ''
+    });
 
-        default:
-            throw new Error('Unknown step');
+    const emailCheck = () => {
+        console.log('이메일확인')
+        console.log('email : ', values)
+        let params = { email: values.email }
+
+        axios.post('/member/mailCheck', params)
+            .then(res => res)
+            .then(res => {
+                console.debug("이메일체크", res)
+                console.debug(res.data)
+                if (res.data === "") {
+                    console.debug('======================', res.data.email)
+                    alert('등록되지않은 이메일')
+                }
+            })
+            .catch()
     }
-}
 
-const Settings = () => {
-    const [activeStep, setActiveStep] = React.useState(0);
+    useEffect(() => {
+        axios.post('/member/mailCheck')
+            .then(res => console.log(res))
+            .catch()
+    }, [])
 
-    const handleNext = () => {
-        setActiveStep(activeStep + 1);
-    };
-
-    const handleBack = () => {
-        setActiveStep(activeStep - 1);
+    const handleChange = (event) => {
+        setValues({
+            ...values,
+            [event.target.name]: event.target.value
+        });
     };
 
     return (
-
-        <Box component="main" sx={{ flexGrow: 1, py: 5, backgroundColor: '#ffebee' }}>
-            <Container maxWidth="sm">
-                <Stepper activeStep={activeStep} sx={{ pt: 1, pb: 1 }}>
-                    {steps.map((label) => (
-                        <Step key={label}>
-                            <StepLabel>{label}</StepLabel>
-                        </Step>
-                    ))}
-                </Stepper>
-            </Container>
-            {/* <AppBar
-                position="absolute"
-                color="default"
-                elevation={0}
-                sx={{
-                    position: 'relative',
-                    borderBottom: (t) => `1px solid ${t.palette.divider}`,
-                }}
-            >
-                <Toolbar>
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Company name
+        <Container maxWidth="sm" >
+            <Paper variant="elevation" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 }, backgroundColor: '#ffffff' }}>
+                <form onSubmit={props}>
+                    <Typography color="primary" variant="h6" gutterBottom marked="center" align="center">
+                        이메일 확인
                     </Typography>
-                </Toolbar>
-            </AppBar> */}
-            <Container maxWidth="sm" >
-                <Paper variant="elevation" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 }, backgroundColor: '#ffffff' }}>
-                    <React.Fragment>
-                        {activeStep === steps.length ? (
+                    <Typography variant="subtitle2" gutterBottom color="primary" margin={3} marginBottom={6}>
+                        가입시 등록한 이메일을 입력해주세요.
+                    </Typography>
+                    {/* <Grid container spacing={3}> */}
 
+                    <Grid>
+                        <TextField
+                            required
+                            id="email"
+                            name="email"
+                            label="이메일"
+                            fullWidth
+                            autoComplete="cc-name"
+                            variant="standard"
 
-                            <React.Fragment>
-                                <Typography color="primary" variant="subtitle1" gutterBottom align="center">
-                                    비밀번호가 변경되었습니다.
-                                </Typography>
-                                <Typography color="primary" variant="subtitle1" gutterBottom align="center" marginBottom={4}>
-                                    다시 로그인해주세요.
-                                </Typography>
-                                {/* <Link
-                                    underline="none"
-                                    href="/"
-                                    passHref
-                                >
-                                    <Button
+                            // helperText={formik.touched.email && formik.errors.email}
+                            // onBlur={formik.handleBlur}
+                            onChange={(event) => handleChange(event)}
+                            value={values.email}
+                        />
+                        <Button
 
-                                        startIcon={<ArrowBackIcon fontSize="small" />}
-                                    >
-                                        메인화면으로
-                                    </Button>
-                                </Link>
-                                <Link
-                                    underline="none"
-                                    href="/login"
-                                    passHref
-                                >
-                                    <Button
-
-                                        startIcon={<ArrowBackIcon fontSize="small" />}
-                                    >
-                                        로그인
-                                    </Button>
-                                </Link> */}
-                                <Box sx={{ py: 2 }}>
-                                    <Stack direction="row" spacing={3}>
-                                        <Button
-                                            href="/login"
-                                            fullWidth
-                                            size="large"
-                                            type="submit"
-                                            variant="contained"
-                                        >
-                                            로그인
-                                        </Button>
-                                        <Button
-                                            href="/"
-                                            fullWidth
-                                            size="large"
-                                            type="submit"
-                                            variant="contained"
-                                        >
-                                            메인화면
-                                        </Button>
-                                    </Stack>
-                                </Box>
-                            </React.Fragment>
-
-                        ) : (
-                            <React.Fragment>
-                                {getStepContent(activeStep)}
-                                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                    {activeStep !== 0 && (
-                                        <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                                            테스트테스트
-                                        </Button>
-                                    )}
-
-                                    <Button
-                                        variant="contained"
-                                        onClick={handleNext}
-                                        sx={{ mt: 3, ml: 1 }}
-                                    >
-                                        {activeStep === steps.length - 1 ? ' 확인' : '확인'}
-                                    </Button>
-                                </Box>
-                            </React.Fragment>
-                        )}
-                    </React.Fragment>
-                </Paper>
-
-            </Container>
-        </Box >
-
+                            onClick={() => emailCheck()}
+                            color="primary"
+                            variant="contained"
+                            size='small'>
+                            확인
+                        </Button>
+                    </Grid>
+                </form>
+            </Paper>
+        </Container>
     );
-}
-
-Settings.getLayout = (page) => (
-    { page }
-
-);
+};
 export default Settings;

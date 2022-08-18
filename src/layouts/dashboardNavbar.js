@@ -61,6 +61,7 @@ export const DashboardNavbar = () => {
                         variant="body1"
                         href="/statuteTest"
                         noWrap
+                        style={{ textDecoration: 'none' }}
                     >
                         법령
                     </Link>
@@ -71,6 +72,7 @@ export const DashboardNavbar = () => {
                         variant="body1"
                         href="/precedent"
                         noWrap
+                        style={{ textDecoration: 'none' }}
                     >
                         판례
                     </Link>
@@ -82,6 +84,7 @@ export const DashboardNavbar = () => {
                         variant="body1"
                         href="/wordCloud"
                         noWrap
+                        style={{ textDecoration: 'none' }}
                     >
                         법령 클라우드
                     </Link>
@@ -93,6 +96,7 @@ export const DashboardNavbar = () => {
                         variant="body1"
                         href="/news"
                         noWrap
+                        style={{ textDecoration: 'none' }}
                     >
                         카드뉴스
                     </Link>
@@ -104,6 +108,7 @@ export const DashboardNavbar = () => {
                         variant="body1"
                         href="/chart"
                         noWrap
+                        style={{ textDecoration: 'none' }}
                     >
                         실태조사
                     </Link>
@@ -115,20 +120,12 @@ export const DashboardNavbar = () => {
                         variant="body1"
                         href="/board"
                         noWrap
+                        style={{ textDecoration: 'none' }}
                     >
                         게시판
                     </Link>
 
                     <Divider orientation="vertical" variant="middle" flexItem />
-
-                    <Link
-                        sx={{ p: 1, flexShrink: 0 }}
-                        variant="body1"
-                        href="/account"
-                        noWrap
-                    >
-                        마이페이지 테스트
-                    </Link>
                 </StyledToolbar >
             </Container>
         </React.Fragment>
