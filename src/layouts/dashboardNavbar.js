@@ -124,8 +124,6 @@ export const DashboardNavbar = () => {
                     >
                         게시판
                     </Link>
-
-                    <Divider orientation="vertical" variant="middle" flexItem />
                 </StyledToolbar >
             </Container>
         </React.Fragment>

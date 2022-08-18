@@ -16,7 +16,7 @@ const PrecedentPage = () => {
 
     const size = 10;
     const [page, setPage] = useState(1);
-    const [total, setTotal] = useState(10);
+    const [total, setTotal] = useState(0);
 
     const [precedentList, setPrecedentList] = useState([]);
     const [maxPage, setMaxPage] = useState(1);
@@ -31,6 +31,8 @@ const PrecedentPage = () => {
             .then(res => {
                 console.debug(res)
                 setPrecedentList(res.data.list);
+                setTotal(res.data.paging.total);
+                setMaxPage(res.data.paging.maxPage);
             })
 
     }, [page])
@@ -43,12 +45,15 @@ const PrecedentPage = () => {
                         display: 'flex',
                         justifyContent: 'space-between',
                         flexWrap: 'wrap',
+                        color: '#FE4279',
+                        flexDirection: 'column',
                         m: 1
                     }}
                 >
                     <Typography
                         sx={{ m: 2 }}
                         variant="h4"
+                        fontFamily="HallymMjo-Regular"
                     >
                         판례
                     </Typography>
@@ -87,7 +92,7 @@ const PrecedentPage = () => {
                             justifyContent="center"
                             alignItems="center"
                         >
-                            <Pagination count={10} page={page} onChange={handleChange} variant="outlined" color="primary" />
+                            <Pagination count={maxPage} page={page} onChange={handleChange} variant="outlined" color="primary" />
                         </Box>
                     </Stack>
                 </Grid>

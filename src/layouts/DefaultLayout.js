@@ -21,7 +21,7 @@ export default function DefaultLayout() {
         <DashboardNavbar></DashboardNavbar>
       </RootStyle>
       <Outlet />
-      <Footer title="찌미찌미킹" description="찌미생일축하해"></Footer>
+      <Footer title="BIT 4조" description="LAWBOT - 판례기반학교폭력챗봇"></Footer>
     </>
   );
 }

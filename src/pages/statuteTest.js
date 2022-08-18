@@ -49,12 +49,15 @@ const StatuteTest = () => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     flexWrap: 'wrap',
+                    color: '#FE4279',
+                    flexDirection: 'column',
                     m: 1
                 }}
             >
                 <Typography
                     sx={{ m: 2 }}
                     variant="h4"
+                    fontFamily="HallymMjo-Regular"
                 >
                     법령
                 </Typography>
